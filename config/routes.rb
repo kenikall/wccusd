@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :edit, :update]
 
   devise_scope :user do
-    root to: "devise/sessions#new"
+    root to: "devise/sessions#new", as: 'login'
   end
   # root 'devise/sessions#new'
 end
