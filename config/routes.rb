@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  # get 'survey/show'
-
-  # get 'survey/index'
-
-  # get 'student/show'
-
   devise_for :views
   devise_for :users
 
-  resources :users, only: [:index, :show, :edit, :update]
+  # resources :users, only: [:index, :show, :edit, :update]
+
+  resources :teacher, only: [:show] do
+    resources :event, only: [:index, :show]
+  end
+
+  resources :event
 
   resources :student, only: [:show] do
     resources :survey, only: [:show, :index]
