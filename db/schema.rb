@@ -10,10 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170402205537) do
+ActiveRecord::Schema.define(version: 20170403024246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "teacher_name"
+    t.string   "school"
+    t.string   "pathway"
+    t.string   "course"
+    t.integer  "grade"
+    t.integer  "ninth_graders"
+    t.integer  "tenth_graders"
+    t.integer  "eleventh_graders"
+    t.integer  "twelfth_graders"
+    t.datetime "date"
+    t.integer  "duration"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_surveys_on_event_id", using: :btree
+    t.index ["student_id"], name: "index_surveys_on_student_id", using: :btree
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -28,6 +68,12 @@ ActiveRecord::Schema.define(version: 20170402205537) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "school"
+    t.integer  "grade"
+    t.text     "password_hint"
+    t.string   "access_level"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
@@ -49,4 +95,6 @@ ActiveRecord::Schema.define(version: 20170402205537) do
     t.index ["reset_password_token"], name: "index_views_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "surveys", "events"
+  add_foreign_key "surveys", "students"
 end

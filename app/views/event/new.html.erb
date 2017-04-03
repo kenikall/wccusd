@@ -1,0 +1,32 @@
+<%= form_for @event, url: {action: 'create'}, html: {class: 'form'} do |f|%>
+  <%= f.text_field :teacher_name %>
+  <%= f.text_field :school %>
+  <%= f.select :pathway, "<option>Advanced Manufacturing</option>
+                              <option>Biosciences</option>
+                              <option>Engineering</option>
+                              <option>Health</option>
+                              <option>IT</option>
+                              <option>Law</option>
+                              <option>Multimedia</option>
+                              <option>Performing Arts (Choral)</option>
+                              <option>Performing Arts (Production/Stagecraft)</option>".html_safe %>
+  <%= f.text_field :course %>
+  <%= f.radio_button :grade, '9' %>
+  <%= label :grade_9, '9th grade' %>
+  <%= f.radio_button :grade, '10' %>
+  <%= label :grade_10, '10th grade' %>
+  <%= f.radio_button :grade, '11' %>
+  <%= label :grade_11, '11th grade' %>
+  <%= f.radio_button :grade, '12' %>
+  <%= label :grade_12, '12th grade' %>
+
+  <%= f.number_field :ninth_graders %>
+  <%= f.number_field :tenth_graders %>
+  <%= f.number_field :eleventh_graders %>
+  <%= f.number_field :twelfth_graders %>
+
+  <%= f.date_field :date %>
+
+  <%= f.number_field :duration %>
+  <%= f.submit "Create event" %>
+<% end %>
