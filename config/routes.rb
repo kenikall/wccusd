@@ -4,10 +4,7 @@ Rails.application.routes.draw do
 
   # resources :users, only: [:index, :show, :edit, :update]
 
-  resources :teacher, only: [:show] do
-    resources :event, only: [:index, :show]
-  end
-
+  resources :teacher, only: [:show]
   resources :event
 
   resources :student, only: [:show] do
