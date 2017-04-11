@@ -23,3 +23,19 @@ Teacher.create(
     access_level: 'student'
     )
 end
+
+7.times do |num|
+  Event.create(
+    teacher_name: nil,
+    school: nil,
+    pathway: nil,
+    course: nil,
+    grade: nil,
+    ninth_graders: 3,
+    tenth_graders: 3,
+    eleventh_graders: nil,
+    twelfth_graders: nil,
+    date: nil,
+    duration: nil,
+    )
+end

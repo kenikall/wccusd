@@ -1,24 +1,33 @@
-# README
+# WCCUSD Survey Tracker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is a tool to facilitate the creation and tracking of student results from the WCCUSD Career and College Pathway Program.
 
-Things you may want to cover:
+More information about the program can be found at [http://wccusdpathways.org/](http://wccusdpathways.org/)
 
-* Ruby version
+## Wire Frames
+A [Balsamiq](balsamiq) wire frame for this project can be found [here]()
 
-* System dependencies
+## Deployment
 
-* Configuration
+This project is deployed using [heroku](heroku.com).
 
-* Database creation
+## Built With
 
-* Database initialization
+* [Ruby on Rails](rubyonrails.org) back end
+* [Bootstrap](getbootstrap.com) styling
+* [JavaScript](javascript.com) for interactivity
+* [PostgreSQL](postgresql.org) as a database
+* The testing suite is [RSpec](rspec.info) and [Capybara](https://github.com/teamcapybara/capybara)
 
-* How to run the test suite
+## Dependencies
+All dependencies can be found in the [gemfile](https://github.com/kenikall/wccusd/blob/master/Gemfile).
+## Authors
 
-* Services (job queues, cache servers, search engines, etc.)
+* **K. Mannah Kallon** - *Initial work* - [kenikall](https://github.com/kenikall)
 
-* Deployment instructions
+## License
 
-* ...
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+This project is a colaboration between the [Urban Strategies Council](urbanstrategies.org) and the [West Contra Costa Unified School District](wccusdpathways.org)

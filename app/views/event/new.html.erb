@@ -1,32 +1,59 @@
-<%= form_for @event, url: {action: 'create'}, html: {class: 'form'} do |f|%>
-  <%= f.text_field :teacher_name %>
-  <%= f.text_field :school %>
-  <%= f.select :pathway, "<option>Advanced Manufacturing</option>
-                              <option>Biosciences</option>
-                              <option>Engineering</option>
-                              <option>Health</option>
-                              <option>IT</option>
-                              <option>Law</option>
-                              <option>Multimedia</option>
-                              <option>Performing Arts (Choral)</option>
-                              <option>Performing Arts (Production/Stagecraft)</option>".html_safe %>
-  <%= f.text_field :course %>
-  <%= f.radio_button :grade, '9' %>
-  <%= label :grade_9, '9th grade' %>
-  <%= f.radio_button :grade, '10' %>
-  <%= label :grade_10, '10th grade' %>
-  <%= f.radio_button :grade, '11' %>
-  <%= label :grade_11, '11th grade' %>
-  <%= f.radio_button :grade, '12' %>
-  <%= label :grade_12, '12th grade' %>
+<%= link_to "Back to Teacher Portal", teacher_path(1), class: "btn btn-success pull-right" %>
+<%= link_to "Review an Event", event_index_path(1), class: "btn btn-info pull-right" %>
+<%= link_to "Student Data", student_survey_index_path(1), class: "btn btn-warning pull-right" %>
+<h1>Create Event</h1>
+<div id="event-creation-form">
 
-  <%= f.number_field :ninth_graders %>
-  <%= f.number_field :tenth_graders %>
-  <%= f.number_field :eleventh_graders %>
-  <%= f.number_field :twelfth_graders %>
+  <div class="event-calendar pull-left">
+    <%= month_calendar events: @events do |date, events| %>
+      <%= date %>
 
-  <%= f.date_field :date %>
+      <% events.each do |event| %>
+        <event.pathway>
+      <% end %>
+    <% end %>
+  </div>
 
-  <%= f.number_field :duration %>
-  <%= f.submit "Create event" %>
-<% end %>
+  <div class="event-data pull-right">
+    <%= form_for @event, url: {action: 'create'}, html: {class: 'form'} do |f|%>
+      <%= label :grade_9, 'Teacher Name:' %>
+      <%= f.text_field :teacher_name %>
+      <br>
+      <%= label :school, 'School:' %>
+      <%= f.text_field :school %>
+      <br>
+      <%= label :pathway, 'Pathway:' %>
+      <%= f.select :pathway, "<option>Advanced Manufacturing</option>
+                                  <option>Biosciences</option>
+                                  <option>Engineering</option>
+                                  <option>Health</option>
+                                  <option>IT</option>
+                                  <option>Law</option>
+                                  <option>Multimedia</option>
+                                  <option>Performing Arts (Choral)</option>
+                                  <option>Performing Arts (Production/Stagecraft)</option>".html_safe %>
+      <br>
+      <%= label :course, 'Course:' %>
+      <%= f.text_field :course %>
+      <br>
+      <%= label :grade_9, '9th grade' %>
+      <%= f.radio_button :grade, '9' %>
+      <%= label :grade_10, '10th grade' %>
+      <%= f.radio_button :grade, '10' %>
+      <%= label :grade_11, '11th grade' %>
+      <%= f.radio_button :grade, '11' %>
+      <%= label :grade_12, '12th grade' %>
+      <%= f.radio_button :grade, '12' %>
+      <br>
+      <p>Student Grade Placeholder</p>
+      <br>
+      <%= label :date, 'Date:' %>
+      <%= f.date_field :date %>
+      <br>
+      <%= label :duration, 'Duration:' %>
+      <%= f.number_field :duration %>
+      <br>
+      <%= f.submit "Create event" %>
+    <% end %>
+  </div>
+</div>
