@@ -5,19 +5,12 @@
 <div id="event-creation-form">
 
   <div class="event-calendar pull-left">
-    <%= month_calendar events: @events do |date, events| %>
-      <%= date %>
-
-      <% events.each do |event| %>
-        <event.pathway>
-      <% end %>
-    <% end %>
   </div>
 
   <div class="event-data pull-right">
     <%= form_for @event, url: {action: 'create'}, html: {class: 'form'} do |f|%>
       <%= label :grade_9, 'Teacher Name:' %>
-      <%= f.text_field :teacher_name %>
+      <%= f.text_field :teacher_id %>
       <br>
       <%= label :school, 'School:' %>
       <%= f.text_field :school %>

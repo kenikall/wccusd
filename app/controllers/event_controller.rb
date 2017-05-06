@@ -1,7 +1,7 @@
 class EventController < ApplicationController
   def new
     @event = Event.new
-    @teacher = Teacher.first
+    @teacher = User.first
   end
 
   def index
