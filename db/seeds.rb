@@ -1,32 +1,7 @@
 User.destroy_all
 
-Teacher.create(
-  email: 'email@email.com',
-  first_name: 'f_name',
-  last_name: 'l_name',
-  password: 'password',
-  school: 'school',
-  grade: 9,
-  password_hint: 'hint',
-  access_level: 'teacher'
-  )
-
-10.times do |num|
-  Student.create(
-    email: "email#{num}@email.com",
-    first_name: 'Student',
-    last_name: num,
-    password: 'password',
-    school: 'school',
-    grade: 9,
-    password_hint: 'hint',
-    access_level: 'student'
-    )
-end
-
 7.times do |num|
   Event.create(
-    teacher_name: nil,
     school: nil,
     pathway: nil,
     course: nil,
@@ -39,3 +14,8 @@ end
     duration: nil,
     )
 end
+
+User.create(email: "person@example.com",    password: "123password!")
+User.create(email: "student@example.com", password: "123password!").add_role(:student)
+User.create(email: "admin@example.com",     password: "123password!").add_role(:admin)
+User.create(email: "teacher@example.com",   password: "123password!").add_role(:teacher)
