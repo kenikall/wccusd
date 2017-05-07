@@ -8,14 +8,14 @@
   </div>
 
   <div class="event-data pull-right">
-    <%= form_for @event, url: {action: 'create'}, html: {class: 'form'} do |f|%>
-      <%= label :grade_9, 'Teacher Name:' %>
+    <%= form_for @event, url: {action: "create"}, html: {class: "form"} do |f|%>
+      <%= label :grade_9, "Teacher Name:" %>
       <%= f.text_field :teacher_id %>
       <br>
-      <%= label :school, 'School:' %>
+      <%= label :school, "School:" %>
       <%= f.text_field :school %>
       <br>
-      <%= label :pathway, 'Pathway:' %>
+      <%= label :pathway, "Pathway:" %>
       <%= f.select :pathway, "<option>Advanced Manufacturing</option>
                                   <option>Biosciences</option>
                                   <option>Engineering</option>
@@ -26,24 +26,24 @@
                                   <option>Performing Arts (Choral)</option>
                                   <option>Performing Arts (Production/Stagecraft)</option>".html_safe %>
       <br>
-      <%= label :course, 'Course:' %>
+      <%= label :course, "Course:" %>
       <%= f.text_field :course %>
       <br>
-      <%= label :grade_9, '9th grade' %>
-      <%= f.radio_button :grade, '9' %>
-      <%= label :grade_10, '10th grade' %>
-      <%= f.radio_button :grade, '10' %>
-      <%= label :grade_11, '11th grade' %>
-      <%= f.radio_button :grade, '11' %>
-      <%= label :grade_12, '12th grade' %>
-      <%= f.radio_button :grade, '12' %>
+      <%= label :grade_9, "9th grade" %>
+      <%= f.radio_button :grade, "9" %>
+      <%= label :grade_10, "10th grade" %>
+      <%= f.radio_button :grade, "10" %>
+      <%= label :grade_11, "11th grade" %>
+      <%= f.radio_button :grade, "11" %>
+      <%= label :grade_12, "12th grade" %>
+      <%= f.radio_button :grade, "12" %>
       <br>
       <p>Student Grade Placeholder</p>
       <br>
-      <%= label :date, 'Date:' %>
+      <%= label :date, "Date:" %>
       <%= f.date_field :date %>
       <br>
-      <%= label :duration, 'Duration:' %>
+      <%= label :duration, "Duration:" %>
       <%= f.number_field :duration %>
       <br>
       <%= f.submit "Create event" %>

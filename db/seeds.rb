@@ -16,6 +16,8 @@ User.destroy_all
 end
 
 User.create(email: "person@example.com",    password: "123password!")
-User.create(email: "student@example.com", password: "123password!").add_role(:student)
+User.create(email: "student@example.com", password: "123password!",
+            first_name: "Jon",
+            last_name: "the student").add_role(:student)
 User.create(email: "admin@example.com",     password: "123password!").add_role(:admin)
 User.create(email: "teacher@example.com",   password: "123password!").add_role(:teacher)

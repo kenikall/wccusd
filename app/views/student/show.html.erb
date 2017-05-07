@@ -1,2 +1,10 @@
-<h1>Student#show</h1>
-<p>Find me in app/views/student/show.html.erb</p>
+<h1>Welcome <%= @student.first_name %> <%= @student.last_name %></h1>
+
+<ul>
+  <%= @student.surveys.each do |a_survey| %>
+    <li>
+       <%= link_to survey_path(a_survey) %> ,
+       <button>Take</button> <%# if they haven't completed it yet %>
+    </li>
+  <% end %>
+</ul>
