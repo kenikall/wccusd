@@ -6,7 +6,16 @@ class EventController < ApplicationController
   end
 
   def new
-    redirect_to student_path(user) if user.is_student?
+    redirect_to student_path(current_user) if current_user.is_student?
+    @students = []
+    @schools = []
+
+    User.all.each do |user|
+        @schools << user.school
+        next unless user.is_student?
+        @students << user
+    end
+    @schools = @schools.uniq
     @event = Event.new
   end
 

@@ -10,31 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170506215655) do
+ActiveRecord::Schema.define(version: 20170516025753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "admins", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "school"
     t.string   "pathway"
-    t.string   "course"
+    t.string   "activity"
     t.integer  "grade"
     t.integer  "ninth_graders"
     t.integer  "tenth_graders"
     t.integer  "eleventh_graders"
     t.integer  "twelfth_graders"
     t.datetime "date"
-    t.integer  "duration"
     t.datetime "start_time"
     t.integer  "teacher_id"
+    t.datetime "end_time"
     t.index ["teacher_id"], name: "index_events_on_teacher_id", using: :btree
   end
 
@@ -48,23 +43,13 @@ ActiveRecord::Schema.define(version: 20170506215655) do
     t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
-  create_table "students", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "surveys", force: :cascade do |t|
-    t.integer  "student_id"
+    t.integer  "user_id"
     t.integer  "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_surveys_on_event_id", using: :btree
-    t.index ["student_id"], name: "index_surveys_on_student_id", using: :btree
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_surveys_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,5 +99,5 @@ ActiveRecord::Schema.define(version: 20170506215655) do
   end
 
   add_foreign_key "surveys", "events"
-  add_foreign_key "surveys", "students"
+  add_foreign_key "surveys", "users"
 end

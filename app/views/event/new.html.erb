@@ -9,42 +9,89 @@
 
   <div class="event-data pull-right">
     <%= form_for @event, url: {action: "create"}, html: {class: "form"} do |f|%>
-      <%= label :grade_9, "Teacher Name:" %>
-      <%= f.text_field :teacher_id %>
+      <%= label :teacher_name, "Teacher Name:" %>
+      <%= f.text_field :teacher_id, required: true, class: 'form-control', value: current_user.name %>
       <br>
-      <%= label :school, "School:" %>
-      <%= f.text_field :school %>
+      <%= label :school, "School:"  %>
+      <%= f.text_field :school, required: true, class: 'form-control', value: current_user.school %>
       <br>
       <%= label :pathway, "Pathway:" %>
       <%= f.select :pathway, "<option>Advanced Manufacturing</option>
-                                  <option>Biosciences</option>
-                                  <option>Engineering</option>
-                                  <option>Health</option>
-                                  <option>IT</option>
-                                  <option>Law</option>
-                                  <option>Multimedia</option>
-                                  <option>Performing Arts (Choral)</option>
-                                  <option>Performing Arts (Production/Stagecraft)</option>".html_safe %>
+                              <option>Biosciences</option>
+                              <option>Engineering</option>
+                              <option>Health</option>
+                              <option>IT</option>
+                              <option>Law</option>
+                              <option>Multimedia</option>
+                              <option>Performing Arts (Choral)</option>
+                              <option>Performing Arts (Production/Stagecraft)</option>".html_safe %>
       <br>
-      <%= label :course, "Course:" %>
-      <%= f.text_field :course %>
+      <%= label :activity, "Activity:" %>
+      <%= f.select :activity, "<option>Career Video </option>
+                             <option>Online Career Exploration </option>
+                             <option>College & Career Plan  </option>
+                             <option>Guest Speaker </option>
+                             <option>Interview a Professional </option>
+                             <option>'Reverse Job Shadow' </option>
+                             <option>Workplace Tour </option>
+                             <option>Workplace Experiential Visit </option>
+                             <option>College Visit with Pathway Component </option>
+                             <option>Industry-related Competition </option>
+                             <option>Resume Writing </option>
+                             <option>Mock Interviews </option>
+                             <option>Mentoring Session </option>
+                             <option>Authentic Pathway Project </option>
+                             <option>Industry Partner Help in Classroom </option>
+                             <option>Industry Partner Review of Project </option>
+                             <option>Financial Literacy Activity </option>
+                             <option>Student-run Enterprise or Performance </option>
+                             <option>Senior Defense of Pathway Outcomes </option>
+                             <option>Industry Certification </option>
+                             <option>Internship </option>".html_safe %>
       <br>
       <%= label :grade_9, "9th grade" %>
-      <%= f.radio_button :grade, "9" %>
+      <%= f.radio_button :grade, "9", checked: current_user.grade == 9 %>
       <%= label :grade_10, "10th grade" %>
-      <%= f.radio_button :grade, "10" %>
+      <%= f.radio_button :grade, "10", checked: current_user.grade == 10 %>
       <%= label :grade_11, "11th grade" %>
-      <%= f.radio_button :grade, "11" %>
+      <%= f.radio_button :grade, "11", checked: current_user.grade == 11 %>
       <%= label :grade_12, "12th grade" %>
-      <%= f.radio_button :grade, "12" %>
+      <%= f.radio_button :grade, "12",checked: current_user.grade == 12 %>
       <br>
-      <p>Student Grade Placeholder</p>
-      <br>
+      <%= label :sort_by_school, "Sort by School:" %>
+
+      <div class="bg-info pre-scrollable" id="suggested-students">
+        <p>Select students for this event.</p>
+        <%= button_tag 'add all', type: 'button', id: 'add-visible', class: "btn-xs btn-warning" %>
+        <table class="table table-striped build-table">
+          <thead>
+            <tr class="text-center">
+              <th></th>
+              <th>Name</th>
+              <th>Grade</th>
+              <th>School</th>
+            </tr>
+          </thead>
+          <tbody id="filtered-students"></tbody>
+          <% @students.each do |student| %>
+            <tr class="unselected-student">
+              <th> <input type="checkbox" name="sleected" class="selected-check-box"> </th>
+              <th> <%= student.name %> </th>
+              <th> <%= student.grade %> </th>
+              <th> <%= student.school %> </th>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+
       <%= label :date, "Date:" %>
       <%= f.date_field :date %>
       <br>
-      <%= label :duration, "Duration:" %>
-      <%= f.number_field :duration %>
+      <%= label :start_time, "Start time:" %>
+      <%= time_select 'event', :start_time, {ampm: true, default: {hour: "16", minute: "30"}} %>
+      <br>
+      <%= label :end_time, "End time:" %>
+      <%= time_select 'event', :end_time, {ampm: true, default: {hour: "17", minute: "30"}} %>
       <br>
       <%= f.submit "Create event" %>
     <% end %>
