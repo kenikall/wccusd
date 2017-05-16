@@ -5,6 +5,9 @@
 <div id="event-creation-form">
 
   <div class="event-calendar pull-left">
+    <%= month_calendar do |date| %>
+      <%= date %>
+    <% end %>
   </div>
 
   <div class="event-data pull-right">
@@ -75,7 +78,7 @@
           <tbody id="filtered-students"></tbody>
           <% @students.each do |student| %>
             <tr class="unselected-student">
-              <th> <input type="checkbox" name="sleected" class="selected-check-box"> </th>
+              <th> <input type="checkbox" name="slected" class="check-box"> </th>
               <th> <%= student.name %> </th>
               <th> <%= student.grade %> </th>
               <th> <%= student.school %> </th>
