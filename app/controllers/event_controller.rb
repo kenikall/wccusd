@@ -23,10 +23,10 @@ class EventController < ApplicationController
     @event = Event.new(event_params)
 
     respond_to do |format|
-      @event.users.each do |user|
-        next unless user.is_student?
-        @event.student_surveys << StudentSurvey.create(user: user)
-      end
+      # @event.users.each do |user|
+      #   next unless user.is_student?
+      #   @event.student_surveys << StudentSurvey.create(user: user)
+      # end
 
       if @event.save
         format.html { redirect_to @event, notice: "event was successfully created." }
@@ -35,6 +35,14 @@ class EventController < ApplicationController
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def show
+    if current_user.is_teacher?
+      redirect_to teacher_path(current_user)
+    elsif current_user.is_admin?
+      redirect_to admin_path(current_user)
     end
   end
 

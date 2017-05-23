@@ -3,8 +3,7 @@
 <%= link_to "Student Data", student_survey_index_path(1), class: "btn btn-warning pull-right" %>
 <h1>Create Event</h1>
 <div id="event-creation-form">
-
-  <div class="event-calendar pull-left">
+  <div class="new-event-calendar pull-left">
     <%= month_calendar do |date| %>
       <%= date %>
     <% end %>
@@ -87,7 +86,7 @@
         </table>
       </div>
 
-      <%= label :date, "Date:" %>
+      <%= label :date, "Date:", class: "create-date" %>
       <%= f.date_field :date %>
       <br>
       <%= label :start_time, "Start time:" %>

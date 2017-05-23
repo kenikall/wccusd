@@ -1,6 +1,6 @@
 $(document).ready(function( event ){
-  console.log('ready');
-  $('.unselected-student').click(function (){
+  console.log("add_student");
+  $(".unselected-student").click(function (){
     console.log(this);
     $(this).removeClass("unselected-student");
     $(this).addClass("selected-student");

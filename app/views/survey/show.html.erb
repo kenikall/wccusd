@@ -1,2 +1,23 @@
-<h1>Survey#show</h1>
-<p>Find me in app/views/survey/show.html.erb</p>
+<%= link_to "Home", student_path(current_user), class: "survey-back-button btn-info pull-right" %>
+
+<%= form_for survey_path, url: {action: "patch"}, html: {class: "form"} do |f|%>
+  <%= label :question1, "Was this event connected to something you're learning about in class?" %>
+  <%= f.radio_button :question1, "Yes"%>
+  <%= f.radio_button :question1, "No"%>
+  <br>
+  <%= label :question2, "Do you have a better sense of jobs and skills related to your pathway as a result of this event?" %>
+  <%= f.radio_button :question2, "Yes"%>
+  <%= f.radio_button :question2, "No"%>
+  <br>
+  <%= label :question3, "Did this event help you think about what you may or may not want to do in the future?" %>
+  <%= f.radio_button :question3, "Yes"%>
+  <%= f.radio_button :question3, "No"%>
+  <br>
+  <%= label :question4, "Did the event help you to gain confidence in talking with professionals?" %>
+  <%= f.radio_button :question4, "Yes"%>
+  <%= f.radio_button :question4, "No"%>
+  <br>
+  <%= label :question5, "Do have any comments or suggestions for improving this event?" %>
+  <%= f.text_field :question5, required: FALSE, class: "form-control" %>
+  <%= f.submit "Submit Survey", class: "survey-submit-button" %>
+<% end %>

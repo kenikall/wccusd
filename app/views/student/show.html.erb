@@ -1,10 +1,72 @@
-<h1>Welcome <%= @student.first_name %> <%= @student.last_name %></h1>
-
-<ul>
-  <%= @student.surveys.each do |a_survey| %>
-    <li>
-       <%= link_to survey_path(a_survey) %> ,
-       <button>Take</button> <%# if they haven't completed it yet %>
-    </li>
+<h1>Welcome <%= current_user.name %></h1>
+  <% if @upcoming_events.length > 0 %>
+    <h3>Upcoming Events</h3>
+    <table>
+      <th>
+        <td>Pathway</td>
+        <td>Activity</td>
+        <td>Provider</td>
+        <td>Date</td>
+        <td>Time</td>
+      </th>
+      <% @upcoming_events.each do |event| %>
+        <% provider = Provider.find(event.provider_id) %>
+        <tr>
+          <td></td>
+          <td><%= event.pathway %></td>
+          <td><%= event.activity %></td>
+          <td><%= link_to provider.name, provider.url, target: :_blank %></td>
+          <td><%= event.date %></td>
+          <td><%= event.start_time %> - <%= event.end_time %></td>
+        </tr>
+      <% end %>
+    </table>
   <% end %>
-</ul>
+  <% if @incomplete_surveys.length > 0 %>
+    <h3>Incomplete Surveys</h3>
+    <table>
+      <th>
+        <td>Pathway</td>
+        <td>Activity</td>
+        <td>Provider</td>
+        <td>Date</td>
+        <td>Time</td>
+      </th>
+      <% @incomplete_surveys.each do |event| %>
+        <% provider = Provider.find(event.provider_id) %>
+        <tr>
+          <td>
+            <%= link_to "take this survey", survey_path(Survey.where(user_id: current_user.id, event_id: event.id)), class: "survey-button btn-xs btn-warning" %>
+          </td>
+          <td><%= event.pathway %></td>
+          <td><%= event.activity %></td>
+          <td><%= link_to provider.name, provider.url, target: :_blank %></td>
+          <td><%= event.date %></td>
+          <td><%= event.start_time %> - <%= event.end_time %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+  <% if @complete_surveys.length > 0 %>
+    <h3>Completed Surveys</h3>
+    <table>
+      <th>
+        <td>Pathway</td>
+        <td>Activity</td>
+        <td>Provider</td>
+        <td>Date</td>
+        <td>Time</td>
+      </th>
+      <% @complete_surveys.each do |event| %>
+        <% provider = Provider.find(event.provider_id) %>
+        <tr class="complete_surveys">
+          <td><%= event.pathway %></td>
+          <td><%= event.activity %></td>
+          <td><%= link_to provider.name, provider.url, target: :_blank %></td>
+          <td><%= event.date %></td>
+          <td><%= event.start_time %> - <%= event.end_time %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</table>
