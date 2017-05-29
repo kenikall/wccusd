@@ -10,22 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523140818) do
+ActiveRecord::Schema.define(version: 20170525153036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "school"
     t.string   "pathway"
     t.string   "activity"
     t.integer  "grade"
-    t.integer  "ninth_graders"
-    t.integer  "tenth_graders"
-    t.integer  "eleventh_graders"
-    t.integer  "twelfth_graders"
+    t.integer  "ninth_graders",    default: 0
+    t.integer  "tenth_graders",    default: 0
+    t.integer  "eleventh_graders", default: 0
+    t.integer  "twelfth_graders",  default: 0
     t.datetime "date"
     t.datetime "start_time"
     t.integer  "teacher_id"
@@ -35,6 +35,11 @@ ActiveRecord::Schema.define(version: 20170523140818) do
     t.string   "location"
     t.index ["provider_id"], name: "index_events_on_provider_id", using: :btree
     t.index ["teacher_id"], name: "index_events_on_teacher_id", using: :btree
+  end
+
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "user_id",  null: false
   end
 
   create_table "providers", force: :cascade do |t|

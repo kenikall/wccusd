@@ -22,6 +22,7 @@ gem "rolify"
 gem "brakeman"
 gem "rubocop"
 gem "bundler-audit"
+gem "awesome_print"
 
 group :test do
   gem 'rspec-rails'
