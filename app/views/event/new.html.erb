@@ -38,7 +38,9 @@
 
       <div class="bg-info pre-scrollable" id="suggested-students">
         <p>Select students for this event.</p>
-        <%= button_tag "add all #{current_user.grade}th graders from #{current_user.school}", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
+        <div id="visible-student-button">
+          <%= button_tag "add all #{current_user.grade}th graders from #{current_user.school}", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
+        </div>
         <table class="table table-striped build-table">
           <thead>
             <tr class="text-center">
@@ -46,11 +48,11 @@
               <th>Name</th>
               <th>
                 <%= label :select_by_grade, "Select by grade" %>
-                <%= select_tag :select_by_grade, options_for_select(@grades) %>
+                <%= select_tag :select_by_grade, options_for_select(@grades), id: "select_by_grade" %>
               </th>
               <th>
                 <%= label :select_by_school, "Select by school" %>
-                <%= select_tag :select_by_school, options_for_select(@schools+["All"]) %>
+                <%= select_tag :select_by_school, options_for_select(@schools+["All"], id: "select_by_school") %>
               </th>
             </tr>
           </thead>
