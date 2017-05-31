@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :teacher, only: [:show]
   resources :admin, only: [:show]
   resources :event
+  resources :participants, only: [:index]
   resources :student, only: [:show]
   resources :survey, only: [:show, :index, :update]
 end

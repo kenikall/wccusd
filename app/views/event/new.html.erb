@@ -36,7 +36,7 @@
       <%= label :grade_12, "12th grade" %>
       <br>
 
-      <div class="bg-info pre-scrollable" id="suggested-students">
+      <div class="bg-info pre-scrollable" id="suggested-students_wrapper">
         <p>Select students for this event.</p>
         <div id="visible-student-button">
           <%= button_tag "add all #{current_user.grade}th graders from #{current_user.school}", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
@@ -56,27 +56,28 @@
               </th>
             </tr>
           </thead>
-          <tbody id="filtered-students"></tbody>
+          <tbody id="filtered-students">
           <% @students.each do |student| %>
             <tr class="unselected-student">
-              <th> <input type="checkbox" name="slected" class="check-box"> </th>
-              <th> <%= student.name %> </th>
-              <th> <%= student.grade %> </th>
-              <th> <%= student.school %> </th>
+              <td> <input type="checkbox" name="selected" class="check-box"> </td>
+              <td> <%= student.name %> </td>
+              <td> <%= student.grade %> </td>
+              <td> <%= student.school %> </td>
               <input type="hidden" value=<%= student.id %> name="students[]">
             </tr>
+          </tbody>
           <% end %>
         </table>
       </div>
 
-      <%= label :date, "Date:", class: "create-date" %>
-      <%= date_field :date, value: Time.now.strftime('%Y-%m-%d') %>
+      <%= label_tag :date, "Date:", class: "create-date" %>
+      <%= date_field_tag :date, Time.now.strftime('%Y-%m-%d') %>
       <br>
-      <%= label :start_time, "Start time:" %>
-      <%= time_select :start_time, {ampm: true, default: {hour: "16", minute: "30"}} %>
+      <%= label_tag :start_time, "Start time:"%>
+      <%= time_select nil, :start_time, {ampm: true, default: {hour: "16", minute: "30"}} %>
       <br>
       <%= label :end_time, "End time:" %>
-      <%= time_select :end_time, {ampm: true, default: {hour: "17", minute: "30"}} %>
+      <%= time_select nil, :end_time, {ampm: true, default: {hour: "17", minute: "30"}} %>
       <br>
       <%= submit_tag "Create event" %>
     <% end %>

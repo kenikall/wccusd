@@ -3,16 +3,16 @@
 class Event < ApplicationRecord
   has_and_belongs_to_many :users
 
-  def fill_category
+  def category
     case :activiy
     when "Career Video" || "Workplace Tour" || "Interview a Professional"
-      category = ["career awareness"]
+      return  ["career awareness"]
     when "Online Career Exploration" || "Reverse Job Shadow" || "Guest Speaker Career Awareness" || "Workplace Experiential Visit" || "College Visit with Pathway Component"
-      category = ["career exploration"]
+      return ["career exploration"]
     when "College & Career Plan"
-      category = ["career Awareness", "career Exploration", "career Preparation"]
+      return ["career Awareness", "career Exploration", "career Preparation"]
     else
-      category = ["career preparation"]
+      return ["career preparation"]
     end
   end
 

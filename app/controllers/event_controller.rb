@@ -13,8 +13,8 @@ class EventController < ApplicationController
   def new
     redirect_to student_path(current_user) if current_user.is_student?
     @students = []
-    @grades = ["#{current_user.grade}th"]
-    @grades += %w(9th 10th 11th 12th All)
+    @grades = [["#{current_user.grade}th", current_user.grade ]]
+    @grades += [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["All","All"]]
     @grades = @grades.uniq
 
     @schools = [current_user.school]
@@ -40,22 +40,11 @@ class EventController < ApplicationController
   end
 
   def create
-    puts "*"*50
-    puts "params:"
-    ap params
-    puts "date_params:"
-    ap date_params
-    puts "8"*50
-    puts "Date: #{event_params[:date]}"
-    puts "start_time: #{event_params[:start_time]}"
-    puts "end_time: #{event_params[:end_time]}"
-    puts "8"*50
+    # render plain: [params.to_yaml, event_params.to_yaml] and return
+
     @event = Event.new(event_params)
     @students = student_params[:students]
-    @event.fill_category
-    # puts "O"*50
-    # ap @students[0]
-    # puts "O"*50
+
     @students.each do |student|
       student = User.find(student)
       @event.ninth_graders += 1 if student.grade == 9
@@ -71,15 +60,9 @@ class EventController < ApplicationController
       # end
 
       if @event.save
-        puts "%"*50
-        ap @event
-        puts "%"*50
         format.html { redirect_to @event, notice: "event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
-        puts "%"*50
-        puts "Event failed to create"
-        puts "%"*50
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
@@ -104,9 +87,18 @@ private
                   :provider_id,
                   :category,
                   :date,
-                  :start_time,
-                  :end_time,
-                  :location)
+                  :location,
+                  :"end_time(1i)",
+                  :"end_time(2i)",
+                  :"end_time(3i)",
+                  :"end_time(4i)",
+                  :"end_time(5i)",
+                  :"start_time(1i)",
+                  :"start_time(2i)",
+                  :"start_time(3i)",
+                  :"start_time(4i)",
+                  :"start_time(5i)",
+                  )
   end
 
   def date_params
