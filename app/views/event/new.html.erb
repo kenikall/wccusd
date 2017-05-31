@@ -59,11 +59,10 @@
           <tbody id="filtered-students">
           <% @students.each do |student| %>
             <tr class="unselected-student">
-              <td> <input type="checkbox" name="selected" class="check-box"> </td>
+              <td> <input type="checkbox" name="students[]" class="check-box" value=<%= student.id %>> </td>
               <td> <%= student.name %> </td>
               <td> <%= student.grade %> </td>
               <td> <%= student.school %> </td>
-              <input type="hidden" value=<%= student.id %> name="students[]">
             </tr>
           </tbody>
           <% end %>

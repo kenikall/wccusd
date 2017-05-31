@@ -13,64 +13,31 @@ ex_student = User.create(email: "student1@example.com", password: "123password!"
             last_name: "9th grader",
             grade: 9)
 ex_student.add_role(:student)
-User.create(email: "student2@example.com", password: "123password!",
-            first_name: "example2",
-            school: "School2",
-            last_name: "9th grader",
-            grade: 9).add_role(:student)
-User.create(email: "student3@example.com", password: "123password!",
-            first_name: "example3",
-            school: "School3",
-            last_name: "9th grader",
-            grade: 9).add_role(:student)
 
-User.create(email: "student4@example.com", password: "123password!",
-            first_name: "example4",
-            school: "School1",
-            last_name: "10th grader",
-            grade: 10).add_role(:student)
-User.create(email: "student5@example.com", password: "123password!",
-            first_name: "example5",
-            school: "School2",
-            last_name: "10th grader",
-            grade: 10).add_role(:student)
-User.create(email: "student6@example.com", password: "123password!",
-            first_name: "example6",
-            school: "School3",
-            last_name: "10th grader",
-            grade: 10).add_role(:student)
-
-User.create(email: "student7@example.com", password: "123password!",
-            first_name: "example7",
-            school: "School1",
-            last_name: "11th grader",
-            grade: 11).add_role(:student)
-User.create(email: "student8@example.com", password: "123password!",
-            first_name: "example8",
-            school: "School2",
-            last_name: "11th grader",
-            grade: 11).add_role(:student)
-User.create(email: "student9@example.com", password: "123password!",
-            first_name: "example9",
-            school: "School3",
-            last_name: "11th grader",
-            grade: 11).add_role(:student)
-
-User.create(email: "student10@example.com", password: "123password!",
-            first_name: "example10",
-            school: "School1",
-            last_name: "12th grader",
-            grade: 12).add_role(:student)
-User.create(email: "student11@example.com", password: "123password!",
-            first_name: "example11",
-            school: "School2",
-            last_name: "12th grader",
-            grade: 12).add_role(:student)
-User.create(email: "student12@example.com", password: "123password!",
-            first_name: "example12",
-            school: "School3",
-            last_name: "12th grader",
-            grade: 12).add_role(:student)
+("A".."Z").each do |id|
+    (1..3).each do |num|
+        User.create(email: "student9#{num}#{id}@example.com", password: "123password!",
+                    first_name: "Freshman#{id}",
+                    school: "School#{num}",
+                    last_name: "School#{num}",
+                    grade: 9).add_role(:student)
+        User.create(email: "student10#{num}#{id}@example.com", password: "123password!",
+                    first_name: "Sophmore#{id}",
+                    school: "School#{num}",
+                    last_name: "School#{num}",
+                    grade: 10).add_role(:student)
+        User.create(email: "student11#{num}#{id}@example.com", password: "123password!",
+                    first_name: "Junior#{id}",
+                    school: "School#{num}",
+                    last_name: "School#{num}",
+                    grade: 11).add_role(:student)
+        User.create(email: "student12#{num}#{id}@example.com", password: "123password!",
+                    first_name: "Senior#{id}",
+                    school: "School#{num}",
+                    last_name: "School#{num}",
+                    grade: 12).add_role(:student)
+    end
+end
 
 ex_teacher = User.create(email: "teacher1@example.com",   password: "123password!",
             first_name: "9th grade",

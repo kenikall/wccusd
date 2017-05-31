@@ -17,9 +17,7 @@ class ParticipantsController < ApplicationController
         @participants << user
       end
     end
-    puts "*"*50
-    puts @participants.to_json
-    puts "*"*50
+
     render json:@participants.to_json
   end
 end

@@ -14,18 +14,16 @@ var participantRequest = function(grade, school){
 }
 
 var suggestStudents = function(students){
-  console.log("students:");
-  console.log(students);
   $(".unselected-student").remove();
 
   for(var i = 0; i < students.length; i++){
     $("#filtered-students").append(
       "<tr class='unselected-student'>"
-      +"<td><input type='checkbox' name='selected' class='check-box'></td>"
+      +"<td><input type='checkbox' name='students[]"
+      +" class='check-box' value="+students[i].id+"></td>"
       +"<td>"+students[i].first_name+" "+students[i].last_name+"</td>"
       +"<td>"+students[i].grade+"</td>"
       +"<td>"+students[i].school+"</td>"
-      +"<input type='hidden' value="+students[i].id+" name='students[]'>"
      +"</tr>");
   }
 }
