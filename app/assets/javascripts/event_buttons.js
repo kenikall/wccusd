@@ -1,4 +1,4 @@
-$(document).ready(function( event ){
+document.addEventListener("turbolinks:load", function( event ){
   $("#visible-student-button").on("click", "#add-visible", function( event ){
     $(".unselected-student").find(".check-box").prop( "checked", true );
     $(".unselected-student").removeClass("unselected-student").addClass("selected-student");
@@ -7,8 +7,8 @@ $(document).ready(function( event ){
     $(this).removeAttr("id").attr("id", "remove-visible");
   })
   $("#visible-student-button").on("click", "#remove-visible",   function( event ){
+    $(".selected-student").find(".check-box").prop( "checked", false );
     $(".selected-student").removeClass("selected-student").addClass("unselected-student");
-    $(".unselected-student").find(".check-box").prop( "checked", false );
     makeAddButton();
   })
   $("#select_by_grade").change(function(event){

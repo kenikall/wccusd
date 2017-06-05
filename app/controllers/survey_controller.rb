@@ -8,25 +8,37 @@ class SurveyController < ApplicationController
     @survey = Survey.new
   end
 
+  def edit
+    @survey = Survey.find(params[:id])
+  end
+
   def update
-    @survey = Survey.new(survey_params)
+    @survey = Survey.find(params[:id])
+    ap survey_params
+    @survey.update(survey_params){|key,v1| f(v1)}
+    ap @survey
+
+    if @survey.question1 && @survey.question2 && @survey.question3 && @survey.question4
+      @survey.complete = true
+    end
 
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to @survey, notice: "survey was successfully created." }
+        format.html { redirect_to student_path(current_user), notice: "survey was successfully created." }
         format.json { render :show, status: :created, location: @survey }
       else
         format.html { render :new }
         format.json { render json: @survey.errors, status: :unprocessable_entity }
       end
     end
-    # redirect_to student_path(current_user)
   end
 end
 
 private
-  def survey_params
-    # all the params for the form need to be here.
-    params.require(:question1, :question2, :question3, :question4)
-  end
+def survey_params
+  params.require(:survey).permit(:question1,
+                :question2,
+                :question3,
+                :question4,
+                :question5)
 end

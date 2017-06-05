@@ -3,9 +3,9 @@ Provider.destroy_all
 Event.destroy_all
 User.destroy_all
 
-User.create(email: "person@example.com",    password: "123password!",
-            first_name: "I should",
-            last_name: "error")
+# User.create(email: "person@example.com",    password: "123password!",
+#             first_name: "I should",
+#             last_name: "error")
 
 ex_student = User.create(email: "student1@example.com", password: "123password!",
             first_name: "example1",
@@ -68,37 +68,15 @@ User.create(email: "admin@example.com",     password: "123password!",
             first_name: "Ida",
             last_name: "Admin").add_role(:admin)
 
-provider = Provider.create(name: "Sample Provider",
-                location: "123 Example Street",
-                url: "www.example.com",
+google = Provider.create(name: "Google Internship",
+                location: "Googleplex",
+                url: "https://careers.google.com/students/",
                 contact: "Jon Doe",
                 phone: "123-567-8910",
                 email: "email@email.com")
-
-past_event = Event.create(school: ex_student.school,
-             pathway: "pathway",
-             activity: "activity",
-             grade: ex_student.grade,
-             provider_id: provider.id,
-             # date: ,
-             # start_time: ,
-             # end_time: ,
-             teacher_id: ex_teacher.id
-            )
-
-future_event = Event.create(school: ex_student.school,
-             pathway: "pathway",
-             activity: "activity",
-             grade: ex_student.grade,
-             provider_id: provider.id,
-             # date: ,
-             # start_time: ,
-             # end_time: ,
-             teacher_id: ex_teacher.id
-            )
-
-
-Survey.create(user_id: ex_student.id,
-              event_id: past_event.id)
-Survey.create(user_id: ex_student.id,
-              event_id: future_event.id)
+apple = Provider.create(name: "Apple Internship",
+                location: "Apple Infinite Loop",
+                url: "https://www.apple.com/jobs/us/students.html",
+                contact: "Jon Doe",
+                phone: "123-567-8910",
+                email: "email@email.com")

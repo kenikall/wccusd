@@ -23,4 +23,5 @@ class ApplicationController < ActionController::Base
       redirect_to user_dashboard_path_name and return
     end
   end
+
 end

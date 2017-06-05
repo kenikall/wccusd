@@ -8,6 +8,18 @@ class EventController < ApplicationController
     else
       @events = Event.all
     end
+
+    @upcoming_events = []
+    @past_events = []
+    @events.each do |event|
+      if event.date.past?
+        @past_events << event
+      else
+        @upcoming_events << event
+      end
+    end
+    @past_events.sort_by{|event| event.date} if @past_events
+    @upcoming_events.sort_by{|event| event.date} if @upcoming_events
   end
 
   def new
@@ -19,7 +31,7 @@ class EventController < ApplicationController
 
     @schools = [current_user.school]
     @teachers = [[current_user.name, current_user.id]]
-    @providers = [[current_user.school, nil]]
+    @providers = [[current_user.school, Provider.where( name: current_user.school ).ids[0]]]
     @activities = define_activities
     @pathways = define_pathways
 
@@ -54,10 +66,6 @@ class EventController < ApplicationController
     end
 
     respond_to do |format|
-      # @event.users.each do |user|
-      #   next unless user.is_student?
-      #   @event.student_surveys << StudentSurvey.create(user: user)
-      # end
 
       if @event.save
         puts "*"*50
@@ -77,6 +85,56 @@ class EventController < ApplicationController
       redirect_to teacher_path(current_user)
     elsif current_user.is_admin?
       redirect_to admin_path(current_user)
+    end
+  end
+
+  def edit
+    redirect_to student_path(current_user) if current_user.is_student?
+    @event = Event.find(params[:id])
+    @students = []
+    @grades = [["#{@event.grade}th", @event.grade ]]
+    @grades += [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["All","All"]]
+    @grades = @grades.uniq
+
+    @schools = [@event.school]
+    @teachers = [[User.find(@event.teacher_id).name, @event.teacher_id]]
+    @providers = [[@event.school, @event.provider_id]]
+    @activities = define_activities
+    @pathways = define_pathways
+
+    Provider.all.each do |provider|
+      @providers << [provider.name, provider.id]
+    end
+    @providers = @providers.uniq
+
+    User.all.each do |user|
+        @schools << user.school if user.school
+        @teachers << [user.name, user.id] if user.is_teacher?
+        if user.school == @event.school && user.grade == @event.grade
+          @students << user if user.is_student?
+        end
+    end
+    @teachers = @teachers.uniq
+    @schools = @schools.uniq
+    @current_students = []
+    surveys = Survey.where(event_id: @event.id)
+    surveys.each do |survey|
+      @current_students << User.find(survey.user_id)
+    end
+  end
+
+  def update
+    @event = Event.find(params[:id])
+    @event.update(event_params){|key,v1| f(v1)}
+
+    respond_to do |format|
+      if @event.save
+        format.html { redirect_to student_path(current_user), notice: "event was successfully created." }
+        format.json { render :show, status: :created, location: @event }
+      else
+        format.html { render :new }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
     end
   end
 

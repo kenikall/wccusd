@@ -15,5 +15,4 @@ class Event < ApplicationRecord
       return ["career preparation"]
     end
   end
-
 end

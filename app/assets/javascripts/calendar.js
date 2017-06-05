@@ -1,4 +1,4 @@
-$(document).ready(function( event ){
+document.addEventListener("turbolinks:load", function( event ){
   console.log("calendar");
   $(".day").click(function (){
     var clickedDay = this;

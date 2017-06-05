@@ -1,10 +1,7 @@
-<%# link_to "Back to Teacher Portal", teacher_path(current_user), class: "btn btn-success pull-right" %>
-<%# link_to "Review an Event", event_index_path(current_user), class: "btn btn-info pull-right" %>
-<!-- link_to "Student Data", student_survey_index_path(current_user), class: "btn btn-warning pull-right"  -->
-<h1>Create Event</h1>
+<h1>Edit This Event</h1>
 <div id="event-creation-form">
   <div class="event-data col-md-6">
-    <%= form_tag "/event", method: "post" do %>
+    <%= form_for(@event) do |f|%>
       <%= label :teacher_name, "Teacher Name:" %>
       <%= select_tag :teacher_id, options_for_select(@teachers) %>
       <br>
@@ -37,7 +34,7 @@
       <div class="bg-info pre-scrollable" id="suggested-students_wrapper">
         <p>Select students for this event.</p>
         <div id="visible-student-button">
-          <%= button_tag "add all #{current_user.grade}th graders from #{current_user.school}", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
+          <%= button_tag "remove all selected", type: "button", id: "remove-visible", class: "btn-xs btn-danger" %>
         </div>
         <table class="table table-striped build-table">
           <thead>
@@ -55,9 +52,9 @@
             </tr>
           </thead>
           <tbody id="filtered-students">
-          <% @students.each do |student| %>
-            <tr class="unselected-student">
-              <td> <input type="checkbox" name="students[]" class="check-box" value=<%= student.id %>> </td>
+          <% @current_students.each do |student| %>
+            <tr class="selected-student">
+              <td> <input type="checkbox" name="students[]" class="check-box" value=<%= student.id %> checked </td>
               <td> <%= student.name %> </td>
               <td> <%= student.grade %> </td>
               <td> <%= student.school %> </td>
@@ -68,15 +65,16 @@
       </div>
 
       <%= label_tag :date, "Date:", class: "create-date" %>
-      <%= date_field_tag :date, Time.now.strftime("%Y-%m-%d") %>
+      <%= date_field_tag :date, @event.date.strftime("%Y-%m-%d") %>
       <br>
       <%= label_tag :start_time, "Start time:"%>
-      <%= time_select nil, :start_time, {ampm: true, default: {hour: "16", minute: "30"}} %>
+      <%= time_select nil, :start_time, {ampm: true, default: {hour: @event.start_time.hour, minute: @event.start_time.min, day: @event.date.day, month: @event.date.month, year: @event.date.year}} %>
       <br>
       <%= label :end_time, "End time:" %>
-      <%= time_select nil, :end_time, {ampm: true, default: {hour: "17", minute: "30"}} %>
+      <%= time_select nil, :end_time, {ampm: true, default: {hour: @event.end_time.hour, minute: @event.end_time.min, day: @event.date.day, month: @event.date.month, year: @event.date.year}} %>
       <br>
-      <%= submit_tag "Create event" %>
+      <%= submit_tag "Update event" %>
     <% end %>
   </div>
 </div>
+

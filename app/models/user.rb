@@ -11,4 +11,16 @@ class User < ApplicationRecord
   def name
     first_name+" "+last_name
   end
+
+  after_save :make_school_provider
+
+  private
+  def make_school_provider
+    if !Provider.exists?( name: school ) && school
+      Provider.create( name: school,
+                       location: school,
+                       url: "N/A"
+                      )
+    end
+  end
 end
