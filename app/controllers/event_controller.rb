@@ -68,8 +68,6 @@ class EventController < ApplicationController
     respond_to do |format|
 
       if @event.save
-        puts "*"*50
-        ap @students
         @students.each{|student_id| Survey.create(user_id: student_id, event_id: @event.id)}
         format.html { redirect_to @event, notice: "event was successfully created." }
         format.json { render :show, status: :created, location: @event }

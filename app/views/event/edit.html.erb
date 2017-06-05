@@ -19,7 +19,7 @@
       <%= select_tag :activity, options_for_select(@activities) %>
       <br>
       <%= label :location, "Location:"  %>
-      <%= text_field_tag :location, current_user.school %>
+      <%= text_field_tag :location, @event.location %>
       <br>
       <%= radio_button_tag :grade, "9", current_user.grade == 9 %>
       <%= label :grade_9, "9th grade"%> &emsp;

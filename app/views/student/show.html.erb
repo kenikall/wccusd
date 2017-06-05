@@ -40,10 +40,10 @@
         <td>
           <%= link_to "take this<br />survey".html_safe, edit_survey_path(Survey.where(user_id: current_user.id, event_id: event.id).ids), class: "survey-button btn-xs btn-warning text-center" %>
         </td>
-        <td> <%= event.location %></td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>
         <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+        <td><%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
         <td><%= event.start_time.strftime("%-I:%M %p") %> - <%= event.end_time.strftime("%-I:%M %p") %></td>
       </tr>
