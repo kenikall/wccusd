@@ -1,0 +1,80 @@
+<h1>Edit This Event</h1>
+<div id="event-creation-form">
+  <div class="event-data col-md-6">
+    <%= form_for(@event) do |f|%>
+      <%= label :teacher_name, "Teacher Name:" %>
+      <%= select_tag :teacher_id, options_for_select(@teachers) %>
+      <br>
+      <%= label :school, "School:"  %>
+      <%= select_tag :school, options_for_select(@schools) %>
+      <br>
+
+      <%= label :provider_id, "Provider:" %>
+      <%= select_tag :provider_id, options_for_select(@providers) %>
+      <br>
+      <%= label :pathway, "Pathway:" %>
+      <%= select_tag :pathway, options_for_select(@pathways)%>
+      <br>
+      <%= label :activity, "Activity:" %>
+      <%= select_tag :activity, options_for_select(@activities) %>
+      <br>
+      <%= label :location, "Location:"  %>
+      <%= text_field_tag :location, @event.location %>
+      <br>
+      <%= radio_button_tag :grade, "9", current_user.grade == 9 %>
+      <%= label :grade_9, "9th grade"%> &emsp;
+      <%= radio_button_tag :grade, "10", current_user.grade == 10 %>
+      <%= label :grade_10, "10th grade" %> &emsp;
+      <%= radio_button_tag :grade, "11", current_user.grade == 11 %>
+      <%= label :grade_11, "11th grade" %> &emsp;
+      <%= radio_button_tag :grade, "12", current_user.grade == 12 %>
+      <%= label :grade_12, "12th grade" %>
+      <br>
+
+      <div class="bg-info pre-scrollable" id="suggested-students_wrapper">
+        <p>Select students for this event.</p>
+        <div id="visible-student-button">
+          <%= button_tag "remove all selected", type: "button", id: "remove-visible", class: "btn-xs btn-danger" %>
+        </div>
+        <table class="table table-striped build-table">
+          <thead>
+            <tr class="text-center">
+              <th></th>
+              <th>Name</th>
+              <th>
+                <%= label :select_by_grade, "Select by grade" %>
+                <%= select_tag :select_by_grade, options_for_select(@grades), id: "select_by_grade" %>
+              </th>
+              <th>
+                <%= label :select_by_school, "Select by school" %>
+                <%= select_tag :select_by_school, options_for_select(@schools+["All"], id: "select_by_school") %>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="filtered-students">
+          <% @current_students.each do |student| %>
+            <tr class="selected-student">
+              <td> <input type="checkbox" name="students[]" class="check-box" value=<%= student.id %> checked </td>
+              <td> <%= student.name %> </td>
+              <td> <%= student.grade %> </td>
+              <td> <%= student.school %> </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+
+      <%= label_tag :date, "Date:", class: "create-date" %>
+      <%= date_field_tag :date, @event.date.strftime("%Y-%m-%d") %>
+      <br>
+      <%= label_tag :start_time, "Start time:"%>
+      <%= time_select nil, :start_time, {ampm: true, default: {hour: @event.start_time.hour, minute: @event.start_time.min, day: @event.date.day, month: @event.date.month, year: @event.date.year}} %>
+      <br>
+      <%= label :end_time, "End time:" %>
+      <%= time_select nil, :end_time, {ampm: true, default: {hour: @event.end_time.hour, minute: @event.end_time.min, day: @event.date.day, month: @event.date.month, year: @event.date.year}} %>
+      <br>
+      <%= submit_tag "Update event" %>
+    <% end %>
+  </div>
+</div>
+

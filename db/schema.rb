@@ -10,51 +10,71 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406041618) do
+ActiveRecord::Schema.define(version: 20170604163252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "events", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "school"
     t.string   "pathway"
-    t.string   "course"
+    t.string   "activity"
     t.integer  "grade"
-    t.integer  "ninth_graders"
-    t.integer  "tenth_graders"
-    t.integer  "eleventh_graders"
-    t.integer  "twelfth_graders"
+    t.integer  "ninth_graders",    default: 0
+    t.integer  "tenth_graders",    default: 0
+    t.integer  "eleventh_graders", default: 0
+    t.integer  "twelfth_graders",  default: 0
     t.datetime "date"
-    t.integer  "duration"
     t.datetime "start_time"
     t.integer  "teacher_id"
+    t.datetime "end_time"
+    t.integer  "provider_id"
+    t.string   "location"
+    t.index ["provider_id"], name: "index_events_on_provider_id", using: :btree
     t.index ["teacher_id"], name: "index_events_on_teacher_id", using: :btree
   end
 
-  create_table "students", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "user_id",  null: false
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "location"
+    t.string   "url",        default: "N/A"
+    t.string   "contact"
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+    t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
   create_table "surveys", force: :cascade do |t|
-    t.integer  "student_id"
+    t.integer  "user_id"
     t.integer  "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "complete",   default: false
+    t.string   "question1"
+    t.string   "question2"
+    t.string   "question3"
+    t.string   "question4"
+    t.text     "question5"
     t.index ["event_id"], name: "index_surveys_on_event_id", using: :btree
-    t.index ["student_id"], name: "index_surveys_on_student_id", using: :btree
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_surveys_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,6 +100,12 @@ ActiveRecord::Schema.define(version: 20170406041618) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+  end
+
   create_table "views", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -98,5 +124,5 @@ ActiveRecord::Schema.define(version: 20170406041618) do
   end
 
   add_foreign_key "surveys", "events"
-  add_foreign_key "surveys", "students"
+  add_foreign_key "surveys", "users"
 end

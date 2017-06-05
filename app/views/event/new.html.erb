@@ -1,59 +1,82 @@
-<%= link_to "Back to Teacher Portal", teacher_path(1), class: "btn btn-success pull-right" %>
-<%= link_to "Review an Event", event_index_path(1), class: "btn btn-info pull-right" %>
-<%= link_to "Student Data", student_survey_index_path(1), class: "btn btn-warning pull-right" %>
+<%# link_to "Back to Teacher Portal", teacher_path(current_user), class: "btn btn-success pull-right" %>
+<%# link_to "Review an Event", event_index_path(current_user), class: "btn btn-info pull-right" %>
+<!-- link_to "Student Data", student_survey_index_path(current_user), class: "btn btn-warning pull-right"  -->
 <h1>Create Event</h1>
 <div id="event-creation-form">
+  <div class="event-data col-md-6">
+    <%= form_tag "/event", method: "post" do %>
+      <%= label :teacher_name, "Teacher Name:" %>
+      <%= select_tag :teacher_id, options_for_select(@teachers) %>
+      <br>
+      <%= label :school, "School:"  %>
+      <%= select_tag :school, options_for_select(@schools) %>
+      <br>
 
-  <div class="event-calendar pull-left">
-    <%= month_calendar events: @events do |date, events| %>
-      <%= date %>
+      <%= label :provider_id, "Provider:" %>
+      <%= select_tag :provider_id, options_for_select(@providers) %>
+      <br>
+      <%= label :pathway, "Pathway:" %>
+      <%= select_tag :pathway, options_for_select(@pathways)%>
+      <br>
+      <%= label :activity, "Activity:" %>
+      <%= select_tag :activity, options_for_select(@activities) %>
+      <br>
+      <%= label :location, "Location:"  %>
+      <%= text_field_tag :location, current_user.school %>
+      <br>
+      <%= radio_button_tag :grade, "9", current_user.grade == 9 %>
+      <%= label :grade_9, "9th grade"%> &emsp;
+      <%= radio_button_tag :grade, "10", current_user.grade == 10 %>
+      <%= label :grade_10, "10th grade" %> &emsp;
+      <%= radio_button_tag :grade, "11", current_user.grade == 11 %>
+      <%= label :grade_11, "11th grade" %> &emsp;
+      <%= radio_button_tag :grade, "12", current_user.grade == 12 %>
+      <%= label :grade_12, "12th grade" %>
+      <br>
 
-      <% events.each do |event| %>
-        <event.pathway>
-      <% end %>
-    <% end %>
-  </div>
+      <div class="bg-info pre-scrollable" id="suggested-students_wrapper">
+        <p>Select students for this event.</p>
+        <div id="visible-student-button">
+          <%= button_tag "add all #{current_user.grade}th graders from #{current_user.school}", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
+        </div>
+        <table class="table table-striped build-table">
+          <thead>
+            <tr class="text-center">
+              <th></th>
+              <th>Name</th>
+              <th>
+                <%= label :select_by_grade, "Select by grade" %>
+                <%= select_tag :select_by_grade, options_for_select(@grades), id: "select_by_grade" %>
+              </th>
+              <th>
+                <%= label :select_by_school, "Select by school" %>
+                <%= select_tag :select_by_school, options_for_select(@schools+["All"], id: "select_by_school") %>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="filtered-students">
+          <% @students.each do |student| %>
+            <tr class="unselected-student">
+              <td> <input type="checkbox" name="students[]" class="check-box" value=<%= student.id %>> </td>
+              <td> <%= student.name %> </td>
+              <td> <%= student.grade %> </td>
+              <td> <%= student.school %> </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
 
-  <div class="event-data pull-right">
-    <%= form_for @event, url: {action: 'create'}, html: {class: 'form'} do |f|%>
-      <%= label :grade_9, 'Teacher Name:' %>
-      <%= f.text_field :teacher_name %>
+      <%= label_tag :date, "Date:", class: "create-date" %>
+      <%= date_field_tag :date, Time.now.strftime("%Y-%m-%d") %>
       <br>
-      <%= label :school, 'School:' %>
-      <%= f.text_field :school %>
+      <%= label_tag :start_time, "Start time:"%>
+      <%= time_select nil, :start_time, {ampm: true, default: {hour: "16", minute: "30"}} %>
       <br>
-      <%= label :pathway, 'Pathway:' %>
-      <%= f.select :pathway, "<option>Advanced Manufacturing</option>
-                                  <option>Biosciences</option>
-                                  <option>Engineering</option>
-                                  <option>Health</option>
-                                  <option>IT</option>
-                                  <option>Law</option>
-                                  <option>Multimedia</option>
-                                  <option>Performing Arts (Choral)</option>
-                                  <option>Performing Arts (Production/Stagecraft)</option>".html_safe %>
+      <%= label :end_time, "End time:" %>
+      <%= time_select nil, :end_time, {ampm: true, default: {hour: "17", minute: "30"}} %>
       <br>
-      <%= label :course, 'Course:' %>
-      <%= f.text_field :course %>
-      <br>
-      <%= label :grade_9, '9th grade' %>
-      <%= f.radio_button :grade, '9' %>
-      <%= label :grade_10, '10th grade' %>
-      <%= f.radio_button :grade, '10' %>
-      <%= label :grade_11, '11th grade' %>
-      <%= f.radio_button :grade, '11' %>
-      <%= label :grade_12, '12th grade' %>
-      <%= f.radio_button :grade, '12' %>
-      <br>
-      <p>Student Grade Placeholder</p>
-      <br>
-      <%= label :date, 'Date:' %>
-      <%= f.date_field :date %>
-      <br>
-      <%= label :duration, 'Duration:' %>
-      <%= f.number_field :duration %>
-      <br>
-      <%= f.submit "Create event" %>
+      <%= submit_tag "Create event" %>
     <% end %>
   </div>
 </div>

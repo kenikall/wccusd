@@ -5,7 +5,7 @@ This project is a tool to facilitate the creation and tracking of student result
 More information about the program can be found at [http://wccusdpathways.org/](http://wccusdpathways.org/)
 
 ## Wire Frames
-A [Balsamiq](balsamiq) wire frame for this project can be found [here]()
+A [Balsamiq](balsamiq) wire frame for this project can be found [here](https://github.com/kenikall/wccusd/blob/master/wccusd.pdf)
 
 ## Deployment
 

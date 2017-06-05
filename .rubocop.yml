@@ -1,0 +1,12 @@
+Rails:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - "db/**/*"
+    - "bin/*"
+    - "config/**/*"
