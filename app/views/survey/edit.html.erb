@@ -1,34 +1,75 @@
-<%= link_to "Home", student_path(current_user), class: "survey-back-button btn-info pull-right" %>
-
 <%= form_for(@survey) do |f|%>
-  <%= f.label :question1, "Was this event connected to something you're learning about in class?"%><br>
-  <%= f.label :question1, "Yes", :value => "true"  %>
-  <%= f.radio_button :question1, true %>
-  <%= f.label :question1, "No", :value => "false" %>
-  <%= f.radio_button :question1, false %>
-  <br>
-  <%= f.label :question2, "Do you have a better sense of jobs and skills related to your pathway as a result of this event?" %>
-  <<br>
-  <%= f.label :question2, "Yes", :value => "true"  %>
-  <%= f.radio_button :question2, true %>
-  <%= f.label :question2, "No", :value => "false" %>
-  <%= f.radio_button :question2, false %>
-  <br>
-  <%= f.label :question3, "Did this event help you think about what you may or may not want to do in the future?" %>
-  <br>
-  <%= f.label :question3, "Yes", :value => "true"  %>
-  <%= f.radio_button :question3, true %>
-  <%= f.label :question3, "No", :value => "false" %>
-  <%= f.radio_button :question3, false %>
-  <br>
-  <%= f.label :question4, "Did the event help you to gain confidence in talking with professionals?" %>
-  <br>
-  <%= f.label :question4, "Yes", :value => "true"  %>
-  <%= f.radio_button :question4, true %>
-  <%= f.label :question4, "No", :value => "false" %>
-  <%= f.radio_button :question4, false %>
-  <br>
-  <%= f.label :question5, "Do have any comments or suggestions for improving this event?" %>
-  <%= f.text_field :question5, required: false, class: "form-control" %>
+  <% if current_user.is_student? %>
+    <%= f.label :question1, @survey.student_questions[0]%><br>
+    <%= f.label :question1, "Yes"%>
+    <%= f.radio_button :question1, true %>
+    <%= f.label :question1, "No"%>
+    <%= f.radio_button :question1, false %>
+    <br>
+    <br>
+    <%= f.label :question2, @survey.student_questions[1] %>
+    <br>
+    <%= f.label :question2, "Yes"%>
+    <%= f.radio_button :question2, true %>
+    <%= f.label :question2, "No"%>
+    <%= f.radio_button :question2, false %>
+    <br>
+    <br>
+    <%= f.label :question3, @survey.student_questions[2] %>
+    <br>
+    <%= f.label :question3, "Yes"%>
+    <%= f.radio_button :question3, true %>
+    <%= f.label :question3, "No"%>
+    <%= f.radio_button :question3, false %>
+    <br>
+    <br>
+    <%= f.label :question4, @survey.student_questions[3] %>
+    <br>
+    <%= f.label :question4, "Yes"%>
+    <%= f.radio_button :question4, true %>
+    <%= f.label :question4, "No"%>
+    <%= f.radio_button :question4, false %>
+    <br>
+    <br>
+    <%= f.label :question5, @survey.student_questions[4] %>
+    <%= f.text_field :question5, required: false, class: "form-control" %>
+  <% else %>
+    <%= f.label :question1, @survey.teacher_questions[0]%><br>
+    <%= f.label :question1, "Yes"%>
+    <%= f.radio_button :question1, true %>
+    <%= f.label :question1, "No"%>
+    <%= f.radio_button :question1, false %>
+    <br>
+    <br>
+    <%= f.label :question2, @survey.teacher_questions[1] %>
+    <table>
+      <th>Check all that apply</th>
+      <br>
+      <% @survey.teacher_question2_options.each do |symbol, string| %>
+        <tr>
+          <td>
+          <%= f.check_box symbol, {multiple:true}, true %>
+          <%= f.label symbol, string%>
+          </td>
+        </tr>
+    </table>
+    <br>
+    <%= f.label :question3, @survey.teacher_questions[2] %>
+    <br>
+    <%= f.label :question3, "No"  %>
+    <%= f.radio_button :question3, "No" %>
+    <%= f.label :question3, "Somewhat" %>
+    <%= f.radio_button :question3, "Somewhat" %>
+    <%= f.label :question3, "50/50"%>
+    <%= f.radio_button :question3, "50/50" %>
+    <%= f.label :question3, "Mostly"%>
+    <%= f.radio_button :question3, "Mostly" %>
+    <%= f.label :question3, "Yes"%>
+    <%= f.radio_button :question3, "Yes" %>
+    <br>
+    <br>
+    <%= f.label :question5, @survey.teacher_questions[3] %>
+    <%= f.text_field :question5, required: false, class: "form-control" %>
+  <% end %>
   <%= f.submit "Submit Survey", class: "survey-submit-button" %>
 <% end %>

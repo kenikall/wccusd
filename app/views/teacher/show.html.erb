@@ -14,7 +14,6 @@
       <td><strong>Provider</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
-      <td><strong>Time</strong></td>
     </th>
     <% @upcoming_events.each do |event| %>
       <% provider = Provider.find(event.provider_id) %>
@@ -27,7 +26,6 @@
         <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
         <td> <%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
-        <td><%= event.start_time.strftime("%-I:%M %p") %> - <%= event.end_time.strftime("%-I:%M %p") %></td>
       </tr>
     <% end %>
   </table>
@@ -36,16 +34,24 @@
   <h3>Past Events</h3>
   <table class="table table-striped text-center pre-scrollable">
     <th>
+      <td></td>
       <td><strong>Pathway</strong></td>
       <td><strong>Activity</strong></td>
       <td><strong>Provider</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
-      <td><strong>Time</strong></td>
     </th>
     <% @past_events.each do |event| %>
       <% provider = Provider.find(event.provider_id)  %>
+      <% survey = Survey.where(user_id: current_user.id, event_id: event.id).first %>
       <tr>
+        <td>
+          <% if survey.complete %>
+            <%= link_to "review this<br/>survey".html_safe, edit_survey_path(survey.id), class: "survey-button btn-xs btn-info text-center" %>
+          <% else %>
+            <%= link_to "take this<br/>survey".html_safe, edit_survey_path(survey.id), class: "survey-button btn-xs btn-danger text-center" %>
+          <% end %>
+        </td>
         <td>
           <%= link_to "review data", event_survey_index_path(event.id), class: "teacher-survey-button btn-xs btn-warning text-center" %>
         </td>
@@ -54,7 +60,6 @@
         <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
         <td> <%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
-        <td><%= event.start_time.strftime("%-I:%M %p") %> - <%= event.end_time.strftime("%-I:%M %p") %></td>
       </tr>
     <% end %>
   </table>

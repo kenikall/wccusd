@@ -53,7 +53,7 @@ class EventController < ApplicationController
 
   def create
     # render plain: [params.to_yaml, event_params.to_yaml] and return
-
+    @teacher_id = event_params[:teacher_id]
     @event = Event.new(event_params)
     @students = student_params[:students]
 
@@ -68,6 +68,7 @@ class EventController < ApplicationController
     respond_to do |format|
 
       if @event.save
+        Survey.create(user_id: @teacher_id, event_id: @event.id)
         @students.each{|student_id| Survey.create(user_id: student_id, event_id: @event.id)}
         format.html { redirect_to @event, notice: "event was successfully created." }
         format.json { render :show, status: :created, location: @event }
@@ -147,23 +148,11 @@ private
                   :category,
                   :date,
                   :location,
-                  :"end_time(1i)",
-                  :"end_time(2i)",
-                  :"end_time(3i)",
-                  :"end_time(4i)",
-                  :"end_time(5i)",
-                  :"start_time(1i)",
-                  :"start_time(2i)",
-                  :"start_time(3i)",
-                  :"start_time(4i)",
-                  :"start_time(5i)",
                   )
   end
 
   def date_params
-    params.permit(:date,
-                  :start_time,
-                  :end_time)
+    params.permit(:date)
   end
 
   def student_params

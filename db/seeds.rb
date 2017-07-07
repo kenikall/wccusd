@@ -117,37 +117,10 @@ teachers.each do |teacher|
                 )
 end
 
-# freshmen = User.where(grade: 9)
-# sophmores = User.where(grade: 10)
-# juniors = User.where(grade: 11)
-# seniors = User.where(grade: 12)
-
-User.all.each do |student|
-    next if !student.is_student?
+User.all.each do |user|
     Event.all.each do |event|
-        if event.grade == student.grade
-            Survey.create(user_id: student.id, event_id: event.id)
+        if event.grade == user.grade
+            Survey.create(user_id: user.id, event_id: event.id)
         end
     end
 end
-
-# sophmores.each do |student|
-#     next if !student.is_student?
-#     Event.all.each do |event|
-#         Survey.create(user_id: student.id, event_id: event.id)
-#     end
-# end
-
-# juniors.each do |student|
-#     next if !student.is_student?
-#     Event.all.each do |event|
-#         Survey.create(user_id: student.id, event_id: event.id)
-#     end
-# end
-
-# seniors.each do |student|
-#     next if !student.is_student?
-#     Event.all.each do |event|
-#         Survey.create(user_id: student.id, event_id: event.id)
-#     end
-# end

@@ -4,8 +4,11 @@ class SurveyController < ApplicationController
   def index
     redirect_to student_path(current_user) if current_user.is_student?
     @event = Event.find(params[:event_id])
+    @provider = Provider.find(@event.provider_id)
+    @teacher_survey = Survey.where(user_id: @event.teacher_id)
     surveys = Survey.where(event_id: @event.id)
-    process_surveys(surveys)
+    @student_questions = surveys[0].student_questions
+    survey_data = process_surveys(surveys)
   end
 
   def show
@@ -19,13 +22,15 @@ class SurveyController < ApplicationController
   def update
     @survey = Survey.find(params[:id])
     @survey.update(survey_params){|key,v1| f(v1)}
-    if @survey.question1 && @survey.question2 && @survey.question3 && @survey.question4
+    if ((current_user.is_student? && @survey.question1 && @survey.question2 && @survey.question3 && @survey.question4) ||
+      (current_user.is_teacher? && (@survey.question1 || @survey.question2 || @survey.question3 || @survey.question4)))
+
       @survey.complete = true
     end
 
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to student_path(current_user), notice: "survey was successfully created." }
+        format.html { redirect_to user_dashboard_path_name, notice: "survey was successfully created." }
         format.json { render :show, status: :created, location: @survey }
       else
         format.html { render :new }
@@ -40,7 +45,19 @@ private
                   :question2,
                   :question3,
                   :question4,
-                  :question5)
+                  :question5,
+                  :career_awareness,
+                  :workplace_protocols,
+                  :field_interest,
+                  :career_skills,
+                  :gain_confidence,
+                  :project,
+                  :creative_thinking,
+                  :teamwork_skills,
+                  :take_feedback,
+                  :self_management,
+                  :assess_learning,
+                  :develop_plan,)
   end
 
   def process_surveys(surveys)
@@ -53,12 +70,14 @@ private
                }
 
     surveys.each do |survey|
+      user = User.find(survey.user_id)
+      next if !user.is_student?
       @results[:complete] += 1 if survey.complete
       @results[:quest1_agg] += 1 if survey.question1 == "Yes"
       @results[:quest2_agg] += 1 if survey.question1 == "Yes"
       @results[:quest3_agg] += 1 if survey.question1 == "Yes"
       @results[:quest4_agg] += 1 if survey.question1 == "Yes"
-      @results[:quest5_ary] << [User.find(survey.user_id).name, survey.question5] if survey.question5
+      @results[:quest5_ary] << [user.name, survey.question5] if survey.question5
     end
     @results[:total] = surveys.length
   end

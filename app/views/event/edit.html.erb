@@ -67,12 +67,6 @@
       <%= label_tag :date, "Date:", class: "create-date" %>
       <%= date_field_tag :date, @event.date.strftime("%Y-%m-%d") %>
       <br>
-      <%= label_tag :start_time, "Start time:"%>
-      <%= time_select nil, :start_time, {ampm: true, default: {hour: @event.start_time.hour, minute: @event.start_time.min, day: @event.date.day, month: @event.date.month, year: @event.date.year}} %>
-      <br>
-      <%= label :end_time, "End time:" %>
-      <%= time_select nil, :end_time, {ampm: true, default: {hour: @event.end_time.hour, minute: @event.end_time.min, day: @event.date.day, month: @event.date.month, year: @event.date.year}} %>
-      <br>
       <%= submit_tag "Update event" %>
     <% end %>
   </div>

@@ -9,16 +9,9 @@ class StudentController < ApplicationController
     Survey.all.each do |survey|
       next unless survey.user_id == current_user.id
 
-      if survey.complete
-        @complete_surveys << survey.event
-      elsif survey.activate_survey > DateTime.now
-        @upcoming_events << survey.event
-      else
-        @incomplete_surveys << survey.event
-      end
+      @upcoming_events << survey.event if survey.
+      @incomplete_surveys << survey.event
+      @complete_surveys << survey.event
     end
-    @upcoming_events.sort_by{|event| event.date} if @pcoming_events
-    @complete_events.sort_by{|event| event.date} if @complete_events
-    @incomplete_events.sort_by{|event| event.date} if @incomplete_events
   end
 end

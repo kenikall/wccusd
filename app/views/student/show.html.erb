@@ -7,7 +7,6 @@
       <td><strong>Provider</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
-      <td><strong>Time</strong></td>
     </th>
     <% @upcoming_events.each do |event| %>
       <% provider = Provider.find(event.provider_id) %>
@@ -18,7 +17,6 @@
         <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
         <td> <%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
-        <td><%= event.start_time.strftime("%-I:%M %p") %> - <%= event.end_time.strftime("%-I:%M %p") %></td>
       </tr>
     <% end %>
   </table>
@@ -32,7 +30,6 @@
       <td><strong>Provider</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
-      <td><strong>Time</strong></td>
     </th>
     <% @incomplete_surveys.each do |event| %>
       <% provider = Provider.find(event.provider_id)  %>
@@ -45,7 +42,6 @@
         <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
         <td><%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
-        <td><%= event.start_time.strftime("%-I:%M %p") %> - <%= event.end_time.strftime("%-I:%M %p") %></td>
       </tr>
     <% end %>
   </table>
@@ -59,7 +55,6 @@
       <td><strong>Provider</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
-      <td><strong>Time</strong></td>
     </th>
     <% @complete_surveys.each do |event| %>
       <% provider = Provider.find(event.provider_id) %>
@@ -70,7 +65,6 @@
         <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
         <td> <%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
-        <td><%= event.start_time.strftime("%-I :%M %p") %> - <%= event.end_time.strftime("%-I:%M %p") %></td>
       </tr>
     <% end %>
   </table>

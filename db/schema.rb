@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604163252) do
+ActiveRecord::Schema.define(version: 20170706012750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,14 +65,26 @@ ActiveRecord::Schema.define(version: 20170604163252) do
   create_table "surveys", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "complete",   default: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.boolean  "complete",            default: false
     t.string   "question1"
     t.string   "question2"
     t.string   "question3"
     t.string   "question4"
     t.text     "question5"
+    t.boolean  "career_awareness",    default: false
+    t.boolean  "workplace_protocols", default: false
+    t.boolean  "field_interest",      default: false
+    t.boolean  "career_skills",       default: false
+    t.boolean  "gain_confidence",     default: false
+    t.boolean  "project",             default: false
+    t.boolean  "creative_thinking",   default: false
+    t.boolean  "teamwork_skills",     default: false
+    t.boolean  "take_feedback",       default: false
+    t.boolean  "self_management",     default: false
+    t.boolean  "assess_learning",     default: false
+    t.boolean  "develop_plan",        default: false
     t.index ["event_id"], name: "index_surveys_on_event_id", using: :btree
     t.index ["user_id"], name: "index_surveys_on_user_id", using: :btree
   end

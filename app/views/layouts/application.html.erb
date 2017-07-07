@@ -28,11 +28,17 @@
 
   <body>
     <% if user_signed_in? %>
-    <%= link_to("Logout", destroy_user_session_path, :method => :delete, class: "back-button btn-warning") %>
-    <%= link_to "Home", student_path(current_user), class: "back-button btn-info" %>
-    <h3>Welcome <%= current_user.name %></h3>
+        <%= link_to("Logout", destroy_user_session_path, :method => :delete, class: "back-button btn-warning") %>
+        <% if current_user.is_student? %>
+            <%= link_to "Home", student_path(current_user), class: "survey-back-button btn-info" %>
+        <% elsif current_user.is_teacher? %>
+            <%= link_to "Home", teacher_path(current_user), class: "survey-back-button btn-info" %>
+        <% elsif current_user.is_admin? %>
+            <%= link_to "Home", admin_path(current_user), class: "survey-back-button btn-info" %>
+        <% end %>
+        <h3>Welcome <%= current_user.name %></h3>
     <% else %>
-    <%= link_to("Login", new_user_session_path)  %>
+        <%= link_to("Login", new_user_session_path)  %>
     <% end %>
     <div class="container">
       <div class="row">
