@@ -48,10 +48,11 @@
       <% @survey.teacher_question2_options.each do |symbol, string| %>
         <tr>
           <td>
-          <%= f.check_box symbol, {multiple:true}, true %>
+          <%= f.check_box symbol, {}, true, false %>
           <%= f.label symbol, string%>
           </td>
         </tr>
+      <% end %>
     </table>
     <br>
     <%= f.label :question3, @survey.teacher_questions[2] %>

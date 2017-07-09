@@ -51,4 +51,25 @@ class Survey < ApplicationRecord
         develop_plan: "Develop college & career plan"
       }
   end
+
+  def learning_outcomes
+    outcomes = []
+
+    teacher_question2_options.each do |symbol, string|
+      outcomes << "Build career awareness" if career_awareness
+      outcomes << "Learn workplace protocols, culture, and safety" if workplace_protocols
+      outcomes << "Experience a field of interest" if field_interest
+      outcomes << "Learn career-based skills" if career_skills
+      outcomes << "Gain confidence and skill communicating with professionals" if gain_confidence
+      outcomes << "Develop industry-based skills through project" if project
+      outcomes << "Engage in creative thinking/Innovation" if creative_thinking
+      outcomes << "Collaboration and teamwork skills" if teamwork_skills
+      outcomes << "Learn how to take feedback" if take_feedback
+      outcomes << "Self-management" if self_management
+      outcomes << "Reflect on and assess own learning" if assess_learning
+      outcomes << "Develop college & career plan" if develop_plan
+    end
+
+    outcomes.uniq
+  end
 end

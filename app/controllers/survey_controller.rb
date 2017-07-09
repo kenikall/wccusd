@@ -5,7 +5,7 @@ class SurveyController < ApplicationController
     redirect_to student_path(current_user) if current_user.is_student?
     @event = Event.find(params[:event_id])
     @provider = Provider.find(@event.provider_id)
-    @teacher_survey = Survey.where(user_id: @event.teacher_id)
+    @teacher_survey = Survey.where(user_id: @event.teacher_id).first
     surveys = Survey.where(event_id: @event.id)
     @student_questions = surveys[0].student_questions
     survey_data = process_surveys(surveys)
@@ -21,6 +21,7 @@ class SurveyController < ApplicationController
 
   def update
     @survey = Survey.find(params[:id])
+    puts params[:id]
     @survey.update(survey_params){|key,v1| f(v1)}
     if ((current_user.is_student? && @survey.question1 && @survey.question2 && @survey.question3 && @survey.question4) ||
       (current_user.is_teacher? && (@survey.question1 || @survey.question2 || @survey.question3 || @survey.question4)))
