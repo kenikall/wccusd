@@ -1,10 +1,10 @@
-var participantsPath = function(grade, school){
-  return "/participants?grade="+grade+"&school="+school
+var participantsPath = function(grade, pathway, school){
+  return "/participants?grade="+grade+"&pathway="+pathway+"&school="+school
 }
 
-var participantRequest = function(grade, school){
+var participantRequest = function(grade, pathway, school){
   $.ajax({
-    url: participantsPath(grade, school),
+    url: participantsPath(grade, pathway, school),
     type: 'GET',
     dataType: 'json',
     success: function(students) {
@@ -22,6 +22,7 @@ var suggestStudents = function(students){
       +"<td><input type='checkbox' name='students[]' class='check-box' value="+students[i].i+"></td>"
       +"<td>"+students[i].first_name+" "+students[i].last_name+"</td>"
       +"<td>"+students[i].grade+"</td>"
+      +"<td>"+students[i].pathway+"</td>"
       +"<td>"+students[i].school+"</td>"
      +"</tr>");
   }

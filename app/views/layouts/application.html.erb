@@ -37,8 +37,6 @@
             <%= link_to "Home", admin_path(current_user), class: "survey-back-button btn-info" %>
         <% end %>
         <h3>Welcome <%= current_user.name %></h3>
-    <% else %>
-        <%= link_to("Login", new_user_session_path)  %>
     <% end %>
     <div class="container">
       <div class="row">

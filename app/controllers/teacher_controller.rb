@@ -8,7 +8,7 @@ class TeacherController < ApplicationController
     else
       @events = Event.all
     end
-
+    @pathways = pathways()
     @upcoming_events = []
     @past_events = []
     @events.each do |event|

@@ -1,22 +1,19 @@
-<%# link_to "Back to Teacher Portal", teacher_path(current_user), class: "btn btn-success pull-right" %>
-<%# link_to "Review an Event", event_index_path(current_user), class: "btn btn-info pull-right" %>
-<!-- link_to "Student Data", student_survey_index_path(current_user), class: "btn btn-warning pull-right"  -->
 <h1>Create Event</h1>
 <div id="event-creation-form">
-  <div class="event-data col-md-6">
+  <div class="event-data">
     <%= form_tag "/event", method: "post" do %>
       <%= label :teacher_name, "Teacher Name:" %>
       <%= select_tag :teacher_id, options_for_select(@teachers) %>
       <br>
       <%= label :school, "School:"  %>
-      <%= select_tag :school, options_for_select(@schools) %>
+      <%= select_tag :school, options_for_select(@schools, current_user.school) %>
       <br>
 
       <%= label :provider_id, "Provider:" %>
       <%= select_tag :provider_id, options_for_select(@providers) %>
       <br>
       <%= label :pathway, "Pathway:" %>
-      <%= select_tag :pathway, options_for_select(@pathways)%>
+      <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
       <br>
       <%= label :activity, "Activity:" %>
       <%= select_tag :activity, options_for_select(@activities) %>
@@ -37,7 +34,7 @@
       <div class="bg-info pre-scrollable" id="suggested-students_wrapper">
         <p>Select students for this event.</p>
         <div id="visible-student-button">
-          <%= button_tag "add all #{current_user.grade}th graders from #{current_user.school}", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
+          <%= button_tag "add all students in the #{current_user.pathway} path from #{current_user.school}", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
         </div>
         <table class="table table-striped build-table">
           <thead>
@@ -46,11 +43,15 @@
               <th>Name</th>
               <th>
                 <%= label :select_by_grade, "Select by grade" %>
-                <%= select_tag :select_by_grade, options_for_select(@grades), id: "select_by_grade" %>
+                <%= select_tag :select_by_grade, options_for_select(@grades, "All"), id: "select_by_grade" %>
+              </th>
+              <th>
+                <%= label :select_by_pathway, "Select by pathway" %>
+                <%= select_tag :select_by_pathway, options_for_select(@pathways+["All"], current_user.pathway), id: "select_by_pathway" %>
               </th>
               <th>
                 <%= label :select_by_school, "Select by school" %>
-                <%= select_tag :select_by_school, options_for_select(@schools+["All"], id: "select_by_school") %>
+                <%= select_tag :select_by_school, options_for_select(@schools+["All"], current_user.school), id: "select_by_school" %>
               </th>
             </tr>
           </thead>
@@ -60,6 +61,7 @@
               <td> <input type="checkbox" name="students[]" class="check-box" value=<%= student.id %>> </td>
               <td> <%= student.name %> </td>
               <td> <%= student.grade %> </td>
+              <td> <%= student.pathway %> </td>
               <td> <%= student.school %> </td>
             </tr>
           </tbody>

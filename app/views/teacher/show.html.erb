@@ -1,8 +1,14 @@
+<%# form_for(current_user) do |f|%>
+  <%= label :pathway, "Teacher's Pathway:" %>
+  <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
+  <%= submit_tag "Change teacher's default pathway" %>
+<%# end %>
+
 <div class="menu-wrapper">
   <div class="pull-left col-4">
     <%= link_to "Create an event", new_event_path, class: "btn btn-primary" %>
-<!--     link_to "Review Data", new_event_path, class: "btn btn-primary" -->
   </div>
+  <br>
 </div>
 <% if @upcoming_events.length > 0 %>
 <br>

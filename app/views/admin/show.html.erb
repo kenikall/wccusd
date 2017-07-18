@@ -1,2 +1,7 @@
-<h1>Admin#show</h1>
-<p>Find me in app/views/admin/show.html.erb</p>
+<%= form_tag(users_path, multipart: true, class: 'form-inline pull-left', role: 'form') do %>
+  <div class="form-group">
+    <%= label_tag "csv_student_file", "Select batch file" %>
+    <%= file_field_tag "csv_student_file", class: "form-control" %>
+  </div>
+  <%= button_tag "upload batch file", class: "btn btn-primary" %>
+<% end %>

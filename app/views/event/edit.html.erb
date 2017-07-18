@@ -6,14 +6,14 @@
       <%= select_tag :teacher_id, options_for_select(@teachers) %>
       <br>
       <%= label :school, "School:"  %>
-      <%= select_tag :school, options_for_select(@schools) %>
+      <%= select_tag :school, options_for_select(@schools, @event.school) %>
       <br>
 
       <%= label :provider_id, "Provider:" %>
       <%= select_tag :provider_id, options_for_select(@providers) %>
       <br>
       <%= label :pathway, "Pathway:" %>
-      <%= select_tag :pathway, options_for_select(@pathways)%>
+      <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
       <br>
       <%= label :activity, "Activity:" %>
       <%= select_tag :activity, options_for_select(@activities) %>

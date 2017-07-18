@@ -29,11 +29,11 @@ class EventController < ApplicationController
     @grades += [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["All","All"]]
     @grades = @grades.uniq
 
-    @schools = [current_user.school]
+    @schools = schools
     @teachers = [[current_user.name, current_user.id]]
     @providers = [[current_user.school, Provider.where( name: current_user.school ).ids[0]]]
     @activities = define_activities
-    @pathways = define_pathways
+    @pathways = pathways()
 
     Provider.all.each do |provider|
       @providers << [provider.name, provider.id]
@@ -41,9 +41,8 @@ class EventController < ApplicationController
     @providers = @providers.uniq
 
     User.all.each do |user|
-        @schools << user.school if user.school
         @teachers << [user.name, user.id] if user.is_teacher?
-        if user.school == current_user.school && user.grade == current_user.grade
+        if user.school == current_user.school && user.pathway == current_user.pathway
           @students << user if user.is_student?
         end
     end
@@ -95,11 +94,10 @@ class EventController < ApplicationController
     @grades += [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["All","All"]]
     @grades = @grades.uniq
 
-    @schools = [@event.school]
     @teachers = [[User.find(@event.teacher_id).name, @event.teacher_id]]
     @providers = [[@event.school, @event.provider_id]]
     @activities = define_activities
-    @pathways = define_pathways
+    @pathways = pathways()
 
     Provider.all.each do |provider|
       @providers << [provider.name, provider.id]
@@ -107,14 +105,13 @@ class EventController < ApplicationController
     @providers = @providers.uniq
 
     User.all.each do |user|
-        @schools << user.school if user.school
         @teachers << [user.name, user.id] if user.is_teacher?
         if user.school == @event.school && user.grade == @event.grade
           @students << user if user.is_student?
         end
     end
     @teachers = @teachers.uniq
-    @schools = @schools.uniq
+    @schools = schools()
     @current_students = []
     surveys = Survey.where(event_id: @event.id)
     surveys.each do |survey|

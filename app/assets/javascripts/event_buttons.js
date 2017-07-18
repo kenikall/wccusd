@@ -13,12 +13,17 @@ document.addEventListener("turbolinks:load", function( event ){
   })
   $("#select_by_grade").change(function(event){
     makeAddButton();
-    participantRequest($("#select_by_grade").val(), $("#select_by_school").val())
+    participantRequest($("#select_by_grade").val(), $("#select_by_pathway").val(), $("#select_by_school").val())
+  })
+
+  $("#select_by_pathway").change(function(event){
+    makeAddButton();
+    participantRequest($("#select_by_grade").val(), $("#select_by_pathway").val(), $("#select_by_school").val())
   })
 
   $("#select_by_school").change(function(event){
     makeAddButton();
-    participantRequest($("#select_by_grade").val(), $("#select_by_school").val())
+    participantRequest($("#select_by_grade").val(), $("#select_by_pathway").val(), $("#select_by_school").val())
   })
 })
 
@@ -31,6 +36,7 @@ var makeAddButton = function(){
 var addButtonMessage = function(){
     var message = "add all ";
     message += ($("#select_by_grade").val() === "All") ? "students" : $("#select_by_grade").val() +" graders";
+    message += ($("#select_by_pathway").val() === "All") ? "" : " in the " + $("#select_by_pathway").val() +" path";
     message += ($("#select_by_school").val() === "All") ? "" : " from " + $("#select_by_school").val();
     $("#add-visible").text(message);
 }

@@ -4,7 +4,7 @@ class StudentUploadService
 
   def process_file(uploaded_file)
     CSV.foreach(uploaded_file, headers: false) do |row|
-      email = row[1].downcase.tr!(" ", "_")+"_"+row[0].downcase.tr!(" ", "_")
+      email = row[1].downcase!.tr!(" ", "_")+"_"+row[0].downcase!.tr!(" ", "_")
 
       User.create(email: email,
                 password: row[2],
@@ -14,7 +14,7 @@ class StudentUploadService
                 grade: row[5],
                 gender: row[6],
                 ethnicity: process_ethnicity(row[7]),
-                pahway: row[11]).add_role(:student)
+                pathway: row[11]).add_role(:student)
     end
   end
 
