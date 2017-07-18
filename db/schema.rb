@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706012750) do
+ActiveRecord::Schema.define(version: 20170718002015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 20170706012750) do
   create_table "surveys", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.boolean  "complete",            default: false
     t.string   "question1"
     t.string   "question2"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20170706012750) do
     t.boolean  "self_management",     default: false
     t.boolean  "assess_learning",     default: false
     t.boolean  "develop_plan",        default: false
+    t.string   "teacher_question3"
     t.index ["event_id"], name: "index_surveys_on_event_id", using: :btree
     t.index ["user_id"], name: "index_surveys_on_user_id", using: :btree
   end
@@ -108,6 +109,10 @@ ActiveRecord::Schema.define(version: 20170706012750) do
     t.integer  "grade"
     t.text     "password_hint"
     t.string   "access_level"
+    t.integer  "student_number"
+    t.string   "gender"
+    t.string   "ethnicity"
+    t.string   "pathway"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
