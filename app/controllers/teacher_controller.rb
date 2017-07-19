@@ -2,12 +2,9 @@
 
 class TeacherController < ApplicationController
   def show
-    redirect_to student_path(current_user) if current_user.is_student?
-    if current_user.is_teacher?
-      @events = Event.where(teacher_id: current_user.id)
-    else
-      @events = Event.all
-    end
+    redirect_to student_path(current_user) if !current_user.is_teacher?
+
+    @events = Event.where(teacher_id: current_user.id)
     @pathways = pathways()
     @upcoming_events = []
     @past_events = []

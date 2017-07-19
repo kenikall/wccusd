@@ -3,7 +3,7 @@ require 'ostruct'
 class StudentUploadService
 
   def process_file(uploaded_file)
-    CSV.foreach(uploaded_file, headers: false) do |row|
+    CSV.foreach(uploaded_file, headers: true) do |row|
       email = row[1].downcase!.tr!(" ", "_")+"_"+row[0].downcase!.tr!(" ", "_")
 
       User.create(email: email,

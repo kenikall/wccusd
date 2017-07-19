@@ -1,7 +1,80 @@
-<%= form_tag(users_path, multipart: true, class: 'form-inline pull-left', role: 'form') do %>
+<div class="batch_uplad_students">
+<%# form_tag(users_path, multipart: true, class: 'form-inline pull-left', role: 'form') do %>
   <div class="form-group">
-    <%= label_tag "csv_student_file", "Select batch file" %>
-    <%= file_field_tag "csv_student_file", class: "form-control" %>
+    <%# label_tag "csv_student_file", "Select batch file" %>
+    <%# file_field_tag "csv_student_file", class: "form-control" %>
   </div>
-  <%= button_tag "upload batch file", class: "btn btn-primary" %>
-<% end %>
+  <%# button_tag "upload student batch file", class: "btn btn-primary" %>
+<%# end %>
+  <%= link_to "Add a teacher".html_safe, edit_event_path(3), class: "survey-button btn-xs btn-success text-center" %>
+  <%= link_to "Add students".html_safe, edit_event_path(3), class: "survey-button btn-xs btn-success text-center" %>
+  <%= link_to "Add a provider".html_safe, edit_event_path(3), class: "survey-button btn-xs btn-success text-center" %>
+
+</div>
+
+<div class="menu-wrapper">
+  <% if @upcoming_events.length > 0 %>
+  <br>
+    <h3>Upcoming Events</h3>
+    <table class="table table-striped text-center pre-scrollable">
+      <th>
+        <td><strong>Teacher</strong></td>
+        <td><strong>Pathway</strong></td>
+        <td><strong>Students</strong></td>
+        <td><strong>Activity</strong></td>
+        <td><strong>Provider</strong></td>
+        <td><strong>Location</strong></td>
+        <td><strong>Date</strong></td>
+      </th>
+      <% @upcoming_events.each do |event| %>
+        <% provider = Provider.find(event.provider_id) %>
+        <% teacher = User.find(event.teacher_id) %>
+        <tr>
+          <td>
+            <%= link_to "details".html_safe, edit_event_path(event.id), class: "survey-button btn-xs btn-info text-center" %>
+          </td>
+          <td><%= teacher.name %></td>
+          <td><%= event.pathway %></td>
+          <td><%= Survey.where(event_id: event.id).length-1 %></td>
+          <td><%= event.activity %></td>
+          <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+          <td> <%= event.location %></td>
+          <td><%= event.date.strftime("%A, %B %d") %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+  <% if @past_events.length > 0 %>
+    <h3>Past Events</h3>
+    <table class="table table-striped text-center pre-scrollable">
+      <th>
+        <td><strong>Teacher</strong></td>
+        <td><strong>Pathway</strong></td>
+        <td><strong>Students</strong></td>
+        <td><strong>Activity</strong></td>
+        <td><strong>Provider</strong></td>
+        <td><strong>Location</strong></td>
+        <td><strong>Date</strong></td>
+      </th>
+      <% @past_events.each do |event| %>
+        <% provider = Provider.find(event.provider_id)  %>
+        <% teacher = User.find(event.teacher_id) %>
+        <% survey = Survey.where(user_id: current_user.id, event_id: event.id).first %>
+        <tr>
+          <td>
+            <%= link_to "review data", event_survey_index_path(event.id), class: "teacher-survey-button btn-xs btn-warning text-center" %>
+          </td>
+          <td><%= teacher.name %></td>
+          <td><%= event.pathway %></td>
+          <td><%= Survey.where(event_id: event.id).length-1 %></td>
+          <td><%= event.activity %></td>
+          <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+          <td> <%= event.location %></td>
+          <td><%= event.date.strftime("%A, %B %d") %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+
+

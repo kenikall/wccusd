@@ -20,7 +20,7 @@ pathways = [
       "Performance/Management"
     ]
 csv_text = File.read("/Users/manahkallon/sample_data.csv")
-csv = CSV.parse(csv_text, headers: false)
+csv = CSV.parse(csv_text, headers: true)
 csv.each do |row|
   f_name = row[1].downcase.tr!(" ", "_") ? row[1].downcase.tr!(" ", "_") : row[1]
   l_name = row[0].downcase.tr!(" ", "_") ? row[0].downcase.tr!(" ", "_") : row[0]
@@ -44,6 +44,7 @@ csv.each do |row|
             grade: row[5],
             gender: row[6],
             ethnicity: row[7],
+            student_number: row[2].to_i,
             pathway: row[11]).add_role(:student)
 end
 
