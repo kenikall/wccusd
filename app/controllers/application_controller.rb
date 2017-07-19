@@ -10,41 +10,67 @@ class ApplicationController < ActionController::Base
 
   def schools
     [
-      ["El Cerrito High School"],
-      ["Transition"],
-      ["Hercules High School"],
-      ["De Anza High School"],
-      ["Sylvester Greenwood Academy"],
-      ["Vista High Independent Study"],
-      ["Gateway to College"],
-      ["John F. Kennedy High School"],
-      ["Pinole Valley High School"],
-      ["Middle College High School"],
       ["Archive School"],
-      ["Richmond High School"],
+      ["De Anza High School"],
+      ["El Cerrito High School"],
+      ["Gateway to College"],
+      ["Graduated Students"],
+      ["Hercules High School"],
+      ["John F. Kennedy High School"],
+      ["Middle College High School"],
       ["Non Public Schools"],
       ["North Campus Continuation High"],
-      ["Graduated Students"],
-      ["Secondary Home Teaching"],
+      ["Pinole Valley High School"],
       ["Rich High School"],
+      ["Richmond High School"],
+      ["Secondary Home Teaching"],
+      ["Sylvester Greenwood Academy"],
+      ["Transition"],
+      ["Vista High Independent Study"]
     ]
   end
 
   def pathways
     [
-      ["Legal Professions"],
-      ["Law Enforcement"],
-      ["Public Health"],
       ["Biomed"],
-      ["Patient Care Emergency Medicine"],
       ["Civil & Software Engineering"],
       ["Civil Engineering"],
-      ["Internet Engineering & Web Design"],
-      ["Info Systems Mgmt & Web Design"],
       ["Digital Broadcast Journalism"],
-      ["Production and Stagecraft"],
+      ["Info Systems Mgmt & Web Design"],
+      ["Internet Engineering & Web Design"],
+      ["Law Enforcement"],
+      ["Legal Professions"],
       ["Pacific Choral Academy"],
-      ["Performance/Management"]
+      ["Patient Care Emergency Medicine"],
+      ["Performance/Management"],
+      ["Production and Stagecraft"],
+      ["Public Health"],
+    ]
+  end
+
+  def activities
+    [
+      ["Authentic Pathway Project"],
+      ["Career Video"],
+      ["College & Career Plan"],
+      ["College Visit with Pathway Component"],
+      ["Financial Literacy Activity"],
+      ["Guest Speaker"],
+      ["Industry Certification"],
+      ["Industry Partner Help in Classroom"],
+      ["Industry Partner Review of Project"],
+      ["Industry-related Competition"],
+      ["Internship"],
+      ["Interview a Professional"],
+      ["Mentoring Session"],
+      ["Mock Interviews"],
+      ["Online Career Exploration"],
+      ["Resume Writing"],
+      ["Reverse Job Shadow"],
+      ["Senior Defense of Pathway Outcomes"],
+      ["Student-run Enterprise or Performance"],
+      ["Workplace Experiential Visit"],
+      ["Workplace Tour"],
     ]
   end
 

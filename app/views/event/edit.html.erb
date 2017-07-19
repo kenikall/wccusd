@@ -43,11 +43,11 @@
               <th>Name</th>
               <th>
                 <%= label :select_by_grade, "Select by grade" %>
-                <%= select_tag :select_by_grade, options_for_select(@grades), id: "select_by_grade" %>
+                <%= select_tag :select_by_grade, options_for_select(@grades, "All"), id: "select_by_grade" %>
               </th>
               <th>
                 <%= label :select_by_school, "Select by school" %>
-                <%= select_tag :select_by_school, options_for_select(@schools+["All"], id: "select_by_school") %>
+                <%= select_tag :select_by_school, options_for_select(@schools+["All"], current_user.school), id: "select_by_school" %>
               </th>
             </tr>
           </thead>

@@ -25,14 +25,12 @@ class EventController < ApplicationController
   def new
     redirect_to student_path(current_user) if current_user.is_student?
     @students = []
-    @grades = [["#{current_user.grade}th", current_user.grade ]]
-    @grades += [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["All","All"]]
-    @grades = @grades.uniq
+    @grades = [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["13th", 13],["All","All"]]
 
     @schools = schools
     @teachers = [[current_user.name, current_user.id]]
     @providers = [[current_user.school, Provider.where( name: current_user.school ).ids[0]]]
-    @activities = define_activities
+    @activities = activities()
     @pathways = pathways()
 
     Provider.all.each do |provider|
@@ -51,7 +49,6 @@ class EventController < ApplicationController
   end
 
   def create
-    # render plain: [params.to_yaml, event_params.to_yaml] and return
     @teacher_id = event_params[:teacher_id]
     @event = Event.new(event_params)
     @students = student_params[:students]
@@ -90,13 +87,10 @@ class EventController < ApplicationController
     redirect_to student_path(current_user) if current_user.is_student?
     @event = Event.find(params[:id])
     @students = []
-    @grades = [["#{@event.grade}th", @event.grade ]]
-    @grades += [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["All","All"]]
-    @grades = @grades.uniq
-
+    @grades = [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["13th", 13],["All","All"]]
     @teachers = [[User.find(@event.teacher_id).name, @event.teacher_id]]
     @providers = [[@event.school, @event.provider_id]]
-    @activities = define_activities
+    @activities = activities()
     @pathways = pathways()
 
     Provider.all.each do |provider|
@@ -154,41 +148,5 @@ private
 
   def student_params
     params.permit(students: [])
-  end
-
-  def define_activities
-    [["Career Video"],
-     ["Online Career Exploration"],
-     ["College & Career Plan"],
-     ["Guest Speaker"],
-     ["Interview a Professional"],
-     ["Reverse Job Shadow"],
-     ["Workplace Tour"],
-     ["Workplace Experiential Visit"],
-     ["College Visit with Pathway Component"],
-     ["Industry-related Competition"],
-     ["Resume Writing"],
-     ["Mock Interviews"],
-     ["Mentoring Session"],
-     ["Authentic Pathway Project"],
-     ["Industry Partner Help in Classroom"],
-     ["Industry Partner Review of Project"],
-     ["Financial Literacy Activity"],
-     ["Student-run Enterprise or Performance"],
-     ["Senior Defense of Pathway Outcomes"],
-     ["Industry Certification"],
-     ["Internship"]]
-  end
-
-  def define_pathways
-    [["Advanced Manufacturing"],
-     ["Biosciences"],
-     ["Engineering"],
-     ["Health"],
-     ["IT"],
-     ["Law"],
-     ["Multimedia"],
-     ["Performing Arts (Choral)"],
-     ["Performing Arts (Production/Stagecraft)"]]
   end
 end

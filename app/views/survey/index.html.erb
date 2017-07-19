@@ -74,5 +74,5 @@
     </tbody>
   </table>
 <% else %>
-  <%= link_to "take this survey".html_safe, edit_survey_path(Survey.where(user_id: current_user.id, event_id: event.id).ids), class: "survey-button btn-xs btn-warning text-center" %>
+  <%= link_to "take this survey".html_safe, edit_survey_path(Survey.where(user_id: current_user.id, event_id: @event.id).ids), class: "survey-button btn-xs btn-warning text-center" %>
 <% end %>
