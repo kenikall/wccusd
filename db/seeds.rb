@@ -28,6 +28,28 @@ User.create(email: "steves@urbanstrategies.org",     password: "change_password_
             first_name: "Steve",
             last_name: "Spiker").add_role(:admin)
 
+User.create(email: "do'shea@wccusd.org",     password: "change_password_immediately",
+            first_name: "Dan",
+            last_name: "O'Shea").add_role(:teacher)
+
+User.create(email: "sfabun@wccusd.org",     password: "change_password_immediately",
+            first_name: "Sean",
+            last_name: "Fabun",
+            school: "Pinole Valley High School",
+            pathway: pathways.sample).add_role(:teacher)
+
+User.create(email: "do'shea@wccusd.org",     password: "change_password_immediately",
+            first_name: "Dan",
+            last_name: "O'Shea",
+            school: "De Anza High School",
+            pathway: pathways.sample).add_role(:teacher)
+
+User.create(email: "mkadri@wccusd.net",     password: "change_password_immediately",
+            first_name: "Mary",
+            last_name: "Kardi",
+            school: "De Anza High School",
+            pathway: pathways.sample).add_role(:teacher)
+
 # csv_text = File.read("/Users/manahkallon/sample_data.csv")
 # csv = CSV.parse(csv_text, headers: true)
 # csv.each do |row|
