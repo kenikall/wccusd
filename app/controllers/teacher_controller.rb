@@ -35,7 +35,7 @@ class TeacherController < ApplicationController
 
   def create
     @teacher = User.new(teacher_params)
-    @teacher.password = "change_immediately"
+    @teacher.password = "change_password_immediately"
     @teacher.add_role(:teacher)
     respond_to do |format|
       if @teacher.save

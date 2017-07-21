@@ -25,8 +25,8 @@ User.create(email: "kenikall@gmail.com",     password: "change_immediately",
             last_name: "Kallon").add_role(:admin)
 
 User.create(email: "steves@urbanstrategies.org",     password: "change_immediately",
-            first_name: "Ida",
-            last_name: "Admin").add_role(:admin)
+            first_name: "Steve",
+            last_name: "Spiker").add_role(:admin)
 
 # csv_text = File.read("/Users/manahkallon/sample_data.csv")
 # csv = CSV.parse(csv_text, headers: true)
