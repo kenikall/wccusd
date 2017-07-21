@@ -20,11 +20,11 @@ pathways = [
       "Performance/Management"
     ]
 
-User.create(email: "kenikall@gmail.com",     password: "change_immediately",
+User.create(email: "kenikall@gmail.com",     password: "change_password_immediately",
             first_name: "Mannah",
             last_name: "Kallon").add_role(:admin)
 
-User.create(email: "steves@urbanstrategies.org",     password: "change_immediately",
+User.create(email: "steves@urbanstrategies.org",     password: "change_password_immediately",
             first_name: "Steve",
             last_name: "Spiker").add_role(:admin)
 
