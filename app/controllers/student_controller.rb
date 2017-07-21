@@ -23,6 +23,17 @@ class StudentController < ApplicationController
   end
 
   def create
+    if file_params[:csv_student_file].blank?
+      redirect_to :back, alert: "Please select a file to upload"
+      return
+    end
 
+    flash[:notice]  = "#{StudentUploadService.new.process_file(file_params[:csv_student_file])} students added to the roster"
+    redirect_to admin_path(current_user.id)
+  end
+
+private
+  def file_params
+    params.permit(:csv_student_file)
   end
 end

@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update] # probably want to keep using this
+  before_action :set_user, only: [:show, :edit, :update]
 
   # GET /users
   # GET /users.json
@@ -19,18 +19,6 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
 
-  end
-
-  def new_teacher
-  end
-
-  def create_teacher
-  end
-
-  def new_student
-  end
-
-  def new_student_batch
   end
   # # PATCH/PUT /users/1
   # # PATCH/PUT /users/1.json

@@ -3,19 +3,26 @@ require 'ostruct'
 class StudentUploadService
 
   def process_file(uploaded_file)
-    CSV.foreach(uploaded_file, headers: true) do |row|
-      email = row[1].downcase!.tr!(" ", "_")+"_"+row[0].downcase!.tr!(" ", "_")
+    count = 0
+    CSV.foreach(uploaded_file.path, headers: true) do |row|
+      if row[0] && row[1]
+        email = row[1].downcase.tr(" ", "_")+"_"+row[0].downcase.tr(" ", "_")+"@email.com"
+        puts email
 
-      User.create(email: email,
-                password: row[2],
-                first_name: row[0],
-                last_name: row[1],
-                school: row[4],
-                grade: row[5],
-                gender: row[6],
-                ethnicity: process_ethnicity(row[7]),
-                pathway: row[11]).add_role(:student)
+        student = User.new(email: email,
+                           password: row[2],
+                           first_name: row[0],
+                           last_name: row[1],
+                           school: row[4],
+                           grade: row[5],
+                           gender: row[6],
+                           ethnicity: process_ethnicity(row[7]),
+                           pathway: row[11])
+        student.add_role(:student)
+        count +=1 if student.save
+      end
     end
+    count
   end
 
   def process_ethnicity(code)
