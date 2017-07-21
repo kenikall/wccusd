@@ -50,10 +50,4 @@ class StudentUploadService
         "undefined"
     end
   end
-
-  def process_batch_build(ids)
-    clearancing_status = create_clearancing_status
-    ids.each{ |id| clearancing_status.item_ids_to_clearance << id }
-    clearance_items!(clearancing_status)
-  end
 end

@@ -14,4 +14,8 @@ class StudentController < ApplicationController
       @complete_surveys << survey.event
     end
   end
+
+  def create
+
+  end
 end

@@ -8,8 +8,9 @@ Rails.application.routes.draw do
     put 'users' => 'devise/registrations#update', as: 'user_registration'
   end
 
+  resources :provider, only: [:new, :create]
   resources :home, only: [:index]
-  resources :teacher, only: [:show, :update]
+  resources :teacher, only: [:new, :create, :show, :update]
   resources :admin, only: [:show]
   resources :event do
     resources :survey#, only: [:index]

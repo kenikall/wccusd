@@ -1,0 +1,32 @@
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, class: "alert alert-info" %>
+<% end %>
+<%= form_tag "/teacher", remote: true, method: "post" do %>
+  <div class="pull-left col-4">
+    <%= label :first_name, "First Name:"  %>
+          <%= text_field_tag :first_name, nil, size: 50 %>
+    <br>
+    <%= label :last_name, "Last Name:"  %>
+          <%= text_field_tag :last_name, nil, size: 50 %>
+    <br>
+    <%= label :email, "email:"  %>
+          <%= text_field_tag :email, nil, size: 50, required: true %>
+    <br>
+    <%= label :school, "School:"  %>
+      <%= select_tag :school, options_for_select(@schools, current_user.school) %>
+    <br>
+    <%= label :pathway, "Pathway:" %>
+      <%= select_tag :pathway, options_for_select(@pathways)%>
+    <br>
+    <%= radio_button_tag :grade, "9" %>
+    <%= label :grade_9, "9th grade"%> &emsp;
+    <%= radio_button_tag :grade, "10" %>
+    <%= label :grade_10, "10th grade" %> &emsp;
+    <%= radio_button_tag :grade, "11" %>
+    <%= label :grade_11, "11th grade" %> &emsp;
+    <%= radio_button_tag :grade, "12" %>
+    <%= label :grade_12, "12th grade" %>
+    <br>
+    <%= submit_tag "Create teacher" %>
+  </div>
+<% end %>

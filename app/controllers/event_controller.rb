@@ -27,7 +27,7 @@ class EventController < ApplicationController
     @students = []
     @grades = [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["13th", 13],["All","All"]]
 
-    @schools = schools
+    @schools = schools()
     @teachers = [[current_user.name, current_user.id]]
     @providers = [[current_user.school, Provider.where( name: current_user.school ).ids[0]]]
     @activities = activities()
@@ -50,15 +50,9 @@ class EventController < ApplicationController
 
   def create
     @students = student_params[:students]
-    puts "#"*50
-    puts @students.length
-    puts "#"*50
     if @sudents && @students.length == 0
-      puts "@students is nil"
       flash[:notice] = "You must add students to create an event."
       redirect_to new_event_path and return
-    else
-      flash[:notice] = "Event successfully created."
     end
     @teacher_id = event_params[:teacher_id]
     @event = Event.new(event_params)
