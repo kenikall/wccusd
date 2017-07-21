@@ -49,9 +49,19 @@ class EventController < ApplicationController
   end
 
   def create
+    @students = student_params[:students]
+    puts "#"*50
+    puts @students.length
+    puts "#"*50
+    if @sudents && @students.length == 0
+      puts "@students is nil"
+      flash[:notice] = "You must add students to create an event."
+      redirect_to new_event_path and return
+    else
+      flash[:notice] = "Event successfully created."
+    end
     @teacher_id = event_params[:teacher_id]
     @event = Event.new(event_params)
-    @students = student_params[:students]
 
     @students.each do |student|
       student = User.find(student)

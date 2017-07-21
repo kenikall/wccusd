@@ -1,10 +1,7 @@
-<h1>Create Event</h1>
-<% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, class: "alert alert-info" %>
-<% end %>
-<div id="event-creation-form">
-  <div class="event-data">
-    <%= form_tag "/event", remote: true, method: "post" do %>
+<h1>New teacher</h1>
+<div id="teacher-creation-form">
+  <div class="teacher-data">
+    <%= form_tag "/create_teacher", method: "post" do %>
       <%= label :teacher_name, "Teacher Name:" %>
       <%= select_tag :teacher_id, options_for_select(@teachers) %>
       <br>

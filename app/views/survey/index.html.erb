@@ -40,7 +40,6 @@
   <table>
     <tbody>
       <th> Teacher Survey Results </th>
-
       <tr>
         <td> <%= @teacher_survey.teacher_questions[0] %> </td>
         <td> <%= @teacher_survey.question1 ? "Yes" : "No" %></td>
@@ -74,5 +73,5 @@
     </tbody>
   </table>
 <% else %>
-  <%= link_to "take this survey".html_safe, edit_survey_path(Survey.where(user_id: current_user.id, event_id: @event.id).ids), class: "survey-button btn-xs btn-warning text-center" %>
+  <p>Awaiting teacher survey response.</p>
 <% end %>

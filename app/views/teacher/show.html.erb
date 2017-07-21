@@ -1,8 +1,14 @@
-<%# form_for(current_user) do |f|%>
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, class: "alert alert-info" %>
+<% end %>
+
+<%= link_to "Change your password", edit_user_registration_path %>
+<br>
+<%= form_tag "/teacher/#{current_user.id}", method: "patch" do %>
   <%= label :pathway, "Teacher's Pathway:" %>
   <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
   <%= submit_tag "Change teacher's default pathway" %>
-<%# end %>
+<% end %>
 
 <div class="menu-wrapper">
   <div class="pull-left col-4">

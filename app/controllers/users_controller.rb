@@ -21,6 +21,17 @@ class UsersController < ApplicationController
 
   end
 
+  def new_teacher
+  end
+
+  def create_teacher
+  end
+
+  def new_student
+  end
+
+  def new_student_batch
+  end
   # # PATCH/PUT /users/1
   # # PATCH/PUT /users/1.json
   def update

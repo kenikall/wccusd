@@ -29,12 +29,9 @@ csv.each do |row|
 
 
   while User.find_by(email: email)
-    puts "looping"
     email = f_name+i+"_"+l_name+"@email.com"
     i += 1
   end
-
-  puts email
 
   User.create!(email: f_name+"_"+l_name+"@email.com",
             password: row[2],
