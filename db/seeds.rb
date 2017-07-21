@@ -28,17 +28,17 @@ User.create(email: "steves@urbanstrategies.org",     password: "change_password_
             first_name: "Steve",
             last_name: "Spiker").add_role(:admin)
 
-User.create(email: "do'shea@wccusd.org",     password: "change_password_immediately",
+User.create(email: "do'shea@wccusd.net",     password: "change_password_immediately",
             first_name: "Dan",
             last_name: "O'Shea").add_role(:teacher)
 
-User.create(email: "sfabun@wccusd.org",     password: "change_password_immediately",
+User.create(email: "sfabun@wccusd.net",     password: "change_password_immediately",
             first_name: "Sean",
             last_name: "Fabun",
             school: "Pinole Valley High School",
             pathway: pathways.sample).add_role(:teacher)
 
-User.create(email: "do'shea@wccusd.org",     password: "change_password_immediately",
+User.create(email: "do'shea@wccusd.net",     password: "change_password_immediately",
             first_name: "Dan",
             last_name: "O'Shea",
             school: "De Anza High School",
@@ -168,7 +168,7 @@ User.create(email: "mkadri@wccusd.net",     password: "change_password_immediate
 #                 location: google.location
 #                 )
 # end
-
+309509
 # User.all.each do |user|
 #     Event.all.each do |event|
 #         if event.grade == user.grade
