@@ -19,31 +19,31 @@ pathways = [
       "Pacific Choral Academy",
       "Performance/Management"
     ]
-csv_text = File.read("/Users/manahkallon/sample_data.csv")
-csv = CSV.parse(csv_text, headers: true)
-csv.each do |row|
-  f_name = row[1].downcase.tr!(" ", "_") ? row[1].downcase.tr!(" ", "_") : row[1]
-  l_name = row[0].downcase.tr!(" ", "_") ? row[0].downcase.tr!(" ", "_") : row[0]
-  email = f_name+"_"+l_name+"@email.com"
-  i = 1
+# csv_text = File.read("/Users/manahkallon/sample_data.csv")
+# csv = CSV.parse(csv_text, headers: true)
+# csv.each do |row|
+#   f_name = row[1].downcase.tr!(" ", "_") ? row[1].downcase.tr!(" ", "_") : row[1]
+#   l_name = row[0].downcase.tr!(" ", "_") ? row[0].downcase.tr!(" ", "_") : row[0]
+#   email = f_name+"_"+l_name+"@email.com"
+#   i = 1
 
 
-  while User.find_by(email: email)
-    email = f_name+i+"_"+l_name+"@email.com"
-    i += 1
-  end
+#   while User.find_by(email: email)
+#     email = f_name+i+"_"+l_name+"@email.com"
+#     i += 1
+#   end
 
-  User.create!(email: f_name+"_"+l_name+"@email.com",
-            password: row[2],
-            first_name: row[0],
-            last_name: row[1],
-            school: row[4],
-            grade: row[5],
-            gender: row[6],
-            ethnicity: row[7],
-            student_number: row[2].to_i,
-            pathway: row[11]).add_role(:student)
-end
+#   User.create!(email: f_name+"_"+l_name+"@email.com",
+#             password: row[2],
+#             first_name: row[0],
+#             last_name: row[1],
+#             school: row[4],
+#             grade: row[5],
+#             gender: row[6],
+#             ethnicity: row[7],
+#             student_number: row[2].to_i,
+#             pathway: row[11]).add_role(:student)
+# end
 
 fr_teach = User.create(email: "teacher1@example.com",   password: "123password!",
             first_name: "9th grade teacher",
