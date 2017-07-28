@@ -14,4 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require event_buttons
+//= require participants
+//= require student_select
 //= require_tree .
