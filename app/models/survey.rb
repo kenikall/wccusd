@@ -4,12 +4,12 @@ class Survey < ApplicationRecord
 
   def activate_survey
     event = Event.find(event_id)
-    event.start_time.change({ year: event.date.year, month: event.date.month, day: event.date.day, hour: 6 })
+    event.date.change({ year: event.date.year, month: event.date.month, day: event.date.day, hour: 6 })
   end
 
   def deactivate_survey
     event = Event.find(event_id)
-    event.start_time.change({ year: event.date.year, month: event.date.month, day: event.date.day, hour: 18 })
+    event.date.change({ year: event.date.year, month: event.date.month, day: event.date.day, hour: 18 })
   end
 
   def teacher
