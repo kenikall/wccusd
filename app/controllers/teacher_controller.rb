@@ -4,6 +4,15 @@ class TeacherController < ApplicationController
   def show
     redirect_to student_path(current_user) if !current_user.is_teacher?
 
+    if student_params[:student_id]
+      @student = User.find_by(student_number: student_params[:student_id])
+      if @student
+        flash.clear
+      else
+        flash[:notice] = "Student number #{student_params[:student_id]} not found."
+      end
+    end
+
     @events = Event.where(teacher_id: current_user.id)
     @pathways = pathways()
     @upcoming_events = []
@@ -65,4 +74,7 @@ private
 
   end
 
+  def student_params
+    params.permit(:student_id)
+  end
 end

@@ -9,6 +9,36 @@
   <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
   <%= submit_tag "Change teacher's default pathway" %>
 <% end %>
+<%= form_tag teacher_path(current_user), method: "get" do %>
+  <%= label :student_id, "Student Lookup:"  %>
+    <%= text_field_tag :student_id, nil, placeholder: "student id#"%>
+    <%= submit_tag "Find Student", class: "btn btn-warning"%>
+<% end %>
+<br>
+<div class="student-lookup-return">
+  <% if @student %>
+    <table class="table build-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Grade</th>
+          <th>Pathway</th>
+          <th>School</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @student.name %></td>
+          <td><%= @student.email %></td>
+          <td><%= @student.grade %></td>
+          <td><%= @student.pathway %></td>
+          <td><%= @student.school %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>
 
 <div class="menu-wrapper">
   <div class="pull-left col-4">

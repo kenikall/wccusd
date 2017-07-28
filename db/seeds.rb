@@ -1,7 +1,7 @@
 require 'csv'
 Survey.destroy_all
 Provider.destroy_all
-# Event.destroy_all
+Event.destroy_all
 
 # pathways = [
 #       "Legal Professions",
