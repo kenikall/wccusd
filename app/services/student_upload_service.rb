@@ -6,7 +6,7 @@ class StudentUploadService
     count = 0
     CSV.foreach(uploaded_file.path, headers: true) do |row|
       if row[0] && row[1]
-        email = row[1].downcase.tr(" ", "_")+"_"+row[0].downcase.tr(" ", "_")+"@email.com"
+        email = row[0].downcase.tr(" ", "_")+"_"+row[1].downcase.tr(" ", "_")+"@email.com"
         puts email
 
         student = User.new(email: email,
@@ -16,6 +16,7 @@ class StudentUploadService
                            school: row[4],
                            grade: row[5],
                            gender: row[6],
+                           student_number: row[2],
                            ethnicity: process_ethnicity(row[7]),
                            pathway: row[11])
         student.add_role(:student)
