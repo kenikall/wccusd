@@ -29,14 +29,9 @@ class EventController < ApplicationController
 
     @schools = schools()
     @teachers = [[current_user.name, current_user.id]]
-    @providers = [[current_user.school, Provider.where( name: current_user.school ).ids[0]]]
+    @partners = partners()
     @activities = activities()
     @pathways = pathways()
-
-    Provider.all.each do |provider|
-      @providers << [provider.name, provider.id]
-    end
-    @providers = @providers.uniq
 
     User.all.each do |user|
         @teachers << [user.name, user.id] if user.is_teacher?
@@ -93,14 +88,9 @@ class EventController < ApplicationController
     @students = []
     @grades = [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["13th", 13],["All","All"]]
     @teachers = [[User.find(@event.teacher_id).name, @event.teacher_id]]
-    @providers = [[@event.school, @event.provider_id]]
+    @partners = partners()
     @activities = activities()
     @pathways = pathways()
-
-    Provider.all.each do |provider|
-      @providers << [provider.name, provider.id]
-    end
-    @providers = @providers.uniq
 
     User.all.each do |user|
         @teachers << [user.name, user.id] if user.is_teacher?

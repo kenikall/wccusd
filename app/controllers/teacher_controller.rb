@@ -57,6 +57,12 @@ class TeacherController < ApplicationController
     end
   end
 
+  def edit
+    @teacher = current_user
+    @pathways = pathways()
+    @schools = schools()
+  end
+
 private
   def pathway_param
     params.permit(:pathway)

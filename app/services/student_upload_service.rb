@@ -6,7 +6,7 @@ class StudentUploadService
     count = 0
     CSV.foreach(uploaded_file.path, headers: true) do |row|
       if row[0] && row[1]
-        email = row[0].downcase.tr(" ", "_")+"_"+row[1].downcase.tr(" ", "_")+"@email.com"
+        email = row[0].downcase.tr(" ", ".")+"."+row[1].downcase.tr(" ", ".")+"@email.com"
         puts email
 
         student = User.new(email: email,

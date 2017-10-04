@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Wccusd</title>
+<head>
+    <title>WCCUSD Work Based Learning App</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload" %>
@@ -24,26 +24,45 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-  </head>
+</head>
 
-  <body>
+<body>
     <% if user_signed_in? %>
-        <%= link_to("Logout", destroy_user_session_path, :method => :delete, class: "back-button btn-warning") %>
-        <% if current_user.is_student? %>
-            <%= link_to "Home", student_path(current_user), class: "survey-back-button btn-info" %>
-        <% elsif current_user.is_teacher? %>
-            <%= link_to "Home", teacher_path(current_user), class: "survey-back-button btn-info" %>
-        <% elsif current_user.is_admin? %>
-            <%= link_to "Home", admin_path(current_user), class: "survey-back-button btn-info" %>
-        <% end %>
-        <h3>Welcome <%= current_user.name %></h3>
+    <%= link_to("Logout", destroy_user_session_path, :method => :delete) %>
+    |
+    <% if current_user.is_student? %>
+        <%= link_to "Home", student_path(current_user) %>
+    <% elsif current_user.is_teacher? %>
+        <%= link_to "Home", teacher_path(current_user) %>
+    <% elsif current_user.is_admin? %>
+        <%= link_to "Home", admin_path(current_user) %>
+    <% end %>
+    <h3>WCCUSD Work Based Learning App</h3>
     <% end %>
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-      	  <%= yield %>
+            <%= yield %>
+            <% if current_user %>
+                <div class="footer pull-right">
+                    <% if current_user.is_student? %>
+                        <%= link_to "Home", student_path(current_user) %>
+                    <% elsif current_user.is_teacher? %>
+                        <%= link_to "Home", teacher_path(current_user) %>
+                    <% elsif current_user.is_admin? %>
+                        <%= link_to "Home", admin_path(current_user) %>
+                    <% end %>
+                    |
+                    <%= link_to("Logout", destroy_user_session_path, :method => :delete) %>
+                    <% if !current_user.is_student? %>
+                        |
+                        <%= link_to "Your Account", current_user.is_teacher? ?edit_teacher_path(current_user) : edit_admin_path(current_user) %>
+                    <% end %>
+                </div>
+            <% end %>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</div>
+</body>
 </html>

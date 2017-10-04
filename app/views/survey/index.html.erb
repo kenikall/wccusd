@@ -1,77 +1,64 @@
+<h2>Student survey completion statistics <br>
+<div class="small"><%= "#{@event.pathway} #{@event.activity}, #{ @event.date.strftime('%A, %B %d')}" %></div class="small">
+  </h2>
 <table>
   <thead>
-    <th> <%= @event.pathway  %></th>
-    <th> <%= @event.activity  %></th>
-    <th> <%= @event.school  %></th>
-    <th> <%= @event.grade  %></th>
-    <th> <%= @provider.name  %></th>
+    <tr>
+      <th class="text-left col-md-12">
+        <h4>Student Question</h4>
+      </th>
+      <th class="text-center col-md-2">
+        <h4>yes<br>responses</h4>
+      </th>
+      <th class="text-center col-md-2">
+        <h4>no<br>responses</h4>
+      </th>
+    </tr>
   </thead>
-</table>
-<table>
   <tbody>
-    <th> Student Survey Results </th>
-    <tr>
-      <td> Complete Surveys: </td>
-      <% complete = @results[:complete] %>
-      <td> <%= "#{ complete } / #{ @results[:total]}" %></td>
+    <tr class="text-left">
+      <td class="col-md-12">
+        <h5><%= @student_questions[0] %></h5>
+      </td>
+      <td class="text-center col-md-2">
+        <h5><%= @survey_data[:quest1_agg] %></h5>
+      </td>
+      <td class="text-center col-md-2">
+        <h5><%= @survey_data[:complete] - @survey_data[:quest1_agg] %></h5>
+      </td>
     </tr>
-    <tr>
-      <td> <%= @student_questions[0] %> </td>
-      <td> <%= "#{ @results[:quest1_agg] } / #{ complete } " %></td>
+    <tr class="text-left">
+      <td class="col-md-12">
+        <h5><%= @student_questions[1] %></h5>
+      </td>
+      <td class="text-center col-md-2">
+        <h5><%= @survey_data[:quest2_agg] %></h5>
+      </td>
+      <td class="text-center col-md-2">
+        <h5><%= @survey_data[:complete] - @survey_data[:quest2_agg] %></h5>
+      </td>
     </tr>
-    <tr>
-      <td> <%= @student_questions[1] %> </td>
-      <td> <%= "#{ @results[:quest2_agg] } / #{ complete } " %></td>
+    <tr class="text-left">
+      <td class="col-md-12">
+        <h5><%= @student_questions[2] %></h5>
+      </td>
+      <td class="text-center col-md-2">
+        <h5><%= @survey_data[:quest3_agg] %></h5>
+      </td>
+      <td class="text-center col-md-2">
+        <h5><%= @survey_data[:complete] - @survey_data[:quest3_agg] %></h5>
+      </td>
     </tr>
-        <tr>
-      <td> <%= @student_questions[2] %> </td>
-      <td> <%= "#{ @results[:quest3_agg] } / #{ complete } " %></td>
-    </tr>
-        <tr>
-      <td> <%= @student_questions[3] %> </td>
-      <td> <%= "#{ @results[:quest4_agg] } / #{ complete } " %></td>
+    <tr class="text-left">
+      <td class="col-md-12">
+        <h5><%= @student_questions[3] %></h5>
+      </td>
+      <td class="text-center col-md-2">
+        <h5><%= @survey_data[:quest4_agg] %></h5>
+      </td>
+      <td class="text-center col-md-2">
+        <h5><%= @survey_data[:complete] - @survey_data[:quest4_agg] %></h5>
+      </td>
     </tr>
   </tbody>
-  <% @results[:quest5_ary].each do |comment| %>
-    <%= "#{ comment[0] }: #{ comment[1] }" %>
-  <% end %>
 </table>
-<% if @teacher_survey.complete %>
-  <table>
-    <tbody>
-      <th> Teacher Survey Results </th>
-      <tr>
-        <td> <%= @teacher_survey.teacher_questions[0] %> </td>
-        <td> <%= @teacher_survey.question1 ? "Yes" : "No" %></td>
-      </tr>
-      <tr>
-        <td> <%= @teacher_survey.teacher_questions[1] %> </td>
-        </td>
-      </tr>
-      <tr>
-        <%= @teacher_survey.teacher_questions[1] %>
-      </tr>
-      <tr>
-        <ul>
-          <% @teacher_survey.learning_outcomes.each do |outcome| %>
-            <li> <%= outcome %> </li>
-          <% end %>
-        </ul>
-      </tr>
-      <tr>
-        <td> <%= @teacher_survey.teacher_questions[2] %> </td>
-        <td> <%= @teacher_survey.teacher_question3 %></td>
-      </tr>
-      <tr>
-        <td><%= @teacher_survey.teacher_questions[4] %></td>
-        <td>
-        <% if @teacher_survey.teacher_questions[4] %>
-          <%= @teacher_survey.teacher_questions[4].first %>
-        <% end %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-<% else %>
-  <p>Awaiting teacher survey response.</p>
-<% end %>

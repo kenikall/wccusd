@@ -19,7 +19,7 @@ class ProviderController < ApplicationController
       puts user_dashboard_path_name
       puts '@'*50
       if @provider.save
-        format.html { redirect_to user_dashboard_path_name, notice: "#{@provider.name} was successfully created." }
+        format.html { redirect_to user_dashboard_path_name, notice: "#{@provider.organization} was successfully created." }
         format.json { render :show, status: :created, location: @provider }
       else
         format.html { render :new }

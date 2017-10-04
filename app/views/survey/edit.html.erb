@@ -1,3 +1,4 @@
+<h2><%= "Teacher survey for #{@event.pathway} #{@event.activity}" %> </h2>
 <%= form_for(@survey) do |f|%>
   <% if current_user.is_student? %>
     <%= f.label :question1, @survey.student_questions[0]%><br>

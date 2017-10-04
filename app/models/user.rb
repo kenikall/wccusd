@@ -17,8 +17,8 @@ class User < ApplicationRecord
 
   private
   def make_school_provider
-    if !Provider.exists?( name: school ) && school
-      Provider.create( name: school,
+    if !Provider.exists?( organization: school ) && school
+      Provider.create( organization: school,
                        location: school,
                        url: "N/A"
                       )

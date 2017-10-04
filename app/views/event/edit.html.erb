@@ -2,15 +2,22 @@
 <div id="event-creation-form">
   <div class="event-data col-md-6">
     <%= form_for(@event) do |f|%>
-      <%= label :teacher_name, "Teacher Name:" %>
-      <%= select_tag :teacher_id, options_for_select(@teachers) %>
+      <% if current_user.is_teacher? %>
+        <%= label :teacher_name, "Teacher Name:" %>
+        <%= current_user.name %>
+        <br>
+        <%= label :school, "School:"  %>
+        <%= current_user.school %>
+      <% else %>
+        <%= label :teacher_name, "Teacher Name:" %>
+        <%= select_tag :teacher_id, options_for_select(@teachers) %>
+        <br>
+        <%= label :school, "School:"  %>
+        <%= select_tag :school, options_for_select(@schools, @event.school) %>
+      <% end %>
       <br>
-      <%= label :school, "School:"  %>
-      <%= select_tag :school, options_for_select(@schools, @event.school) %>
-      <br>
-
-      <%= label :provider_id, "Provider:" %>
-      <%= select_tag :provider_id, options_for_select(@providers) %>
+      <%= label :provider_id, "Partner:" %>
+      <%= select_tag :provider_id, options_for_select(@partners) %>
       <br>
       <%= label :pathway, "Pathway:" %>
       <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
@@ -18,9 +25,13 @@
       <%= label :activity, "Activity:" %>
       <%= select_tag :activity, options_for_select(@activities) %>
       <br>
+      <%= label_tag :date, "Date:", class: "create-date" %>
+      <%= date_field_tag :date, Time.now.strftime("%Y-%m-%d") %>
+      <br>
       <%= label :location, "Location:"  %>
       <%= text_field_tag :location, @event.location %>
       <br>
+      <%= label :grade, "Primary Grade Level for this Activity:"  %>
       <%= radio_button_tag :grade, "9", current_user.grade == 9 %>
       <%= label :grade_9, "9th grade"%> &emsp;
       <%= radio_button_tag :grade, "10", current_user.grade == 10 %>

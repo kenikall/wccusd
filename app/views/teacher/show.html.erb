@@ -2,13 +2,12 @@
   <%= content_tag :div, msg, class: "alert alert-info" %>
 <% end %>
 
-<%= link_to "Change your password", edit_user_registration_path %>
-<br>
-<%= form_tag "/teacher/#{current_user.id}", method: "patch" do %>
-  <%= label :pathway, "Teacher's Pathway:" %>
-  <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
-  <%= submit_tag "Change teacher's default pathway" %>
+<% if current_user.sign_in_count < 2 %>
+  <div class="alert alert-danger">
+    <%= link_to "Change your password", edit_user_registration_path %>
+  </div>
 <% end %>
+<br>
 <%= form_tag teacher_path(current_user), method: "get" do %>
   <%= label :student_id, "Student Lookup:"  %>
     <%= text_field_tag :student_id, nil, placeholder: "student id#"%>
@@ -43,7 +42,7 @@
 <div class="menu-wrapper">
   <div class="pull-left col-4">
     <%= link_to "Create an event", new_event_path, class: "btn btn-primary" %>
-    <%= link_to "Add a provider", new_provider_path, class: "btn btn-success text-center" %>
+    <%= link_to "Add a partner", new_provider_path, class: "btn btn-success text-center" %>
   </div>
   <br>
 </div>
@@ -54,7 +53,7 @@
     <th>
       <td><strong>Pathway</strong></td>
       <td><strong>Activity</strong></td>
-      <td><strong>Provider</strong></td>
+      <td><strong>Partner</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
     </th>
@@ -66,7 +65,7 @@
         </td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>
-        <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+        <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
         <td> <%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
       </tr>
@@ -80,7 +79,7 @@
       <td></td>
       <td><strong>Pathway</strong></td>
       <td><strong>Activity</strong></td>
-      <td><strong>Provider</strong></td>
+      <td><strong>Partner</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
     </th>
@@ -88,19 +87,19 @@
       <% provider = Provider.find(event.provider_id)  %>
       <% survey = Survey.where(user_id: current_user.id, event_id: event.id).first %>
       <tr>
-        <td>
+        <td class="col-md-1">
           <% if survey.complete %>
-            <%= link_to "review this<br/>survey".html_safe, edit_survey_path(survey.id), class: "survey-button btn-xs btn-info text-center" %>
+            <%= link_to "edit your evaluation".html_safe, edit_survey_path(survey.id), class: "survey-button btn-block btn-xs btn-info text-center" %>
           <% else %>
-            <%= link_to "take this<br/>survey".html_safe, edit_survey_path(survey.id), class: "survey-button btn-xs btn-danger text-center" %>
+            <%= link_to "submit evaluation".html_safe, edit_survey_path(survey.id), class: "survey-button btn-block btn-xs btn-danger text-center" %>
           <% end %>
         </td>
-        <td>
-          <%= link_to "review data", event_survey_index_path(event.id), class: "teacher-survey-button btn-xs btn-warning text-center" %>
+        <td class="col-md-1">
+          <%= link_to "student evaluations", event_survey_index_path(event.id), class: "teacher-survey-button btn-xs btn-warning text-center btn-block" %>
         </td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>
-        <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+        <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
         <td> <%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
       </tr>

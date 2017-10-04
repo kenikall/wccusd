@@ -8,15 +8,22 @@ class SurveyController < ApplicationController
     @teacher_survey = Survey.where(user_id: @event.teacher_id).first
     surveys = Survey.where(event_id: @event.id)
     @student_questions = surveys[0].student_questions
-    survey_data = process_surveys(surveys)
+    @survey_data = process_surveys(surveys)
+  end
+
+  def new
+    @survey = Survey.new
   end
 
   def show
-    @survey = Survey.new
+    @survey = Survey.find(params[:id])
+    @event = Event.find(@survey[:event_id])
+    @provider = Provider.find(@event.provider_id)
   end
 
   def edit
     @survey = Survey.find(params[:id])
+    @event = Event.find(@survey[:event_id])
   end
 
   def update
@@ -27,6 +34,7 @@ class SurveyController < ApplicationController
       (current_user.is_teacher? && (@survey.question1 || @survey.question2 || @survey.question3 || @survey.question4)))
 
       @survey.complete = true
+      flash[:success] = "Thank you for completing the survey!"
     end
 
     respond_to do |format|
@@ -67,19 +75,20 @@ private
                  quest2_agg: 0,
                  quest3_agg: 0,
                  quest4_agg: 0,
-                 quest5_ary: []
+                 quest5_ary: [],
+                 total: surveys.length
                }
 
     surveys.each do |survey|
       user = User.find(survey.user_id)
       next if !user.is_student?
-      @results[:complete] += 1 if survey.complete
+      survey.complete ? @results[:complete] += 1 : next
       @results[:quest1_agg] += 1 if survey.question1 == "Yes"
       @results[:quest2_agg] += 1 if survey.question1 == "Yes"
       @results[:quest3_agg] += 1 if survey.question1 == "Yes"
       @results[:quest4_agg] += 1 if survey.question1 == "Yes"
       @results[:quest5_ary] << [user.name, survey.question5] if survey.question5
     end
-    @results[:total] = surveys.length
+    @results
   end
 end

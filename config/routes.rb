@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root to: "home#index"
+  root to: "users#show"
 
   devise_for :users, skip: [:registrations]
   as :user do
@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
   resources :provider, only: [:new, :create]
   resources :home, only: [:index]
-  resources :teacher, only: [:new, :create, :show, :update]
-  resources :admin, only: [:show]
+  resources :teacher, only: [:new, :create, :show, :update, :edit]
+  resources :admin, only: [:show, :edit]
   resources :event do
     resources :survey#, only: [:index]
   end

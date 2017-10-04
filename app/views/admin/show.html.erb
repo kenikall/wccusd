@@ -6,7 +6,7 @@
 <div class="creation_buttons">
   <%= link_to "Add a teacher", new_teacher_path, class: "btn btn-success text-center" %>
   <%= link_to "Add students", new_student_path, class: "btn btn-success text-center" %>
-  <%= link_to "Add a provider", new_provider_path, class: "btn btn-success text-center" %>
+  <%= link_to "Add a partner", new_provider_path, class: "btn btn-success text-center" %>
 </div>
 
 <span class="add-students-field hidden">
@@ -30,7 +30,7 @@
         <td><strong>Pathway</strong></td>
         <td><strong>Students</strong></td>
         <td><strong>Activity</strong></td>
-        <td><strong>Provider</strong></td>
+        <td><strong>Partner</strong></td>
         <td><strong>Location</strong></td>
         <td><strong>Date</strong></td>
       </th>
@@ -45,7 +45,7 @@
           <td><%= event.pathway %></td>
           <td><%= Survey.where(event_id: event.id).length-1 %></td>
           <td><%= event.activity %></td>
-          <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+          <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
           <td> <%= event.location %></td>
           <td><%= event.date.strftime("%A, %B %d") %></td>
         </tr>
@@ -60,7 +60,7 @@
         <td><strong>Pathway</strong></td>
         <td><strong>Students</strong></td>
         <td><strong>Activity</strong></td>
-        <td><strong>Provider</strong></td>
+        <td><strong>Partner</strong></td>
         <td><strong>Location</strong></td>
         <td><strong>Date</strong></td>
       </th>
@@ -76,7 +76,7 @@
           <td><%= event.pathway %></td>
           <td><%= Survey.where(event_id: event.id).length-1 %></td>
           <td><%= event.activity %></td>
-          <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+          <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
           <td> <%= event.location %></td>
           <td><%= event.date.strftime("%A, %B %d") %></td>
         </tr>

@@ -4,7 +4,7 @@
     <th>
       <td><strong>Pathway</strong></td>
       <td><strong>Activity</strong></td>
-      <td><strong>Provider</strong></td>
+      <td><strong>Partner</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
     </th>
@@ -16,7 +16,7 @@
         </td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>
-        <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+        <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
         <td> <%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
       </tr>
@@ -29,7 +29,7 @@
     <th>
       <td><strong>Pathway</strong></td>
       <td><strong>Activity</strong></td>
-      <td><strong>Provider</strong></td>
+      <td><strong>Partner</strong></td>
       <td><strong>Location</strong></td>
       <td><strong>Date</strong></td>
     </th>
@@ -39,7 +39,7 @@
         <td></td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>
-        <td><%= link_to_if(provider.url != "N/A", provider.name, provider.url, target: :_blank) %></td>
+        <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
         <td> <%= event.location %></td>
         <td><%= event.date.strftime("%A, %B %d") %></td>
       </tr>

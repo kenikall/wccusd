@@ -113,22 +113,40 @@ User.all.each do |user|
   teachers << user if user.is_teacher?
 end
 
-google = Provider.create(name: "Google",
+google = Provider.create(
+                first_name: "Jon",
+                last_name: "Doe",
+                title: "Engineer",
+                organization: "google",
                 location: "Googleplex",
                 url: "https://careers.google.com/students/",
-                contact: "Jon Doe",
                 phone: "123-567-8910",
                 email: "email@email.com")
-apple = Provider.create(name: "Apple",
-                location: "Apple Infinite Loop",
-                url: "https://www.apple.com/jobs/us/students.html",
-                contact: "Jon Doe",
+apple = Provider.create(
+                first_name: "Plain",
+                last_name: "Jane",
+                title: "Marketing Director",
+                organization: "google",
+                location: "Googleplex",
+                url: "https://careers.google.com/students/",
                 phone: "123-567-8910",
                 email: "email@email.com")
-microsoft = Provider.create(name: "Microsoft",
-                location: "1355 Market St",
-                url: "https://careers.microsoft.com/students/internships",
-                contact: "Jon Doe",
+microsoft = Provider.create(
+                first_name: "Jon",
+                last_name: "Doe",
+                title: "CEO",
+                organization: "google",
+                location: "Googleplex",
+                url: "https://careers.google.com/students/",
+                phone: "123-567-8910",
+                email: "email@email.com")
+microsoft = Provider.create(
+                first_name: "Lucy",
+                last_name: "Tuchi",
+                title: "Community Engagement Manager",
+                organization: "apple",
+                location: "Googleplex",
+                url: "https://careers.google.com/students/",
                 phone: "123-567-8910",
                 email: "email@email.com")
 

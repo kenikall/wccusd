@@ -1,0 +1,33 @@
+<h3>Edit Your Account</h3>
+<%= link_to "Change your password", edit_user_registration_path %>
+<div id="account-update-form">
+  <div class="event-data col-md-6">
+    <%= form_for @teacher, url: teacher_path(current_user), html: { method: :put } do |f|%>
+      <%= label :first_name, "First Name:" %>
+      <%= text_field_tag :first_name, @current_user.first_name %>
+      <br>
+      <%= label :last_name, "Last Name:" %>
+      <%= text_field_tag :last_name, @current_user.last_name %>
+      <br>
+      <% if current_user.is_teacher? %>
+        <%= label :school, "School:"  %>
+        <%= select_tag :school, options_for_select(@schools, current_user.school) %>
+        <br>
+        <%= label :pathway, "Pathway:" %>
+        <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
+        <br>
+        <%= radio_button_tag :grade, "9", current_user.grade == 9 %>
+        <%= label :grade_9, "9th grade"%> &emsp;
+        <%= radio_button_tag :grade, "10", current_user.grade == 10 %>
+        <%= label :grade_10, "10th grade" %> &emsp;
+        <%= radio_button_tag :grade, "11", current_user.grade == 11 %>
+        <%= label :grade_11, "11th grade" %> &emsp;
+        <%= radio_button_tag :grade, "12", current_user.grade == 12 %>
+        <%= label :grade_12, "12th grade" %>
+        <br>
+      <% end %>
+      <%= submit_tag "Update account" %>
+    <% end %>
+  </div>
+</div>
+

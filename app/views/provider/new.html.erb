@@ -1,10 +1,17 @@
+<h1>Create a Partner</h1>
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, class: "alert alert-info" %>
 <% end %>
 <%= form_tag "/provider", remote: true, method: "post" do %>
   <div class="pull-left col-4">
-    <%= label :contact, "Name of contact:"  %>
-          <%= text_field_tag :contact, nil, size: 50, required: true %>
+    <%= label :contact, "Contact's first name:"  %>
+          <%= text_field_tag :first_name, nil, size: 50, required: true %>
+    <br>
+    <%= label :contact, "Contact's last name:"  %>
+      <%= text_field_tag :last_name, nil, size: 50, required: true %>
+    <br>
+    <%= label :contact, "Contact's title:"  %>
+      <%= text_field_tag :title, nil, size: 50 %>
     <br>
     <%= label :name, "Organization Name:"  %>
           <%= text_field_tag :name, nil, size: 50 %>
@@ -13,7 +20,7 @@
           <%= text_field_tag :email, nil, size: 50, required: true %>
     <br>
     <%= label :location, "Location:"  %>
-          <%= text_field_tag :location, current_user.school, size: 50 %>
+          <%= text_field_tag :location, nil, size: 50, placeholder: "optional" %>
     <br>
     <%= label :url, "Organization website:"  %>
           <%= text_field_tag :url, nil, size: 50, placeholder: "optional"%>
@@ -21,6 +28,6 @@
     <%= label :phone, "Phone:"  %>
           <%= text_field_tag :phone, nil, size: 50, placeholder: "optional"%>
     <br>
-    <%= submit_tag "Create provider" %>
+    <%= submit_tag "Create partner" %>
   </div>
 <% end %>

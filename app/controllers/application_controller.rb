@@ -74,6 +74,12 @@ class ApplicationController < ActionController::Base
     ]
   end
 
+  def partners
+    Provider.all.map do |partner|
+      ["#{partner.first_name} #{partner.last_name} #{partner.title} at #{partner.organization}", partner.id]
+    end
+  end
+
   def user_dashboard_path_name(user = current_user)
     if user.is_student?
        student_path(user)
