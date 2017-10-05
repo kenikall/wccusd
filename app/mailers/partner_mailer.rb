@@ -7,7 +7,5 @@ class PartnerMailer < ApplicationMailer
     @teacher = User.find(@event.teacher_id)
 
     mail(to: @partner.email, subject: "#{@event.activity} with #{@event.school}")
-
   end
 end
-`
