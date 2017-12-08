@@ -1,8 +1,6 @@
-# frozen_string_literal: true
-
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update] # probably want to keep using this
 
   # GET /users
   # GET /users.json
@@ -20,6 +18,7 @@ class UsersController < ApplicationController
   def edit
 
   end
+
   # # PATCH/PUT /users/1
   # # PATCH/PUT /users/1.json
   def update

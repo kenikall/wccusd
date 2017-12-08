@@ -1,9 +1,4 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-/*
- *= require_tree .
- *= require_self
- *= require_calendar
- *= require_event
- */
 
+@import "event.scss"

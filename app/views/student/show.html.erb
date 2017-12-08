@@ -1,12 +1,12 @@
 <% if @upcoming_events.length > 0 %>
   <h3>Upcoming Events</h3>
-  <table class="table table-striped text-center">
+  <table>
     <th>
-      <td><strong>Pathway</strong></td>
-      <td><strong>Activity</strong></td>
-      <td><strong>Partner</strong></td>
-      <td><strong>Location</strong></td>
-      <td><strong>Date</strong></td>
+      <td>Pathway</td>
+      <td>Activity</td>
+      <td>Provider</td>
+      <td>Date</td>
+      <td>Time</td>
     </th>
     <% @upcoming_events.each do |event| %>
       <% provider = Provider.find(event.provider_id) %>
@@ -14,62 +14,56 @@
         <td></td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>
-        <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
-        <td> <%= event.location %></td>
-        <td><%= event.date.strftime("%A, %B %d") %></td>
+        <td><%= link_to provider.name, provider.url, target: :_blank %></td>
+        <td><%= event.date %></td>
+        <td><%= event.start_time %> - <%= event.end_time %></td>
       </tr>
     <% end %>
   </table>
 <% end %>
 <% if @incomplete_surveys.length > 0 %>
   <h3>Incomplete Surveys</h3>
-  <table class="table table-striped text-center">
+  <table>
     <th>
-      <td><strong>Pathway</strong></td>
-      <td><strong>Activity</strong></td>
-      <td><strong>Partner</strong></td>
-      <td><strong>Location</strong></td>
-      <td><strong>Date</strong></td>
+      <td>Pathway</td>
+      <td>Activity</td>
+      <td>Provider</td>
+      <td>Date</td>
+      <td>Time</td>
     </th>
     <% @incomplete_surveys.each do |event| %>
-      <% provider = Provider.find(event.provider_id)  %>
+      <% provider = Provider.find(event.provider_id) %>
       <tr>
         <td>
-          <%= link_to "take this<br />survey".html_safe, edit_survey_path(Survey.where(user_id: current_user.id, event_id: event.id).ids), class: "survey-button btn-xs btn-warning text-center" %>
+          <%= link_to "take this survey", survey_path(Survey.where(user_id: current_user.id, event_id: event.id)), class: "survey-button btn-xs btn-warning" %>
         </td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>
-        <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
-        <td><%= event.location %></td>
-        <td><%= event.date.strftime("%A, %B %d") %></td>
+        <td><%= link_to provider.name, provider.url, target: :_blank %></td>
+        <td><%= event.date %></td>
+        <td><%= event.start_time %> - <%= event.end_time %></td>
       </tr>
     <% end %>
   </table>
 <% end %>
 <% if @complete_surveys.length > 0 %>
   <h3>Completed Surveys</h3>
-  <table class="table table-striped text-center">
+  <table>
     <th>
-      <td><strong>Pathway</strong></td>
-      <td><strong>Activity</strong></td>
-      <td><strong>Partner</strong></td>
-      <td><strong>Location</strong></td>
-      <td><strong>Date</strong></td>
+      <td>Pathway</td>
+      <td>Activity</td>
+      <td>Provider</td>
+      <td>Date</td>
+      <td>Time</td>
     </th>
     <% @complete_surveys.each do |event| %>
       <% provider = Provider.find(event.provider_id) %>
-      <% survey = Survey.where(user_id: current_user.id, event_id: event.id).first %>
       <tr class="complete_surveys">
-        <td>
-          <% if survey.complete %>
-            <%= link_to "review this<br/>survey".html_safe, survey_path(survey.id), class: "survey-button btn-xs btn-info text-center" %>
-          <% end %>
-        </td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>
-        <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
-        <td> <%= event.location %></td>
-        <td><%= event.date.strftime("%A, %B %d") %></td>
+        <td><%= link_to provider.name, provider.url, target: :_blank %></td>
+        <td><%= event.date %></td>
+        <td><%= event.start_time %> - <%= event.end_time %></td>
       </tr>
     <% end %>
   </table>
