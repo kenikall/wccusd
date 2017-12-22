@@ -16,7 +16,7 @@ class StudentUploadService
             new_email += email+email_counter.to_s
           end
           new_email = 0
-          email+="@email.com"
+          email+="@wccusd.org"
           student = User.new(email: email,
                              password: row[2],
                              first_name: row[1],
