@@ -6,36 +6,52 @@
 # database schema. If you need to create the application database on another
 # system, you should be using db:schema:load, not running all the migrations
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you"ll amass, the slower it"ll run and the greater likelihood for issues).
+# you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It"s strongly recommended that you check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170506215655) do
+ActiveRecord::Schema.define(version: 20171003205434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "events", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "school"
     t.string   "pathway"
-    t.string   "course"
+    t.string   "activity"
     t.integer  "grade"
-    t.integer  "ninth_graders"
-    t.integer  "tenth_graders"
-    t.integer  "eleventh_graders"
-    t.integer  "twelfth_graders"
+    t.integer  "ninth_graders",    default: 0
+    t.integer  "tenth_graders",    default: 0
+    t.integer  "eleventh_graders", default: 0
+    t.integer  "twelfth_graders",  default: 0
     t.datetime "date"
-    t.integer  "duration"
     t.datetime "start_time"
     t.integer  "teacher_id"
+    t.datetime "end_time"
+    t.integer  "provider_id"
+    t.string   "location"
+    t.index ["provider_id"], name: "index_events_on_provider_id", using: :btree
     t.index ["teacher_id"], name: "index_events_on_teacher_id", using: :btree
+  end
+
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "user_id",  null: false
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string   "location"
+    t.string   "url",          default: "N/A"
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "title"
+    t.string   "organization"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -48,23 +64,32 @@ ActiveRecord::Schema.define(version: 20170506215655) do
     t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
-  create_table "students", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "surveys", force: :cascade do |t|
-    t.integer  "student_id"
+    t.integer  "user_id"
     t.integer  "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "complete",            default: false
+    t.string   "question1"
+    t.string   "question2"
+    t.string   "question3"
+    t.string   "question4"
+    t.text     "question5"
+    t.boolean  "career_awareness",    default: false
+    t.boolean  "workplace_protocols", default: false
+    t.boolean  "field_interest",      default: false
+    t.boolean  "career_skills",       default: false
+    t.boolean  "gain_confidence",     default: false
+    t.boolean  "project",             default: false
+    t.boolean  "creative_thinking",   default: false
+    t.boolean  "teamwork_skills",     default: false
+    t.boolean  "take_feedback",       default: false
+    t.boolean  "self_management",     default: false
+    t.boolean  "assess_learning",     default: false
+    t.boolean  "develop_plan",        default: false
+    t.string   "teacher_question3"
     t.index ["event_id"], name: "index_surveys_on_event_id", using: :btree
-    t.index ["student_id"], name: "index_surveys_on_student_id", using: :btree
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_surveys_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -86,8 +111,14 @@ ActiveRecord::Schema.define(version: 20170506215655) do
     t.integer  "grade"
     t.text     "password_hint"
     t.string   "access_level"
+    t.integer  "student_number"
+    t.string   "gender"
+    t.string   "ethnicity"
+    t.string   "pathway"
+    t.string   "username"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
@@ -114,5 +145,5 @@ ActiveRecord::Schema.define(version: 20170506215655) do
   end
 
   add_foreign_key "surveys", "events"
-  add_foreign_key "surveys", "students"
+  add_foreign_key "surveys", "users"
 end

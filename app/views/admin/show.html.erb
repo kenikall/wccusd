@@ -1,7 +1,9 @@
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, class: "alert alert-info" %>
 <% end %>
-<%= link_to "Change your password", edit_user_registration_path %>
+<div class="user_message">
+  <%= link_to "Change your password", edit_user_registration_path %>
+</div>
 <br>
 <div class="creation_buttons">
   <%= link_to "Add a teacher", new_teacher_path, class: "btn btn-success text-center" %>

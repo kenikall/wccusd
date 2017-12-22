@@ -18,8 +18,27 @@ div {
         font-size: 1.2em; /* 1.2x default size */
         }
     }
-@media all and (max-width: 500px) { /* screen size until 500px */
+@media all and (min-width: 300px) { /* screen size until 500px */
     div {
-        font-size: 0.8em; /* 0.8x default size */
-        }
+        font-size: 1.5em; /* 0.8x default size */
+      }
+    input{
+       width: 500px;
+      }
+    option{
+      max-height: 0.8em;
+      min-height: 0.4em;
+      font-size: 1em;
     }
+    .btn {
+        width: 200px;
+        font-size: 0.5em;
+      }
+    .user_message {
+      font-size: 1.2em;
+    }
+    .header {
+      font-size: 3em;
+    }
+
+  }

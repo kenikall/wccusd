@@ -9,9 +9,31 @@ class StudentController < ApplicationController
     Survey.all.each do |survey|
       next unless survey.user_id == current_user.id
 
-      @upcoming_events << survey.event
-      @incomplete_surveys << survey.event
-      @complete_surveys << survey.event
+      if survey.complete
+        @complete_surveys << survey.event
+      elsif survey.activate_survey > DateTime.now
+        @upcoming_events << survey.event
+      else
+        @incomplete_surveys << survey.event
+      end
+     @upcoming_events.sort_by{|event| event.date} if @pcoming_events
+     @complete_events.sort_by{|event| event.date} if @complete_events
+     @incomplete_events.sort_by{|event| event.date} if @incomplete_events
     end
+  end
+
+  def create
+    if file_params[:csv_student_file].blank?
+      redirect_to :back, alert: "Please select a file to upload"
+      return
+    end
+
+    flash[:notice]  = "#{StudentUploadService.new.process_file(file_params[:csv_student_file])} students added to the roster"
+    redirect_to admin_path(current_user.id)
+  end
+
+private
+  def file_params
+    params.permit(:csv_student_file)
   end
 end
