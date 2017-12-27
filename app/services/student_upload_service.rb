@@ -1,38 +1,73 @@
 require 'csv'
 require 'ostruct'
 class StudentUploadService
+  attr_reader :unsaved_students
 
   def process_file(uploaded_file)
-    count = 0
-    email_counter = 0
+    @count = 0
+    @unsaved_students = []
     CSV.foreach(uploaded_file.path, headers: true) do |row|
-      if User.exists?(student_number: row[2])
+      potential_student = {
+        first_name: row[0],
+        last_name: row[1],
+        email: process_email(row[0], row[1]),
+        student_number: row[2],
+        school: row[4],
+        grade: row[5],
+        gender: row[6],
+        ethnicity: process_ethnicity(row[7]),
+        pathway: row[8]
+      }
+      save_student(potential_student)
+    end
+    @count
+  end
+
+  def save_student(potential_student)
+    if potential_student[:student_number].blank?
+      failed_save(potential_student, "Missing student number")
+    elsif User.exists?(student_number: potential_student[:student_number])
+      failed_save(potential_student, "Student with this number already exists")
+    else
+      student = User.new(email: potential_student[:email],
+                         password: potential_student[:student_number],
+                         first_name: potential_student[:first_name],
+                         last_name: potential_student[:last_name],
+                         school: potential_student[:school],
+                         grade: potential_student[:grade],
+                         gender: potential_student[:gender],
+                         student_number: potential_student[:student_number],
+                         ethnicity: potential_student[:ethnicity],
+                         pathway: potential_student[:pathway]
+                        )
+      if student.save
+        student.add_role(:student)
+        @count += 1
       else
-        if row[0] && row[1]
-          email = row[1].downcase.tr(" ", ".")+"."+row[0].downcase.tr(" ", ".")
-          new_email = email
-          while User.exists?(email: "#{new_email}@email.com")
-            email_counter +=1
-            new_email += email+email_counter.to_s
-          end
-          new_email = 0
-          email+="@wccusd.org"
-          student = User.new(email: email,
-                             password: row[2],
-                             first_name: row[1],
-                             last_name: row[0],
-                             school: row[4],
-                             grade: row[5],
-                             gender: row[6],
-                             student_number: row[2],
-                             ethnicity: process_ethnicity(row[7]),
-                             pathway: row[8])
-          student.add_role(:student)
-          count +=1 if student.save
-        end
+        failed_save(student)
       end
     end
-    count
+  end
+
+  def process_email(first_name, last_name)
+    local_part = first_name.downcase.tr(" ", ".")+"."+last_name.downcase.tr(" ", ".")
+    count = 1
+    if User.exists?(email: "#{local_part}@wccusd.org")
+      while User.exists?(email: "#{local_part + count.to_s}@wccusd.org")
+        count += 1
+      end
+    end
+
+    count > 0 ? "#{local_part + count.to_s}@wccusd.org" : "#{local_part}@wccusd.org"
+  end
+
+  def failed_save(student, reason="???")
+    @unsaved_students << {
+      id: student[:student_number],
+      first_name: student[:first_name],
+      last_name: student[:last_name],
+      reason: reason
+    }
   end
 
   def process_ethnicity(code)

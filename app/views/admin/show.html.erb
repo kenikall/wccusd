@@ -4,6 +4,28 @@
 <div class="user_message">
   <%= link_to "Change your password", edit_user_registration_path %>
 </div>
+
+<% if session[:unsaved_students] && !session[:unsaved_students].empty? %>
+  <h3>Unsaved Entries</h3>
+  <table class="table table-striped text-center pre-scrollable">
+    <tbody>
+    <tr>
+      <th>Student ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Reason</th>
+    </tr>
+    <% session[:unsaved_students].each do |student| %>
+      <tr>
+        <td><%= student[:id] %></td>
+        <td><%= student[:first_name] %></td>
+        <td><%= student[:last_name] %></td>
+        <td><%= student[:reason] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
 <br>
 <div class="creation_buttons">
   <%= link_to "Add a teacher", new_teacher_path, class: "btn btn-success text-center" %>

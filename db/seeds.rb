@@ -96,13 +96,13 @@ teach = User.create(email: "teacher@example.com",   password: "123password!",
             grade: 11)
 teach.add_role(:teacher)
 
-# ex = User.create(email: "ex@example.com",   password: "123password!",
-#             first_name: "12th grade teacher",
-#             last_name: "@Vista High School",
-#             school: "Vista High School",
-#             pathway: "health",
-#             grade: 12)
-# ex.add_role(:admin)
+ex = User.create(email: "admin@example.com",   password: "123password!",
+            first_name: "admin",
+            last_name: "@Vista High School",
+            school: "Vista High School",
+            pathway: "health",
+            grade: 12)
+ex.add_role(:admin)
 
 #teachers = [fr_teach, so_teach, jr_teach, sr_teach]
 
@@ -181,10 +181,10 @@ microsoft = Provider.create(
                 )
 # end
 
-# User.all.each do |user|
-#   next if user.is_admin?
-#   Event.all.each do |event|
-#     Survey.create(user_id: user.id, event_id: event.id)
-#   end
-# end
+User.all.each do |user|
+  next if user.is_admin?
+  Event.all.each do |event|
+    Survey.create(user_id: user.id, event_id: event.id)
+  end
+end
 

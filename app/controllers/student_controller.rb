@@ -27,8 +27,11 @@ class StudentController < ApplicationController
       redirect_to :back, alert: "Please select a file to upload"
       return
     end
+    student_upload = StudentUploadService.new
+    flash[:notice]  = "#{student_upload.process_file(file_params[:csv_student_file])} students added to the roster"
 
-    flash[:notice]  = "#{StudentUploadService.new.process_file(file_params[:csv_student_file])} students added to the roster"
+    session[:unsaved_students] = student_upload.unsaved_students
+
     redirect_to admin_path(current_user.id)
   end
 
