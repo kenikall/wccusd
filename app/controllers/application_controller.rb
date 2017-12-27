@@ -80,6 +80,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def teachers(current_teacher)
+    teachers = [[current_teacher.name, current_teacher.id]]
+    User.all.each do |user|
+        teachers << [user.name, user.id] if user.is_teacher?
+    end
+    teachers.uniq
+  end
+
+  def students(current_teacher)
+    current_students = []
+    User.all.each do |user|
+      if user.school == current_teacher.school && user.pathway == current_teacher.pathway
+        current_students << user if user.is_student?
+      end
+    end
+    current_students
+  end
+
   def user_dashboard_path_name(user = current_user)
     if user.is_student?
        student_path(user)

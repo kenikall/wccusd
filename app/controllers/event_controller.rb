@@ -24,23 +24,16 @@ class EventController < ApplicationController
 
   def new
     redirect_to student_path(current_user) if current_user.is_student?
-    @students = []
     @grades = [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["13th", 13],["All","All"]]
 
     @schools = schools()
-    @teachers = [[current_user.name, current_user.id]]
     @partners = partners()
     @activities = activities()
     @pathways = pathways()
+    @students = students(current_user)
+    @teachers = teachers(current_user)
 
-    User.all.each do |user|
-        @teachers << [user.name, user.id] if user.is_teacher?
-        if user.school == current_user.school && user.pathway == current_user.pathway
-          @students << user if user.is_student?
-        end
-    end
-    @teachers = @teachers.uniq
-    @schools = @schools.uniq
+    @event = Event.new
   end
 
   def create

@@ -88,21 +88,21 @@ m.add_role(:admin)
 #             grade: 10)
 # so_teach.add_role(:teacher)
 
-# jr_teach = User.create(email: "teacher3@example.com",   password: "123password!",
-#             first_name: "11th grade teacher",
-#             last_name: "@Hercules High School",
-#             school: "Hercules High School",
-#             pathway: pathways.sample,
-#             grade: 11)
-# jr_teach.add_role(:teacher)
+teach = User.create(email: "teacher@example.com",   password: "123password!",
+            first_name: "11th grade teacher",
+            last_name: "@Hercules High School",
+            school: "Hercules High School",
+            pathway: 'health',
+            grade: 11)
+teach.add_role(:teacher)
 
-ex = User.create(email: "ex@example.com",   password: "123password!",
-            first_name: "12th grade teacher",
-            last_name: "@Vista High School",
-            school: "Vista High School",
-            pathway: "health",
-            grade: 12)
-ex.add_role(:admin)
+# ex = User.create(email: "ex@example.com",   password: "123password!",
+#             first_name: "12th grade teacher",
+#             last_name: "@Vista High School",
+#             school: "Vista High School",
+#             pathway: "health",
+#             grade: 12)
+# ex.add_role(:admin)
 
 #teachers = [fr_teach, so_teach, jr_teach, sr_teach]
 
@@ -114,71 +114,71 @@ ex.add_role(:admin)
 #   teachers << user if user.is_teacher?
 # end
 
-# google = Provider.create(
-#                 first_name: "Jon",
-#                 last_name: "Doe",
-#                 title: "Engineer",
-#                 organization: "google",
-#                 location: "Googleplex",
-#                 url: "https://careers.google.com/students/",
-#                 phone: "123-567-8910",
-#                 email: "email@email.com")
-# apple = Provider.create(
-#                 first_name: "Plain",
-#                 last_name: "Jane",
-#                 title: "Marketing Director",
-#                 organization: "google",
-#                 location: "Googleplex",
-#                 url: "https://careers.google.com/students/",
-#                 phone: "123-567-8910",
-#                 email: "email@email.com")
-# microsoft = Provider.create(
-#                 first_name: "Jon",
-#                 last_name: "Doe",
-#                 title: "CEO",
-#                 organization: "google",
-#                 location: "Googleplex",
-#                 url: "https://careers.google.com/students/",
-#                 phone: "123-567-8910",
-#                 email: "email@email.com")
-# microsoft = Provider.create(
-#                 first_name: "Lucy",
-#                 last_name: "Tuchi",
-#                 title: "Community Engagement Manager",
-#                 organization: "apple",
-#                 location: "Googleplex",
-#                 url: "https://careers.google.com/students/",
-#                 phone: "123-567-8910",
-#                 email: "email@email.com")
+google = Provider.create(
+                first_name: "Jon",
+                last_name: "Doe",
+                title: "Engineer",
+                organization: "google",
+                location: "Googleplex",
+                url: "https://careers.google.com/students/",
+                phone: "123-567-8910",
+                email: "email@email.com")
+apple = Provider.create(
+                first_name: "Plain",
+                last_name: "Jane",
+                title: "Marketing Director",
+                organization: "google",
+                location: "Googleplex",
+                url: "https://careers.google.com/students/",
+                phone: "123-567-8910",
+                email: "email@email.com")
+microsoft = Provider.create(
+                first_name: "Jon",
+                last_name: "Doe",
+                title: "CEO",
+                organization: "google",
+                location: "Googleplex",
+                url: "https://careers.google.com/students/",
+                phone: "123-567-8910",
+                email: "email@email.com")
+microsoft = Provider.create(
+                first_name: "Lucy",
+                last_name: "Tuchi",
+                title: "Community Engagement Manager",
+                organization: "apple",
+                location: "Googleplex",
+                url: "https://careers.google.com/students/",
+                phone: "123-567-8910",
+                email: "email@email.com")
 
 # teachers.each do |teacher|
-#   Event.create( school: teacher.school,
-#                 pathway: "Multimedia",
-#                 activity: "Workplace Tour",
-#                 grade: teacher.grade,
-#                 date: Time.now,
-#                 teacher_id: teacher.id,
-#                 provider_id: apple.id,
-#                 location: apple.location
-#                 )
-#   Event.create( school: teacher.school,
-#                 pathway: "Engineering",
-#                 activity: "Mock Interviews",
-#                 grade: teacher.grade,
-#                 date: Time.now+2.days,
-#                 teacher_id: teacher.id,
-#                 provider_id: microsoft.id,
-#                 location: microsoft.location
-#                 )
-#   Event.create( school: teacher.school,
-#                 pathway: "IT",
-#                 activity: "Internship",
-#                 grade: teacher.grade,
-#                 date: Time.now-2.days,
-#                 teacher_id: teacher.id,
-#                 provider_id: google.id,
-#                 location: google.location
-#                 )
+  Event.create( school: teach.school,
+                pathway: "Health",
+                activity: "Workplace Tour",
+                grade: teach.grade,
+                date: Time.now,
+                teacher_id: teach.id,
+                provider_id: apple.id,
+                location: apple.location
+                )
+  Event.create( school: teach.school,
+                pathway: "Health",
+                activity: "Mock Interviews",
+                grade: teach.grade,
+                date: Time.now+2.days,
+                teacher_id: teach.id,
+                provider_id: microsoft.id,
+                location: microsoft.location
+                )
+  Event.create( school: teach.school,
+                pathway: "IT",
+                activity: "Health",
+                grade: teach.grade,
+                date: Time.now-2.days,
+                teacher_id: teach.id,
+                provider_id: google.id,
+                location: google.location
+                )
 # end
 
 # User.all.each do |user|
