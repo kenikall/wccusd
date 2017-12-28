@@ -3,21 +3,25 @@
 <% end %>
 <%= form_tag "/teacher", remote: true, method: "post" do %>
   <div class="pull-left col-4">
-    <%= label :first_name, "First Name:"  %>
-          <%= text_field_tag :first_name, nil, size: 50 %>
+    <%= label :first_name, "First Name:", class: 'entry_form' %>
+      <br>
+      <%= text_field_tag :first_name, nil, class: 'text_entry' %>
     <br>
-    <%= label :last_name, "Last Name:"  %>
-          <%= text_field_tag :last_name, nil, size: 50 %>
+    <%= label :last_name, "Last Name:", class: 'entry_form' %>
+      <br>
+      <%= text_field_tag :last_name, nil, class: 'text_entry' %>
     <br>
-    <%= label :email, "email:"  %>
-          <%= text_field_tag :email, nil, size: 50, required: true %>
+    <%= label :email, "email:", class: 'entry_form' %>
+      <br>
+      <%= text_field_tag :email, nil, class: 'text_entry', required: true %>
     <br>
-    <%= label :school, "School:"  %>
-      <%= select_tag :school, options_for_select(@schools, current_user.school) %>
+    <%= label :school, "School:", class: 'entry_form' %>
+      <%= select_tag :school, options_for_select(@schools, current_user.school), class: 'options' %>
     <br>
-    <%= label :pathway, "Pathway:" %>
-      <%= select_tag :pathway, options_for_select(@pathways)%>
+    <%= label :pathway, "Pathway:", class: 'entry_form' %>
+      <%= select_tag :pathway, options_for_select(@pathways), class: 'options'%>
     <br>
-    <%= submit_tag "Create teacher" %>
+    <br>
+    <%= submit_tag "Create teacher", class: 'btn-success' %>
   </div>
 <% end %>

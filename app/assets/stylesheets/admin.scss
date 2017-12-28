@@ -25,3 +25,30 @@ table{
   font-size: 1.25em;
   white-space: nowrap;
 }
+
+.text_entry{
+  width: 80%;
+}
+
+@media (min-width: 200px) and (max-width: 568px) {
+  body{
+    font-size: 20px;
+  }
+  .header{
+    font-size: 15px;
+  }
+  .options{
+    font-size: 20px;
+  }
+  .student-lookup-return{
+    font-size: 15px;
+  }
+  .event-data{
+    width: 100%;
+  }
+  #suggested-students_wrapper{
+    width: 160%;
+    font-size: 12px;
+  }
+}
+
