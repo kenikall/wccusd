@@ -5,51 +5,45 @@
   <%= link_to "Change your password", edit_user_registration_path %>
 </div>
 
-<% if session[:unsaved_students] && !session[:unsaved_students].empty? %>
-  <h3>Unsaved Entries</h3>
-  <table class="table table-striped text-center pre-scrollable">
-    <tbody>
-    <tr>
-      <th>Student ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Reason</th>
-    </tr>
-    <% session[:unsaved_students].each do |student| %>
-      <tr>
-        <td><%= student[:id] %></td>
-        <td><%= student[:first_name] %></td>
-        <td><%= student[:last_name] %></td>
-        <td><%= student[:reason] %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-<% end %>
-<br>
 <div class="creation_buttons">
   <%= link_to "Add a teacher", new_teacher_path, class: "btn btn-success text-center" %>
   <%= link_to "Add students", new_student_path, class: "btn btn-success text-center" %>
   <%= link_to "Add a partner", new_provider_path, class: "btn btn-success text-center" %>
 </div>
 
-<span class="add-students-field hidden">
-  <%# form_tag(users_path, multipart: true, class: 'form-inline pull-left', role: 'form') do %>
-    <p>add students here</p>
-    <div class="form-group">
-      <%# label_tag "csv_student_file", "Select batch file" %>
-      <%# file_field_tag "csv_student_file", class: "form-control" %>
-    </div>
-    <%# button_tag "upload student batch file", class: "btn btn-primary" %>
-  <%# end %>
-</span>
+<% if session[:unsaved_students] && !session[:unsaved_students].empty? %>
+  <h3>Unsaved Entries</h3>
+  <div id="unsaved_container">
+    <table class="table table-striped text-center pre-scrollable" id="unsaved_table">
+      <thead class="table_head">
+        <tr>
+          <td>Student ID</td>
+          <td>First Name</td>
+          <td>Last Name</td>
+          <td>Reason</td>
+        </tr>
+      </thead>
+      <tbody>
+      <% session[:unsaved_students].each do |student| %>
+        <tr>
+          <td><%= student[:id] %></td>
+          <td><%= student[:first_name] %></td>
+          <td><%= student[:last_name] %></td>
+          <td><%= student[:reason] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+<br>
 
-<div class="menu-wrapper">
+<div class="upcoming_events_wrapper">
   <% if @upcoming_events.length > 0 %>
   <br>
     <h3>Upcoming Events</h3>
     <table class="table table-striped text-center pre-scrollable">
-      <th>
+      <tr class=>
         <td><strong>Teacher</strong></td>
         <td><strong>Pathway</strong></td>
         <td><strong>Students</strong></td>
@@ -57,7 +51,7 @@
         <td><strong>Partner</strong></td>
         <td><strong>Location</strong></td>
         <td><strong>Date</strong></td>
-      </th>
+      </tr>
       <% @upcoming_events.each do |event| %>
         <% provider = Provider.find(event.provider_id) %>
         <% teacher = User.find(event.teacher_id) %>
@@ -76,6 +70,8 @@
       <% end %>
     </table>
   <% end %>
+</div>
+<div class="past_events_wrapper">
   <% if @past_events.length > 0 %>
     <h3>Past Events</h3>
     <table class="table table-striped text-center pre-scrollable">

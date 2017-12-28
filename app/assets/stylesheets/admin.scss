@@ -1,3 +1,27 @@
-// Place all the styles related to the admin controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+table{
+  font-size: 1em;
+  .table_head{
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+}
+
+#unsaved_container{
+  height: 300px;
+  overflow-y: auto;
+}
+
+.upcoming_events_wrapper{
+  height: 300px;
+  overflow-y: auto;
+}
+
+.past_events_wrapper{
+  height: 300px;
+  overflow-y: auto;
+}
+
+.btn-xs{
+  font-size: 1.25em;
+  white-space: nowrap;
+}

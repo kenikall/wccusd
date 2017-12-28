@@ -1,0 +1,22 @@
+<table class="table table-striped text-center pre-scrollable">
+  <th>
+    <td><strong>Pathway</strong></td>
+    <td><strong>Activity</strong></td>
+    <td><strong>Partner</strong></td>
+    <td><strong>Location</strong></td>
+    <td><strong>Date</strong></td>
+  </th>
+  <% events.each do |event| %>
+    <% provider = Provider.find(event.provider_id) %>
+    <tr>
+      <td>
+        <%= link_to "edit this event", edit_event_path(event.id), class: "teacher-edit-button btn-xs btn-info text-center" %>
+      </td>
+      <td><%= event.pathway %></td>
+      <td><%= event.activity %></td>
+      <td><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
+      <td> <%= event.location %></td>
+      <td><%= event.date.strftime("%A, %B %d") %></td>
+    </tr>
+  <% end %>
+</table>
