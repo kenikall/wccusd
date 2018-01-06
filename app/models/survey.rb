@@ -68,6 +68,5 @@ class Survey < ApplicationRecord
     outcomes << "Reflect on and assess own learning" if assess_learning
     outcomes << "Develop college & career plan" if develop_plan
 
-    outcomes
   end
 end
