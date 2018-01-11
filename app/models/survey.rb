@@ -67,6 +67,5 @@ class Survey < ApplicationRecord
     outcomes << "Self-management" if self_management
     outcomes << "Reflect on and assess own learning" if assess_learning
     outcomes << "Develop college & career plan" if develop_plan
-
   end
 end

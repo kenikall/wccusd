@@ -1,37 +1,51 @@
 document.addEventListener("turbolinks:load", function( event ){
-  var data = [1,2,3,4,5]
   $(".graph-selector-button").click(function(){
     $(".graph-selector-button").removeClass("active");
     $(this).addClass("active");
-    console.log($(this).text());
-    buildGraph($(this).text(), data);
+    gatherGraphData($.trim($(this).text()));
   })
 })
 
 var buildGraph = function(property, data){
-  console.log(property === "All");
-
-  switch(property) {
-    case "All":
-      $(".student-graph").replaceWith(allGraph(data));
-      break;
-    case "Gender":
-      $(".student-graph").replaceWith(genderGraph(data));
-      break;
-    case "Grade":
-      $(".student-graph").replaceWith(gradeGraph(data));
-      break;
-    case "Pathway":
-      $(".student-graph").replaceWith(pathwayGraph(data));
-  }
+  // if(property === "Gender"){
+  //   $(".student-graph").html(genderGraph(data));
+  // } else if(property === "Grade"){
+  //   $(".student-graph").html(gradeGraph(data));
+  // } else if(property === "Pathway"){
+  //   $(".student-graph").html(pathwayGraph(data));
+  // } else {
+    $(".student-graph").html(allGraph(data));
+  // }
 }
 
 var allGraph = function(data){
-  return "<div class='student-graph'><h1> All </h1></div>"
+  return '<dl><dt>All Responses</dt>' +
+    '<dd class= "percentage percentage-'+data.question1+'">'+
+      '<span class="text">Question 1: '+data.question1+'%</span></dd>' +
+    '<dd class= "percentage percentage-'+data.question2+'">'+
+      '<span class="text">Question 2: '+data.question2+'%</span></dd>' +
+    '<dd class= "percentage percentage-'+data.question3+'">'+
+      '<span class="text">Question 3: '+data.question3+'%</span></dd>' +
+    '<dd class= "percentage percentage-'+data.question4+'">'+
+      '<span class="text">Question 4: '+data.question4+'%</span></dd>' +
+    '</dl>';
 }
 
 var genderGraph = function(data){
-  return "<div class='student-graph'><h1> Gender </h1></div>"
+    return '<dl><dt>Responses Sorted by Gender</dt>' +
+    '<dd class= "male percentage-10">'+
+    '<dd class= "female percentage-40">'+
+      '<span class="text">Question 1</span></dd>' +
+    '<dd class= "male percentage-10">'+
+    '<dd class= "female percentage-40">'+
+      '<span class="text">Question 2</span></dd>' +
+    '<dd class= "male percentage-10">'+
+    '<dd class= "female percentage-40">'+
+      '<span class="text">Question 3</span></dd>' +
+    '<dd class= "male percentage-10">'+
+    '<dd class= "female percentage-40">'+
+      '<span class="text">Question 4</span></dd>' +
+    '</dl></div>';
 }
 var gradeGraph = function(data){
   return "<div class='student-graph'><h1> Grade </h1></div>"
@@ -39,4 +53,21 @@ var gradeGraph = function(data){
 
 var pathwayGraph = function(data){
   return "<div class='student-graph'><h1> Pathway </h1></div>"
+}
+
+var gatherGraphData = function(property){
+  $.ajax({
+    type: "POST",
+    url: "/graph/format/",
+    data: {
+        event_id: window.location.href.match(/event\/(\d+)\/survey/)[1],
+        property: property
+    },
+    success: function(result) {
+      buildGraph(property, result);
+    },
+    error: function(result) {
+      alert('error');
+    }
+  })
 }

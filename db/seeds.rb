@@ -179,12 +179,10 @@ microsoft = Provider.create(
                 provider_id: google.id,
                 location: google.location
                 )
-# end
 
-User.all.each do |user|
-  next if user.is_admin?
-  Event.all.each do |event|
-    Survey.create(user_id: user.id, event_id: event.id)
+  User.all.each do |user|
+    next unless user.is_student?
+    Survey.create(user_id: user.id, complete: true, event_id: 7, question1: %w(yes no).sample, question2: %w(yes no).sample, question3: %w(yes no).sample, question4: %w(yes no).sample)
   end
 end
 

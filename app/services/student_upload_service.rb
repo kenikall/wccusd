@@ -14,7 +14,7 @@ class StudentUploadService
         student_number: row[2],
         school: row[4],
         grade: row[5],
-        gender: row[6],
+        gender: row[6].downcase == "m" ? "male" : "female",
         ethnicity: process_ethnicity(row[7]),
         pathway: row[8]
       }

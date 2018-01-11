@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     put 'users' => 'devise/registrations#update', as: 'user_registration'
   end
 
+  post "graph/format"
+
   resources :provider, only: [:new, :create]
   resources :home, only: [:index]
   resources :teacher, only: [:new, :create, :show, :update, :edit]

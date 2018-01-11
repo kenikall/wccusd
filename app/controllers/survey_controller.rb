@@ -83,11 +83,12 @@ private
       user = User.find(survey.user_id)
       next if !user.is_student?
       survey.complete ? @results[:complete] += 1 : next
-      @results[:quest1_agg] += 1 if survey.question1 == "Yes"
-      @results[:quest2_agg] += 1 if survey.question1 == "Yes"
-      @results[:quest3_agg] += 1 if survey.question1 == "Yes"
-      @results[:quest4_agg] += 1 if survey.question1 == "Yes"
+      @results[:quest1_agg] += 1 if survey.question1.downcase == "yes"
+      @results[:quest2_agg] += 1 if survey.question2.downcase == "yes"
+      @results[:quest3_agg] += 1 if survey.question3.downcase == "yes"
+      @results[:quest4_agg] += 1 if survey.question4.downcase == "yes"
       @results[:quest5_ary] << [user.name, survey.question5] if survey.question5
+
     end
     @results
   end
