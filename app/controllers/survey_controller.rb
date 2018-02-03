@@ -9,6 +9,7 @@ class SurveyController < ApplicationController
     surveys = Survey.where(event_id: @event.id)
     @student_questions = surveys[0].student_questions
     @survey_data = process_surveys(surveys)
+    @data = GraphingService.new.all_graph(surveys)
   end
 
   def new

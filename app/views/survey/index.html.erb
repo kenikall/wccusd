@@ -1,6 +1,25 @@
 <h2>Student survey completion statistics <br>
 <div class="small"><%= "#{@event.pathway} #{@event.activity}, #{ @event.date.strftime('%A, %B %d')}" %></div class="small">
   </h2>
+
+<div id="graph-selector" class="text-center btn-group" data-toggle="buttons">
+  <label class="graph-selector-button btn btn-primary active">
+    <input type="checkbox" checked autocomplete="off" > All
+  </label>
+  <label class="graph-selector-button btn btn-primary">
+    <input type="checkbox" checked autocomplete="off"> Gender
+  </label>
+  <label class="graph-selector-button btn btn-primary">
+    <input type="checkbox" checked autocomplete="off"> Ethnicity
+  </label>
+  <label class="graph-selector-button btn btn-primary">
+    <input type="checkbox" checked autocomplete="off"> Grade
+  </label>
+  <label class="graph-selector-button btn btn-primary">
+    <input type="checkbox" checked autocomplete="off"> Pathway
+  </label>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -63,22 +82,15 @@
   </tbody>
 </table>
 
-<div id="graph-selector" class="btn-group" data-toggle="buttons">
-  <label class="graph-selector-button btn btn-primary active">
-    <input type="checkbox" checked autocomplete="off" > All
-  </label>
-  <label class="graph-selector-button btn btn-primary">
-    <input type="checkbox" checked autocomplete="off"> Gender
-  </label>
-  <label class="graph-selector-button btn btn-primary">
-    <input type="checkbox" checked autocomplete="off"> Ethnicity
-  </label>
-  <label class="graph-selector-button btn btn-primary">
-    <input type="checkbox" checked autocomplete="off"> Grade
-  </label>
-  <label class="graph-selector-button btn btn-primary">
-    <input type="checkbox" checked autocomplete="off"> Pathway
-  </label>
+<div class='student-graph'>
+  <dl><dt class="subtitle"><%= @data[:count].round %> total responses</dt>
+    <dd class= "percentage percentage-<%=@data[:question1]%>">
+      <span class="text">Question 1:</span></dd>
+    <dd class= "percentage percentage-<%=@data[:question2]%>">
+      <span class="text">Question 2:</span></dd>
+    <dd class= "percentage percentage-<%=@data[:question3]%>">
+      <span class="text">Question 3:</span></dd>
+    <dd class= "percentage percentage-<%=@data[:question4]%>">
+      <span class="text">Question 4:</span></dd>
+    </dl>;
 </div>
-
-<div class='student-graph'></div>

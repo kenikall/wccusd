@@ -7,52 +7,38 @@ document.addEventListener("turbolinks:load", function( event ){
 })
 
 var buildGraph = function(property, data){
-  // if(property === "Gender"){
-  //   $(".student-graph").html(genderGraph(data));
-  // } else if(property === "Grade"){
-  //   $(".student-graph").html(gradeGraph(data));
-  // } else if(property === "Pathway"){
-  //   $(".student-graph").html(pathwayGraph(data));
-  // } else {
+  if(property === "Gender"){
+    $(".student-graph").html(graphData(data));
+  } else if(property === "Grade"){
+    $(".student-graph").html(graphData(data));
+  } else if(property === "Ethnicity"){
+    $(".student-graph").html(graphData(data));
+  } else if(property === "Pathway"){
+    $(".student-graph").html(graphData(data));
+  } else {
     $(".student-graph").html(allGraph(data));
-  // }
+  }
 }
 
 var allGraph = function(data){
   return '<dl><dt>All Responses</dt>' +
     '<dd class= "percentage percentage-'+data.question1+'">'+
-      '<span class="text">Question 1: '+data.question1+'%</span></dd>' +
+      '<span class="text">Question 1:</span></dd>' +
     '<dd class= "percentage percentage-'+data.question2+'">'+
-      '<span class="text">Question 2: '+data.question2+'%</span></dd>' +
+      '<span class="text">Question 2:</span></dd>' +
     '<dd class= "percentage percentage-'+data.question3+'">'+
-      '<span class="text">Question 3: '+data.question3+'%</span></dd>' +
+      '<span class="text">Question 3:</span></dd>' +
     '<dd class= "percentage percentage-'+data.question4+'">'+
-      '<span class="text">Question 4: '+data.question4+'%</span></dd>' +
+      '<span class="text">Question 4:</span></dd>' +
     '</dl>';
 }
 
-var genderGraph = function(data){
-    return '<dl><dt>Responses Sorted by Gender</dt>' +
-    '<dd class= "male percentage-10">'+
-    '<dd class= "female percentage-40">'+
-      '<span class="text">Question 1</span></dd>' +
-    '<dd class= "male percentage-10">'+
-    '<dd class= "female percentage-40">'+
-      '<span class="text">Question 2</span></dd>' +
-    '<dd class= "male percentage-10">'+
-    '<dd class= "female percentage-40">'+
-      '<span class="text">Question 3</span></dd>' +
-    '<dd class= "male percentage-10">'+
-    '<dd class= "female percentage-40">'+
-      '<span class="text">Question 4</span></dd>' +
-    '</dl></div>';
-}
-var gradeGraph = function(data){
-  return "<div class='student-graph'><h1> Grade </h1></div>"
-}
-
-var pathwayGraph = function(data){
-  return "<div class='student-graph'><h1> Pathway </h1></div>"
+var graphData = function(data){
+  var graphFormat = ""
+  for ( i = 0 ; i < data.length; i++ ){
+    if (data[i].count > 0) { graphFormat += renderGraph(data[i],  data[i].title); }
+  }
+  return graphFormat + '</div>';
 }
 
 var gatherGraphData = function(property){
@@ -70,4 +56,28 @@ var gatherGraphData = function(property){
       alert('error');
     }
   })
+}
+
+var renderGraph = function(specificData, dataType){
+  return'<dl><dt class="subtitle">'+specificData.count+
+    ' responses from '+titleCase(dataType)+' students</dt>' +
+    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.question1+'">'+
+      '<span class="text">Question 1</span></dd>' +
+    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.question2+'">'+
+      '<span class="text">Question 2</span></dd>' +
+    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.question3+'">'+
+      '<span class="text">Question 3</span></dd>' +
+    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.question4+'">'+
+      '<span class="text">Question 4</span></dd>' +
+    '</dl>';
+}
+
+function titleCase(string)
+{
+  return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
+function convertToClass(string)
+{
+    return string.toLowerCase().replace(/ /g,'-').replace(/\//g,'-');
 }

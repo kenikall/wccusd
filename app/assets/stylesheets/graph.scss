@@ -1,3 +1,8 @@
+#center-div {
+  display: inline-block;
+}
+
+
 dl {
   display: flex;
   background-color: white;
@@ -32,7 +37,7 @@ dt {
   justify-content: flex-end;
 }
 
-.percentage, .male, .female {
+.percentage, .male, .female, .freshman, .sophomore , .junior, .senior, .all,.american-indian-or-alaskan-native, .chinese, .japanese, .korean, .vietnamese, .asian-indian, .laotian, .cambodian, .hmong, .other-asian, .hawaiian, .guamanian, .samoan, .tahitian, .other-pacific-islander, .filipino, .hispanic-latino, .black-or-african-american, .white, .undefined, .it, .welding, .performing-arts, .engineering, .law, .performing-arts-production, .post-senior {
   font-size: .8em;
   line-height: 1;
   text-transform: uppercase;
@@ -48,9 +53,6 @@ dt {
 );
 
   &:after {
-    font-weight:bold;
-    content: "";
-    display: block;
     background-color: #3d9970;
     width: 50px;
     margin-bottom: 10px;
@@ -71,21 +73,150 @@ dt {
 
 
 .male {&:after {
-  content: "male";
-  color: white;
-  height: 60%;
-  background-color: cornflowerblue;}}
+    background-color: cornflowerblue;}
+  }
+
 .female {&:after {
-  content: "female";
-  color: white;
-  height: 60%;
-  background-color: lightcoral;}}
+    background-color: lightcoral;}
+  }
+
+.freshman {&:after {
+    background-color: darkturquoise;}
+  }
+
+.sophomore {&:after {
+    background-color: darkviolet;}
+  }
+
+.junior {&:after {
+    background-color: deeppink;}
+  }
+
+.senior {&:after {
+    background-color: deepskyblue;}
+  }
+
+.american-indian-or-alaskan-native  {&:after {
+    background-color: SpringGreen;}
+  }
+
+.chinese  {&:after {
+    background-color: SteelBlue;}
+  }
+
+.japanese  {&:after {
+    background-color: Tan;}
+  }
+
+.korean  {&:after {
+    background-color: Teal;}
+  }
+
+.vietnamese  {&:after {
+    background-color: Thistle;}
+  }
+
+.asian-indian  {&:after {
+    background-color: Tomato;}
+  }
+
+.laotian  {&:after {
+    background-color: Turquoise;}
+  }
+
+.cambodian  {&:after {
+    background-color: Violet;}
+  }
+
+.hmong  {&:after {
+    background-color: maroon;}
+  }
+
+.other-asian  {&:after {
+    background-color: Sienna;}
+  }
+
+.hawaiian  {&:after {
+    background-color: Silver;}
+  }
+
+.guamanian  {&:after {
+    background-color: SkyBlue;}
+  }
+
+.samoan  {&:after {
+    background-color: SlateBlue;}
+  }
+
+.tahitian  {&:after {
+    background-color: peru;}
+  }
+
+.other-pacific-islander  {&:after {
+    background-color: pink;}
+  }
+
+.filipino  {&:after {
+    background-color: plum;}
+  }
+
+.hispanic-latino  {&:after {
+    background-color: palevioletred;}
+  }
+
+.black-or-african-american  {&:after {
+    background-color: tomato;}
+  }
+
+.white  {&:after {
+    background-color: orangered;}
+  }
+
+.undefined  {&:after {
+    background-color: orchid;}
+  }
+
+.it  {&:after {
+    background-color: steelblue;}
+  }
+
+.welding  {&:after {
+    background-color: olive;}
+  }
+
+.performing-arts  {&:after {
+    background-color: navy;}
+  }
+
+.engineering  {&:after {
+    background-color: mediumorchid;}
+  }
+
+.law  {&:after {
+    background-color: lightsalmon;}
+  }
+
+.performing-arts-production  {&:after {
+    background-color: lightseagreen;}
+  }
+
+.post-senior  {&:after {
+    background-color: lightgrey;}
+  }
+
 
 @for $i from 1 through 100 {
   .percentage-#{$i} {
     &:after {
+      height: 60%;
+      content: $i+"%";
+      color: white;
+      font-weight: bold;
+      line-height: 3;
+      display: block;
       $value: ($i * 1%);
       width: $value;
+      padding-left: 6px;
     }
   }
 }
@@ -94,4 +225,18 @@ html, body {
   height: 500px;
   font-family: "fira-sans-2",sans-serif;
   color: #333;
+}
+
+hr {
+    display: block;
+    margin-top: 0em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+.subtitle {
+    margin-bottom: 0em;
 }

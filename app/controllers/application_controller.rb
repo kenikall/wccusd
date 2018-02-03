@@ -32,19 +32,12 @@ class ApplicationController < ActionController::Base
 
   def pathways
     [
-      ["Biomed"],
-      ["Civil & Software Engineering"],
-      ["Civil Engineering"],
-      ["Digital Broadcast Journalism"],
-      ["Info Systems Mgmt & Web Design"],
-      ["Internet Engineering & Web Design"],
-      ["Law Enforcement"],
-      ["Legal Professions"],
-      ["Pacific Choral Academy"],
-      ["Patient Care Emergency Medicine"],
-      ["Performance/Management"],
-      ["Production and Stagecraft"],
-      ["Public Health"],
+      ["IT"],
+      ["Welding"],
+      ["Performing Arts"],
+      ["Engineering"],
+      ["Law"],
+      ["Performing Arts Production"],
     ]
   end
 
