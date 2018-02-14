@@ -22,13 +22,13 @@ var buildGraph = function(property, data){
 
 var allGraph = function(data){
   return '<dl><dt>All Responses</dt>' +
-    '<dd class= "percentage percentage-'+data.question1+'">'+
+    '<dd class= "percentage percentage-'+data.q1percentage+'">'+
       '<span class="text">Question 1:</span></dd>' +
-    '<dd class= "percentage percentage-'+data.question2+'">'+
+    '<dd class= "percentage percentage-'+data.q2percentage+'">'+
       '<span class="text">Question 2:</span></dd>' +
-    '<dd class= "percentage percentage-'+data.question3+'">'+
+    '<dd class= "percentage percentage-'+data.q3percentage+'">'+
       '<span class="text">Question 3:</span></dd>' +
-    '<dd class= "percentage percentage-'+data.question4+'">'+
+    '<dd class= "percentage percentage-'+data.q4percentage+'">'+
       '<span class="text">Question 4:</span></dd>' +
     '</dl>';
 }
@@ -39,6 +39,26 @@ var graphData = function(data){
     if (data[i].count > 0) { graphFormat += renderGraph(data[i],  data[i].title); }
   }
   return graphFormat + '</div>';
+}
+
+var tableData = function(data){
+  var table = tableHead(data);
+  console.log(tableHead(data));
+  return table;
+}
+
+var tableHead = function(data){
+  var head = "<thead><tr><th class='text-left col-md-8'></th>"
+  for ( i = 0 ; i < data.length; i++ ){
+    head += "<th class='text-center'>"+data[i].count+"<br>"+data[i].title+"</th>";
+  }
+  head += "</tr><tr>"
+  for ( i = 0 ; i < data.length; i++ ){
+    head += "<th class='text-center'><h4>yes / no</h4></th>";
+  }
+  head += "</thead>"
+
+  return head
 }
 
 var gatherGraphData = function(property){
@@ -61,13 +81,13 @@ var gatherGraphData = function(property){
 var renderGraph = function(specificData, dataType){
   return'<dl><dt class="subtitle">'+specificData.count+
     ' responses from '+titleCase(dataType)+' students</dt>' +
-    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.question1+'">'+
+    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.q1percentage+'">'+
       '<span class="text">Question 1</span></dd>' +
-    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.question2+'">'+
+    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.q2percentage+'">'+
       '<span class="text">Question 2</span></dd>' +
-    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.question3+'">'+
+    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.q3percentage+'">'+
       '<span class="text">Question 3</span></dd>' +
-    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.question4+'">'+
+    '<dd class= "'+convertToClass(dataType)+' percentage-'+specificData.q4percentage+'">'+
       '<span class="text">Question 4</span></dd>' +
     '</dl>';
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wccusd</title>
+    <title>Work Based Learning APP - WCCUSD</title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload" %>
@@ -28,9 +28,10 @@
 
   <body>
     <div class="header">
+
         <% if user_signed_in? %>
             <%= link_to("Logout", destroy_user_session_path, :method => :delete) %>
-            <%= link_to("Back", :back) %>
+            <div class="text-center"><%= link_to("Back", :back) %>
         <% else %>
             <%= link_to("Login", new_user_session_path)  %>
         <% end %>

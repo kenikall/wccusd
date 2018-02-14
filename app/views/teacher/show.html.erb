@@ -8,11 +8,7 @@
   </div>
 <% end %>
 <br>
-<%= form_tag teacher_path(current_user), method: "get" do %>
-  <%= label :student_id, "Student Lookup:"  %>
-    <%= text_field_tag :student_id, nil, placeholder: "student id#"%>
-    <%= submit_tag "Find Student", class: "btn btn-warning"%>
-<% end %>
+
 <br>
 <div class="student-lookup-return">
   <% if @student %>
@@ -85,5 +81,9 @@
     <% end %>
   </table>
 <% end %>
-
+<%= form_tag teacher_path(current_user), method: "get" do %>
+  <%= label :student_id, "Student Lookup:"  %>
+    <%= text_field_tag :student_id, nil, placeholder: "student id#"%>
+    <%= submit_tag "Find Student", class: "btn btn-warning"%>
+<% end %>
 

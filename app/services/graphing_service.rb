@@ -103,7 +103,15 @@ private
       question1: 0,
       question2: 0,
       question3: 0,
-      question4: 0
+      question4: 0,
+      q1no: 0,
+      q2no: 0,
+      q3no: 0,
+      q4no: 0,
+      q1percentage: 0,
+      q2percentage: 0,
+      q3percentage: 0,
+      q4percentage: 0
     }
   end
 
@@ -117,10 +125,18 @@ private
   end
 
   def convert_to_percentages(graph_hash)
-    graph_hash[:question1] = (graph_hash[:question1]/graph_hash[:count]*100).round
-    graph_hash[:question2] = (graph_hash[:question2]/graph_hash[:count]*100).round
-    graph_hash[:question3] = (graph_hash[:question3]/graph_hash[:count]*100).round
-    graph_hash[:question4] = (graph_hash[:question4]/graph_hash[:count]*100).round
+    graph_hash[:q1percentage] = (graph_hash[:question1]/graph_hash[:count]*100).round
+    graph_hash[:q2percentage] = (graph_hash[:question2]/graph_hash[:count]*100).round
+    graph_hash[:q3percentage] = (graph_hash[:question3]/graph_hash[:count]*100).round
+    graph_hash[:q4percentage] = (graph_hash[:question4]/graph_hash[:count]*100).round
+    graph_hash[:q1no] = (graph_hash[:count] - graph_hash[:question1]).round
+    graph_hash[:q2no] = (graph_hash[:count] - graph_hash[:question2]).round
+    graph_hash[:q3no] = (graph_hash[:count] - graph_hash[:question3]).round
+    graph_hash[:q4no] = (graph_hash[:count] - graph_hash[:question4]).round
+    graph_hash[:question1] = graph_hash[:question1].round
+    graph_hash[:question2] = graph_hash[:question2].round
+    graph_hash[:question3] = graph_hash[:question3].round
+    graph_hash[:question4] = graph_hash[:question4].round
     return graph_hash
   end
 

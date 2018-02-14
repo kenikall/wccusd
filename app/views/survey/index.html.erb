@@ -24,78 +24,66 @@
   <h4>No students have completed this survey yet.</h4>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th class="text-left col-md-12">
-        <h4>Student Question</h4>
-      </th>
-      <th class="text-center col-md-2">
-        <h4>yes<br>responses</h4>
-      </th>
-      <th class="text-center col-md-2">
-        <h4>no<br>responses</h4>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="text-left">
-      <td class="col-md-12">
-        <h5><%= @student_questions[0] %></h5>
-      </td>
-      <td class="text-center col-md-2">
-        <h5><%= @survey_data[:quest1_agg] %></h5>
-      </td>
-      <td class="text-center col-md-2">
-        <h5><%= @survey_data[:complete] - @survey_data[:quest1_agg] %></h5>
-      </td>
-    </tr>
-    <tr class="text-left">
-      <td class="col-md-12">
-        <h5><%= @student_questions[1] %></h5>
-      </td>
-      <td class="text-center col-md-2">
-        <h5><%= @survey_data[:quest2_agg] %></h5>
-      </td>
-      <td class="text-center col-md-2">
-        <h5><%= @survey_data[:complete] - @survey_data[:quest2_agg] %></h5>
-      </td>
-    </tr>
-    <tr class="text-left">
-      <td class="col-md-12">
-        <h5><%= @student_questions[2] %></h5>
-      </td>
-      <td class="text-center col-md-2">
-        <h5><%= @survey_data[:quest3_agg] %></h5>
-      </td>
-      <td class="text-center col-md-2">
-        <h5><%= @survey_data[:complete] - @survey_data[:quest3_agg] %></h5>
-      </td>
-    </tr>
-    <tr class="text-left">
-      <td class="col-md-12">
-        <h5><%= @student_questions[3] %></h5>
-      </td>
-      <td class="text-center col-md-2">
-        <h5><%= @survey_data[:quest4_agg] %></h5>
-      </td>
-      <td class="text-center col-md-2">
-        <h5><%= @survey_data[:complete] - @survey_data[:quest4_agg] %></h5>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="data-table">
+  <table>
+    <thead>
+      <tr>
+        <th class="text-left col-md-8">
+          <h4><%= @data[:count].round %> total responses</h4>
+        </th>
+        <th class="text-center col-md-4 text-center text-left">
+          <h4>yes / no</h4>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-left">
+        <td class="col-md-8">
+          <h5><%= @student_questions[0] %></h5>
+        </td>
+        <td class="col-md-4 text-center">
+          <h5><%= "#{@data[:question1]} / #{@data[:q1no]}" %> </h5>
+        </td>
+      </tr>
+      <tr class="text-left">
+        <td class="col-md-8">
+          <h5><%= @student_questions[1] %></h5>
+        </td>
+        <td class="col-md-4 text-center">
+          <h5><%= "#{@data[:question2]} / #{@data[:q2no]}" %> </h5>
+        </td>
+      </tr>
+      <tr class="text-left">
+        <td class="col-md-8">
+          <h5><%= @student_questions[2] %></h5>
+        </td>
+        <td class="col-md-4 text-center">
+          <h5><%= "#{@data[:question3]} / #{@data[:q3no]}" %> </h5>
+        </td>
+      </tr>
+      <tr class="text-left">
+        <td class="col-md-8">
+          <h5><%= @student_questions[3] %></h5>
+        </td>
+        <td class="col-md-4 text-center">
+          <h5><%= "#{@data[:question4]} / #{@data[:q4no]}" %> </h5>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
 
 <% if @survey_data[:complete] > 0 %>
   <div class='student-graph'>
     <dl><dt class="subtitle"><%= @data[:count].round %> total responses</dt>
-      <dd class= "percentage percentage-<%=@data[:question1]%>">
+      <dd class= "percentage percentage-<%=@data[:q1percentage]%>">
         <span class="text">Question 1:</span></dd>
-      <dd class= "percentage percentage-<%=@data[:question2]%>">
+      <dd class= "percentage percentage-<%=@data[:q2percentage]%>">
         <span class="text">Question 2:</span></dd>
-      <dd class= "percentage percentage-<%=@data[:question3]%>">
+      <dd class= "percentage percentage-<%=@data[:q3percentage]%>">
         <span class="text">Question 3:</span></dd>
-      <dd class= "percentage percentage-<%=@data[:question4]%>">
+      <dd class= "percentage percentage-<%=@data[:q4percentage]%>">
         <span class="text">Question 4:</span></dd>
       </dl>
   </div>
