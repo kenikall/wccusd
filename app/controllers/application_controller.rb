@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
       ["Sylvester Greenwood Academy"],
       ["Transition"],
       ["Vista High Independent Study"]
-    ]
+    ].sort
   end
 
   def pathways
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
       ["Engineering"],
       ["Law"],
       ["Performing Arts Production"],
-    ]
+    ].sort
   end
 
   def activities
@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
       ["Student-run Enterprise or Performance"],
       ["Workplace Experiential Visit"],
       ["Workplace Tour"],
-    ]
+    ].sort
   end
 
   def partners
@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
   def students(current_teacher)
     current_students = []
     User.all.each do |user|
-      if user.school == current_teacher.school && user.pathway == current_teacher.pathway
+      if user.school == current_teacher.school && user.pathway == current_teacher.pathway && user.grade == current_teacher.grade
         current_students << user if user.is_student?
       end
     end
