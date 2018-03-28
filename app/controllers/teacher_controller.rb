@@ -44,11 +44,11 @@ class TeacherController < ApplicationController
 
   def create
     @teacher = User.new(teacher_params)
-    @teacher.password = "change_password_immediately"
+    @teacher.password = "pleasechangethispassword"
     @teacher.add_role(:teacher)
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to user_dashboard_path_name, notice: "#{@teacher.name} was successfully created. Their password is '#{@teacher.password}'." }
+        format.html { redirect_to user_dashboard_path_name, notice: "An account for #{@teacher.name} was successfully created. Their password is '#{@teacher.password}'." }
         format.json { render :show, status: :created, location: @teacher }
       else
         format.html { render :new }
