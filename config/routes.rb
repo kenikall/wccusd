@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post "graph/format"
 
   resources :provider, only: [:new, :create]
+  resources :chart, only: [:show]
   resources :home, only: [:index]
   resources :teacher, only: [:new, :create, :show, :update, :edit]
   resources :admin, only: [:show, :edit]

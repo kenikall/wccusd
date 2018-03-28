@@ -39,6 +39,7 @@
   <div class="pull-left col-4">
     <%= link_to "Create an event", new_event_path, class: "btn btn-primary" %>
     <%= link_to "Add a partner", new_provider_path, class: "btn btn-success text-center" %>
+    <%= link_to "Participation Chart", chart_path, class: "btn btn-warning text-center" %>
   </div>
   <br>
 </div>
@@ -66,7 +67,7 @@
           <% if survey.complete %>
             <%= link_to "edit your evaluation".html_safe, edit_survey_path(survey.id), class: "survey-button btn-block btn-xs btn-info text-center" %>
           <% else %>
-            <%= link_to "submit evaluation".html_safe, edit_survey_path(survey.id), class: "survey-button btn-block btn-xs btn-danger text-center" %>
+            <%= link_to "submit<br> teacher evaluation".html_safe, edit_survey_path(survey.id), class: "survey-button btn-block btn-xs btn-danger text-center" %>
           <% end %>
         </td>
         <td class="col-md-1">
