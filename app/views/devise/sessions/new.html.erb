@@ -1,9 +1,22 @@
-<nav class="navbar navbar-default navbar-static-top navbar-inverse">
-  <div class="container">
-
-  </div>
+<nav>
+  <h1 style="color:black;">
+    <img src="/apple-icon-60x60.png">
+    Welcome to the WCCUSD Work Based Learning APP
+  </h1>
 </nav>
+
 <div class="jumbotron">
+  <div style="color:red;" class="bad-authentication-flash">
+    <% if !flash[:alert].blank? %>
+      <% if flash[:alert][/The email address and password you entered do not match our records/] %>
+        <div class="flashNotice col last">
+              <%= t('devise.failure.not_found_in_database', resource_name: "#{params[:user][:email]}").html_safe %>
+          </div>
+      <% else %>
+          <div class="flashNotice col last"><%= flash[:alert]%></div>
+      <% end %>
+    <% end %>
+  </div>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
       <%= f.label :email %>
@@ -27,5 +40,6 @@
     </div>
   <% end %>
 </div>
+  <p> Students, to log in use <b>[your first name].[your last name]@wccusd.org</b> as your email and your <b>student id</b> as your password.</p>
 
 <%= render "devise/shared/links" %>
