@@ -1,0 +1,35 @@
+<h1>Create a Pathway</h1>
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, class: "alert alert-info" %>
+<% end %>
+<%= form_tag "/pathway", remote: true, method: "post" do %>
+  <div class="pull-left col-4">
+    <%= label :path, "Pathway:"  %>
+      <%= text_field_tag :path, nil, size: 35, required: true %>
+    <br>
+    <table style="width:100%">
+      <th> What schools offer this pathway: </th>
+      <% count = 1 %>
+      <% @schools.each do |school|  %>
+        <% if count.odd? %>
+          <tr>
+            <td>
+              <input type="checkbox" name="school_select[]" value=school[0] />
+              &ensp;
+              <%= label :school_select, school[0] %><br>
+            </td>
+        <% else %>
+            <td>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="checkbox" name="school_select[]" value=school[0] />
+              &ensp;
+              <%= label :school_select, school[0] %><br>
+            </td>
+          </tr>
+        <% end %>
+        <% count += 1 %>
+      <% end %>
+    </table>
+    <%= submit_tag "Create Pathway" %>
+  </div>
+<% end %>

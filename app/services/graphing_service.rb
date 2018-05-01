@@ -79,7 +79,7 @@ class GraphingService
   end
 
   def pathway_graph(surveys)
-    pathway_hash = pathways()
+    pathway_hash = pathways(current_user.school)
 
     surveys.each do |survey|
       user = User.find(survey.user_id)

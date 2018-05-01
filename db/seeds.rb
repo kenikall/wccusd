@@ -1,23 +1,34 @@
 require 'csv'
-Survey.destroy_all
-Provider.destroy_all
-Event.destroy_all
+# seed pathway
+# Survey.destroy_all
+# Provider.destroy_all
+# Event.destroy_all
+# *****
+Pathway.destroy_all
 
-# pathways = [
-#       "Legal Professions",
-#       "Law Enforcement",
-#       "Public Health",
-#       "Biomed",
-#       "Patient Care Emergency Medicine",
-#       "Civil & Software Engineering",
-#       "Civil Engineering",
-#       "Internet Engineering & Web Design",
-#       "Info Systems Mgmt & Web Design",
-#       "Digital Broadcast Journalism",
-#       "Production and Stagecraft",
-#       "Pacific Choral Academy",
-#       "Performance/Management"
-#     ]
+%w(Law Health IT).each do |path|
+    Pathway.create(school: "DeAnza High", path: path)
+end
+
+%w(IT Media).each do |path|
+    Pathway.create(school: "El Cerrito High", path: path)
+end
+
+%w(IT Health).each do |path|
+    Pathway.create(school: "Hercules High", path: path)
+end
+
+%w(IT Welding).each do |path|
+    Pathway.create(school: "Kennedy High", path: path)
+end
+
+%w(Engineering Health Law Performing\ Arts).each do |path|
+    Pathway.create(school: "Pinole Valley High", path: path)
+end
+
+%w(Engineering Health Law Media Performing\ Arts\ Production).each do |path|
+    Pathway.create(school: "Richmond High", path: path)
+end
 
 m = User.create(email: "kenikall@gmail.com",     password: "admin",
             first_name: "Mannah",
@@ -88,21 +99,23 @@ m.add_role(:admin)
 #             grade: 10)
 # so_teach.add_role(:teacher)
 
-teach = User.create(email: "teacher@example.com",   password: "123password!",
-            first_name: "11th grade teacher",
-            last_name: "@Hercules High School",
-            school: "Hercules High School",
-            pathway: 'health',
-            grade: 11)
-teach.add_role(:teacher)
+# seed pathway
+# teach = User.create(email: "teacher@example.com",   password: "123password!",
+#             first_name: "11th grade teacher",
+#             last_name: "@Hercules High School",
+#             school: "Hercules High School",
+#             pathway: 'health',
+#             grade: 11)
+# teach.add_role(:teacher)
 
-ex = User.create(email: "admin@example.com",   password: "123password!",
-            first_name: "admin",
-            last_name: "@Vista High School",
-            school: "Vista High School",
-            pathway: "health",
-            grade: 12)
-ex.add_role(:admin)
+# ex = User.create(email: "admin@example.com",   password: "123password!",
+#             first_name: "admin",
+#             last_name: "@Vista High School",
+#             school: "Vista High School",
+#             pathway: "health",
+#             grade: 12)
+# ex.add_role(:admin)
+# *****
 
 #teachers = [fr_teach, so_teach, jr_teach, sr_teach]
 
@@ -114,75 +127,79 @@ ex.add_role(:admin)
 #   teachers << user if user.is_teacher?
 # end
 
-google = Provider.create(
-                first_name: "Jon",
-                last_name: "Doe",
-                title: "Engineer",
-                organization: "google",
-                location: "Googleplex",
-                url: "https://careers.google.com/students/",
-                phone: "123-567-8910",
-                email: "email@email.com")
-apple = Provider.create(
-                first_name: "Plain",
-                last_name: "Jane",
-                title: "Marketing Director",
-                organization: "google",
-                location: "Googleplex",
-                url: "https://careers.google.com/students/",
-                phone: "123-567-8910",
-                email: "email@email.com")
-microsoft = Provider.create(
-                first_name: "Jon",
-                last_name: "Doe",
-                title: "CEO",
-                organization: "google",
-                location: "Googleplex",
-                url: "https://careers.google.com/students/",
-                phone: "123-567-8910",
-                email: "email@email.com")
-microsoft = Provider.create(
-                first_name: "Lucy",
-                last_name: "Tuchi",
-                title: "Community Engagement Manager",
-                organization: "apple",
-                location: "Googleplex",
-                url: "https://careers.google.com/students/",
-                phone: "123-567-8910",
-                email: "email@email.com")
+# seed pathway
+# google = Provider.create(
+#                 first_name: "Jon",
+#                 last_name: "Doe",
+#                 title: "Engineer",
+#                 organization: "google",
+#                 location: "Googleplex",
+#                 url: "https://careers.google.com/students/",
+#                 phone: "123-567-8910",
+#                 email: "email@email.com")
+# apple = Provider.create(
+#                 first_name: "Plain",
+#                 last_name: "Jane",
+#                 title: "Marketing Director",
+#                 organization: "google",
+#                 location: "Googleplex",
+#                 url: "https://careers.google.com/students/",
+#                 phone: "123-567-8910",
+#                 email: "email@email.com")
+# microsoft = Provider.create(
+#                 first_name: "Jon",
+#                 last_name: "Doe",
+#                 title: "CEO",
+#                 organization: "google",
+#                 location: "Googleplex",
+#                 url: "https://careers.google.com/students/",
+#                 phone: "123-567-8910",
+#                 email: "email@email.com")
+# microsoft = Provider.create(
+#                 first_name: "Lucy",
+#                 last_name: "Tuchi",
+#                 title: "Community Engagement Manager",
+#                 organization: "apple",
+#                 location: "Googleplex",
+#                 url: "https://careers.google.com/students/",
+#                 phone: "123-567-8910",
+#                 email: "email@email.com")
+# *****
 
 # teachers.each do |teacher|
-  Event.create( school: teach.school,
-                pathway: "Health",
-                activity: "Workplace Tour",
-                grade: teach.grade,
-                date: Time.now,
-                teacher_id: teach.id,
-                provider_id: apple.id,
-                location: apple.location
-                )
-  Event.create( school: teach.school,
-                pathway: "Health",
-                activity: "Mock Interviews",
-                grade: teach.grade,
-                date: Time.now+2.days,
-                teacher_id: teach.id,
-                provider_id: microsoft.id,
-                location: microsoft.location
-                )
-  Event.create( school: teach.school,
-                pathway: "IT",
-                activity: "Health",
-                grade: teach.grade,
-                date: Time.now-2.days,
-                teacher_id: teach.id,
-                provider_id: google.id,
-                location: google.location
-                )
 
-  User.all.each do |user|
-    next unless user.is_student?
-    Survey.create(user_id: user.id, complete: true, event_id: 7, question1: %w(yes no).sample, question2: %w(yes no).sample, question3: %w(yes no).sample, question4: %w(yes no).sample)
-  end
-end
+# seed pathway
+#   Event.create( school: teach.school,
+#                 pathway: "Health",
+#                 activity: "Workplace Tour",
+#                 grade: teach.grade,
+#                 date: Time.now,
+#                 teacher_id: teach.id,
+#                 provider_id: apple.id,
+#                 location: apple.location
+#                 )
+#   Event.create( school: teach.school,
+#                 pathway: "Health",
+#                 activity: "Mock Interviews",
+#                 grade: teach.grade,
+#                 date: Time.now+2.days,
+#                 teacher_id: teach.id,
+#                 provider_id: microsoft.id,
+#                 location: microsoft.location
+#                 )
+#   Event.create( school: teach.school,
+#                 pathway: "IT",
+#                 activity: "Health",
+#                 grade: teach.grade,
+#                 date: Time.now-2.days,
+#                 teacher_id: teach.id,
+#                 provider_id: google.id,
+#                 location: google.location
+#                 )
 
+#   User.all.each do |user|
+#     next unless user.is_student?
+#     Survey.create(user_id: user.id, complete: true, event_id: 7, question1: %w(yes no).sample, question2: %w(yes no).sample, question3: %w(yes no).sample, question4: %w(yes no).sample)
+#   end
+# end
+# *****

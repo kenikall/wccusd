@@ -30,15 +30,11 @@ class ApplicationController < ActionController::Base
     ].sort
   end
 
-  def pathways
-    [
-      ["IT"],
-      ["Welding"],
-      ["Performing Arts"],
-      ["Engineering"],
-      ["Law"],
-      ["Performing Arts Production"],
-    ].sort
+  def pathways(school)
+    current_paths = []
+    Pathway.all.each{|pathway| current_paths << pathway.path if pathway.school == school}
+    current_paths = %w(none\ for\ this\ school) if current_paths.empty?
+    current_paths.sort
   end
 
   def activities

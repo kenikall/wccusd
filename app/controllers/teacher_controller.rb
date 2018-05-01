@@ -14,7 +14,7 @@ class TeacherController < ApplicationController
     end
 
     @events = Event.where(teacher_id: current_user.id)
-    @pathways = pathways()
+    @pathways = pathways(current_user.school)
     @upcoming_events = []
     @past_events = []
     @events.each do |event|
@@ -38,7 +38,7 @@ class TeacherController < ApplicationController
 
   def new
     redirect_to student_path(current_user) if !current_user.is_admin?
-    @pathways = pathways()
+    @pathways = pathways(current_user.school)
     @schools = schools()
   end
 
@@ -59,7 +59,7 @@ class TeacherController < ApplicationController
 
   def edit
     @teacher = current_user
-    @pathways = pathways()
+    @pathways = pathways(current_user.school)
     @schools = schools()
   end
 

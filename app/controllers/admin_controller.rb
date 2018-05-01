@@ -5,7 +5,7 @@ class AdminController < ApplicationController
     redirect_unless_role_is(:admin)
 
     @events = Event.all
-    @pathways = pathways()
+    @pathways = pathways(current_user.school)
     @upcoming_events = []
     @past_events = []
     @events.each do |event|

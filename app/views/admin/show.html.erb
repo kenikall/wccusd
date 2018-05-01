@@ -9,6 +9,7 @@
   <%= link_to "Add a teacher", new_teacher_path, class: "btn btn-success text-center" %>
   <%= link_to "Add students", new_student_path, class: "btn btn-success text-center" %>
   <%= link_to "Add a partner", new_provider_path, class: "btn btn-success text-center" %>
+  <%= link_to "Add a pathway", new_pathway_path, class: "btn btn-success text-center" %>
 </div>
 
 <% if session[:unsaved_students] && !session[:unsaved_students].empty? %>

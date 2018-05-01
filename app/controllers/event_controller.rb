@@ -29,7 +29,7 @@ class EventController < ApplicationController
     @schools = schools()
     @partners = partners()
     @activities = activities()
-    @pathways = pathways()
+    @pathways = pathways(current_user.school)
     @students = students(current_user)
     @teachers = teachers(current_user)
 
@@ -83,7 +83,7 @@ class EventController < ApplicationController
     @teachers = [[User.find(@event.teacher_id).name, @event.teacher_id]]
     @partners = partners()
     @activities = activities()
-    @pathways = pathways()
+    @pathways = pathways(current_user.school)
 
     User.all.each do |user|
         @teachers << [user.name, user.id] if user.is_teacher?
