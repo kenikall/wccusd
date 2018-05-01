@@ -8,22 +8,23 @@
       <%= text_field_tag :path, nil, size: 35, required: true %>
     <br>
     <table style="width:100%">
+      <br>
       <th> What schools offer this pathway: </th>
       <% count = 1 %>
       <% @schools.each do |school|  %>
         <% if count.odd? %>
           <tr>
             <td>
-              <input type="checkbox" name="school_select[]" value=school[0] />
+              <input type="checkbox" name="schools[]" value=<%=school.gsub(/ /, "_")  %> />
               &ensp;
-              <%= label :school_select, school[0] %><br>
+              <%= label :schools, :school, school %><br>
             </td>
         <% else %>
             <td>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="checkbox" name="school_select[]" value=school[0] />
+              <input type="checkbox" name="schools[]" value=<%=school.gsub(/ /, "_")  %> />
               &ensp;
-              <%= label :school_select, school[0] %><br>
+              <%= label :schools, :school, school %><br>
             </td>
           </tr>
         <% end %>

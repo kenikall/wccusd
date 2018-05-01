@@ -3,21 +3,29 @@
 class PathwayController < ApplicationController
   def new
     redirect_to student_path(current_user) unless current_user.is_admin?
-    @schools = schools()
-    @pathway = Pathway.new
+    @schools = schools().flatten
   end
 
   def create
-    @pathway = Pathway.new(pathway_params)
-    respond_to do |format|
-      if @pathway.save
-        format.html { redirect_to user_dashboard_path_name, notice: "The ___" }
-        format.json { render :show, status: :created, location: @teacher }
-      else
-        format.html { render :new }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
+    puts "*****"
+    puts params.inspect
+    puts "*****"
+    school_list = ""
+    params[:schools].each do |school|
+      school = school.gsub(/_/, " ")
+      Pathway.create(school: school, path: params[:path])
+      school_list += school_list.empty? ? school : ", #{school}"
     end
+
+    redirect_to user_dashboard_path_name, notice: "The #{params[:path]} has been created for #{school_list}"
   end
+
+private
+  # def params
+  #   params.permit(
+  #                 :schools,
+  #                 :path
+  #                )
+  # end
 end
 
