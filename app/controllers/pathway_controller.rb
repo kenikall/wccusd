@@ -7,25 +7,22 @@ class PathwayController < ApplicationController
   end
 
   def create
-    puts "*****"
-    puts params.inspect
-    puts "*****"
     school_list = ""
-    params[:schools].each do |school|
+    pathway_params[:schools].each do |school|
       school = school.gsub(/_/, " ")
-      Pathway.create(school: school, path: params[:path])
+      Pathway.create(school: school, path: pathway_params[:path])
       school_list += school_list.empty? ? school : ", #{school}"
     end
 
-    redirect_to user_dashboard_path_name, notice: "The #{params[:path]} has been created for #{school_list}"
+    redirect_to user_dashboard_path_name, notice: "The #{pathway_params[:path]} has been created for #{school_list}"
   end
 
 private
-  # def params
-  #   params.permit(
-  #                 :schools,
-  #                 :path
-  #                )
-  # end
+  def pathway_params
+    params.permit(
+                  :path,
+                  schools: []
+                 )
+  end
 end
 
