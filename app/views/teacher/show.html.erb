@@ -53,6 +53,7 @@
   <table class="table table-striped text-center pre-scrollable">
     <th>
       <td></td>
+      <td></td>
       <td><strong>Pathway</strong></td>
       <td><strong>Activity</strong></td>
       <td><strong>Partner</strong></td>
@@ -61,17 +62,20 @@
     </th>
     <% @past_events.each do |event| %>
       <% provider = Provider.find(event.provider_id)  %>
-      <% survey = Survey.where(user_id: current_user.id, event_id: event.id).first %>
+      <% survey = Survey.find_by(user_id: current_user.id, event_id: event.id) %>
       <tr>
         <td class="col-md-1">
           <% if survey.complete %>
             <%= link_to "edit your evaluation".html_safe, edit_survey_path(survey.id), class: "survey-button btn-block btn-xs btn-info text-center" %>
           <% else %>
-            <%= link_to "submit<br> teacher evaluation".html_safe, edit_survey_path(survey.id), class: "survey-button btn-block btn-xs btn-danger text-center" %>
+            <%= link_to "submit<br> teacher evaluation".html_safe, edit_survey_path(survey.id), class: "survey-button btn-block btn-xs btn-success text-center" %>
           <% end %>
         </td>
         <td class="col-md-1">
-          <%= link_to "student evaluations", event_survey_index_path(event.id), class: "teacher-survey-button btn-xs btn-warning text-center btn-block" %>
+          <%= link_to "student evaluations<br> #{Survey.where(survey_type: 'student', event_id: event.id, complete: true).count} / #{Survey.where(survey_type: 'student', event_id: event.id).count} complete".html_safe, event_survey_index_path(event.id), class: "teacher-survey-button btn-xs btn-warning text-center btn-block" %>
+        </td>
+        <td class="col-md-1">
+          <%= link_to "partner evaluation<br> #{Survey.find_by(survey_type: "partner", event_id: event.id).complete? ? 'complete' : 'incomplete'}".html_safe, provider_survey_path(provider_id: event.provider_id, id: Survey.find_by(survey_type: "partner", event_id: event.id).id), class: "teacher-survey-button btn-xs text-center btn-block #{Survey.find_by(survey_type: "partner", event_id: event.id).complete? ? 'btn-info' : 'btn-danger'}" %>
         </td>
         <td><%= event.pathway %></td>
         <td><%= event.activity %></td>

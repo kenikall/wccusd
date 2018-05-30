@@ -35,8 +35,8 @@ var makeAddButton = function(){
 
 var addButtonMessage = function(){
     var message = "add all ";
-    message += ($("#select_by_grade").val() === "All") ? "students" : $("#select_by_grade").val() +" graders";
-    message += ($("#select_by_pathway").val() === "All") ? "" : " in the " + $("#select_by_pathway").val() +" path";
-    message += ($("#select_by_school").val() === "All") ? "" : " from " + $("#select_by_school").val();
+    // message += ($("#select_by_grade").val() === "All") ? "students" : $("#select_by_grade").val() +" graders";
+    // message += ($("#select_by_pathway").val() === "All") ? "" : " in the " + $("#select_by_pathway").val() +" path";
+    // message += ($("#select_by_school").val() === "All") ? "" : " from " + $("#select_by_school").val();
     $("#add-visible").text(message);
 }

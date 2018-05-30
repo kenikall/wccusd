@@ -1,0 +1,178 @@
+#participation_table{
+  overflow: auto;
+}
+
+.participation_table-head {
+  text-align: center;
+}
+.participation_table-cell{
+  text-align: center;
+}
+
+.participation_table-name{
+  text-align: left;
+}
+
+$color-9th: #ffa37f;
+$color-10th: #39cccc;
+$color-11th: #7fffa3;
+$color-12th: #ff7fdb;
+
+body, html {
+  height: 100%;
+}
+
+#q-graph {
+  display: block;
+  position: relative;
+  width: 80%;
+  height: 300px;
+  overflow: auto;
+  margin: 1.1em 0 0;
+  padding: 0;
+  background: transparent;
+  font-size: 11px;
+}
+
+#q-graph caption {
+  caption-side: top;
+  width: 600px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  top: -40px;
+  position: relative;
+  z-index: 10;
+  font-weight: bold;
+}
+
+#q-graph tr, #q-graph th, #q-graph td {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#q-graph td {
+  transition: all .3s ease;
+
+  &:hover {
+    background-color: desaturate(#85144b, 100);
+    // opacity: .9;
+    color: white;
+  }
+}
+
+#q-graph thead tr {
+  left: 100%;
+  top: 50%;
+  bottom: auto;
+  margin: -2.5em 0 0 5em;}
+#q-graph thead th {
+  width: 7.5em;
+  height: auto;
+  padding: 0.5em 1em;
+}
+#q-graph thead th.sent {
+  top: 0;
+  left: 0;
+  line-height: 2;
+}
+#q-graph thead th.paid {
+  top: 2.75em;
+  line-height: 2;
+  left: 0;
+}
+
+#q-graph tbody tr {
+  height: 296px;
+  padding-top: 2px;
+  border-right: 1px dotted #C4C4C4;
+  color: #AAA;
+}
+#q-graph #q1  {left: 0px;}
+#q-graph #q2  {left: 150px;}
+#q-graph #q3  {left: 300px;}
+#q-graph #q4  {left: 450px;}
+#q-graph #q5  {left: 600px;}
+#q-graph #q6  {left: 750px;}
+#q-graph #q7  {left: 900px;}
+#q-graph #q8  {left: 1050px;}
+#q-graph #q9  {left: 1200px;}
+#q-graph #q10 {left: 1350px;}
+#q-graph #q11 {left: 1500px;}
+#q-graph #q12 {left: 1650px;}
+#q-graph #q13 {left: 1800px;}
+#q-graph #q14 {left: 1950px;}
+#q-graph #q15 {left: 2100px;}
+#q-graph #q16 {left: 2250px;}
+#q-graph #q17 {left: 2400px;}
+#q-graph #q18 {left: 2550px;}
+#q-graph #q19 {left: 2700px;}
+#q-graph #q20 {left: 2850px;}
+#q-graph #q21 {left: 3000px; border-right: none;}
+#q-graph tbody th {bottom: -1.75em; vertical-align: top;
+font-weight: normal; color: #333;}
+#q-graph .bar {
+  width: 20%;
+  border: 1px solid;
+  border-bottom: none;
+  color: #000;
+}
+#q-graph .bar p {
+  margin: 5px 0 0;
+  padding: 0;
+
+  // opacity: .4;
+}
+#q-graph .ninth {
+  left: 2.5%;
+  background-color: $color-9th;
+  border-color: transparent;
+}
+#q-graph .tenth {
+  left: 27.5%;
+  background-color: $color-10th;
+  border-color: transparent;
+}
+#q-graph .eleventh {
+  left: 52.5%;
+  background-color: $color-11th;
+  border-color: transparent;
+}
+#q-graph .twelfth {
+  left: 77.5%;
+  background-color: $color-12th;
+  border-color: transparent;
+}
+
+.section-label{
+  top: 0;
+}
+
+#ticks {
+  position: relative;
+  top: -300px;
+  left: 2px;
+  width: 100%;
+  height: 300px;
+  z-index: 1;
+  margin-bottom: -300px;
+  font-size: 10px;
+  font-family: "fira-sans-2", Verdana, sans-serif;
+}
+
+#ticks .tick {
+  position: relative;
+  border-bottom: 1px dotted #C4C4C4;
+  width: 80%;
+}
+
+#ticks .tick p {
+  position: absolute;
+  left: -5em;
+  top: -0.8em;
+  margin: 0 0 0 0.5em;
+}

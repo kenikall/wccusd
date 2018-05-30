@@ -10,15 +10,18 @@ Rails.application.routes.draw do
   end
 
   post "graph/format"
+  post "graph/teacher"
 
-  resources :provider, only: [:new, :create]
+  resources :provider, only: [:new, :create] do
+    resources :survey, only: [:show, :edit]
+  end
   resources :pathway, only: [:new, :create]
-  resources :chart, only: [:show]
+  resources :chart, only: [:show, :index]
   resources :home, only: [:index]
   resources :teacher, only: [:new, :create, :show, :update, :edit]
   resources :admin, only: [:show, :edit]
   resources :event do
-    resources :survey#, only: [:index]
+    resources :survey
   end
   resources :participants, only: [:index]
   resources :student, only: [:new, :create, :show]

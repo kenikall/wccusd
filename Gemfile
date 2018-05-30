@@ -29,6 +29,7 @@ gem "turbolinks", "~> 5"
 gem "jbuilder", "~> 2.5"
 gem "devise"
 gem "bootstrap-sass", "~> 3.3.0"
+gem 'bootstrap', '~> 4.0.0.beta2'
 gem "autoprefixer-rails"
 gem "simple_calendar", "~> 2.0"
 gem "rolify"

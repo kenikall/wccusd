@@ -104,6 +104,10 @@ private
       question2: 0,
       question3: 0,
       question4: 0,
+      question1_no: 0,
+      question2_no: 0,
+      question3_no: 0,
+      question4_no: 0,
       q1no: 0,
       q2no: 0,
       q3no: 0,
@@ -116,11 +120,15 @@ private
   end
 
   def calculate_survey(graph_hash, survey)
-    graph_hash[:count] += 1.0
+    graph_hash[:count] += 1.0 if survey.question1 == "yes" || survey.question1 == "no"
     graph_hash[:question1] += 1.0 if survey.question1 == "yes"
     graph_hash[:question2] += 1.0 if survey.question2 == "yes"
     graph_hash[:question3] += 1.0 if survey.question3 == "yes"
     graph_hash[:question4] += 1.0 if survey.question4 == "yes"
+    graph_hash[:question1_no] += 1.0 if survey.question1 == "no"
+    graph_hash[:question2_no] += 1.0 if survey.question2 == "no"
+    graph_hash[:question3_no] += 1.0 if survey.question3 == "no"
+    graph_hash[:question4_no] += 1.0 if survey.question4 == "no"
     return graph_hash
   end
 
@@ -129,10 +137,10 @@ private
     graph_hash[:q2percentage] = (graph_hash[:question2]/graph_hash[:count]*100).round
     graph_hash[:q3percentage] = (graph_hash[:question3]/graph_hash[:count]*100).round
     graph_hash[:q4percentage] = (graph_hash[:question4]/graph_hash[:count]*100).round
-    graph_hash[:q1no] = (graph_hash[:count] - graph_hash[:question1]).round
-    graph_hash[:q2no] = (graph_hash[:count] - graph_hash[:question2]).round
-    graph_hash[:q3no] = (graph_hash[:count] - graph_hash[:question3]).round
-    graph_hash[:q4no] = (graph_hash[:count] - graph_hash[:question4]).round
+    graph_hash[:q1no] = graph_hash[:question1_no].round
+    graph_hash[:q2no] = graph_hash[:question2_no].round
+    graph_hash[:q3no] = graph_hash[:question3_no].round
+    graph_hash[:q4no] = graph_hash[:question4_no].round
     graph_hash[:question1] = graph_hash[:question1].round
     graph_hash[:question2] = graph_hash[:question2].round
     graph_hash[:question3] = graph_hash[:question3].round

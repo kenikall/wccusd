@@ -10,6 +10,7 @@
   <%= link_to "Add students", new_student_path, class: "btn btn-success text-center" %>
   <%= link_to "Add a partner", new_provider_path, class: "btn btn-success text-center" %>
   <%= link_to "Add a pathway", new_pathway_path, class: "btn btn-success text-center" %>
+  <%= link_to "Charts", chart_index_path, class: "btn btn-warning text-center" %>
 </div>
 
 <% if session[:unsaved_students] && !session[:unsaved_students].empty? %>
@@ -39,10 +40,10 @@
 <% end %>
 <br>
 
-<div class="upcoming_events_wrapper">
-  <% if @upcoming_events.length > 0 %>
+<% if @upcoming_events.length > 0 %>
   <br>
-    <h3>Upcoming Events</h3>
+  <h3>Upcoming Events</h3>
+  <div class="upcoming_events_wrapper">
     <table class="table table-striped text-center pre-scrollable">
       <tr class=>
         <td><strong>Teacher</strong></td>
@@ -70,11 +71,11 @@
         </tr>
       <% end %>
     </table>
-  <% end %>
-</div>
-<div class="past_events_wrapper">
-  <% if @past_events.length > 0 %>
-    <h3>Past Events</h3>
+  </div>
+<% end %>
+<% if @past_events.length > 0 %>
+  <h3>Past Events</h3>
+  <div class="past_events_wrapper">
     <table class="table table-striped text-center pre-scrollable">
       <th>
         <td><strong>Teacher</strong></td>
@@ -103,7 +104,7 @@
         </tr>
       <% end %>
     </table>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
 

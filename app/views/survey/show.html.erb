@@ -1,43 +1,73 @@
-<% if current_user.is_student? %>
-  <h2><%= "Student survey for #{event.pathway} #{event.activity}, #{event.date.day.ordinalize}" %></h2>
-<% else %>
-  <h2><%= "Teacher survey for #{event.pathway} #{event.activity}, #{event.date.day.ordinalize}" %> </h2>
+<% if @survey.survey_type == "student" %>
+  <h2><%= "Student survey for #{@event.pathway} #{@event.activity}, #{@event.date.day.ordinalize}" %></h2>
+<% elsif @survey.survey_type == "teacher" %>
+  <h2><%= "Teacher survey for #{@event.pathway} #{@event.activity}, #{@event.date.day.ordinalize}" %> </h2>
+  <table>
+    <thead>
+      <th> <%= @event.pathway  %></th>
+      <th> <%= @event.activity  %></th>
+      <th> <%= @event.school  %></th>
+      <th> <%= @event.grade  %></th>
+      <th> <%= @provider.organization  %></th>
+    </thead>
+  </table>
+  <table>
+    <tbody>
+      <th> Student Survey Results </th>
+      <tr>
+        <td> Complete Surveys: </td>
+        <% complete = @results[:complete] %>
+        <td> <%= "#{ complete } / #{ @results[:total]}" %></td>
+      </tr>
+      <tr>
+        <td> <%= @student_questions[0] %> </td>
+        <td> <%= "#{ @results[:quest1_agg] } / #{ complete } " %></td>
+      </tr>
+      <tr>
+        <td> <%= @student_questions[1] %> </td>
+        <td> <%= "#{ @results[:quest2_agg] } / #{ complete } " %></td>
+      </tr>
+          <tr>
+        <td> <%= @student_questions[2] %> </td>
+        <td> <%= "#{ @results[:quest3_agg] } / #{ complete } " %></td>
+      </tr>
+          <tr>
+        <td> <%= @student_questions[3] %> </td>
+        <td> <%= "#{ @results[:quest4_agg] } / #{ complete } " %></td>
+      </tr>
+    </tbody>
+    <% @results[:quest5_ary].each do |comment| %>
+      <%= "#{ comment[0] }: #{ comment[1] }" %>
+    <% end %>
+  </table>
+<% elsif @survey.survey_type == "partner" %>
+  <h2><%= "Partner survey for #{@event.pathway} #{@event.activity}, #{@event.date.day.ordinalize}" %> </h2>
+  <table>
+    <thead>
+      <th> <%= @event.pathway  %></th>
+      <th> <%= @event.activity  %></th>
+      <th> <%= @event.school  %></th>
+      <th> <%= @event.grade  %></th>
+      <th> <%= @provider.organization  %></th>
+    </thead>
+  </table>
+  <table>
+    <tr>
+      <td> <%= @survey.partner_questions[0] %></td>
+      <td> <%= @survey.question1 %> </td>
+    </tr>
+    <tr>
+      <td> <%= @survey.partner_questions[1] %></td>
+      <td> <%= @survey.question2 %> </td>
+    </tr>
+    <tr>
+      <td> <%= @survey.partner_questions[2] %></td>
+      <td> <%= @survey.question3 %> </td>
+    </tr>
+    <tr>
+      <td> <%= @survey.partner_questions[5] %></td>
+      <td> <%= @survey.question5 %> </td>
+    </tr>
+
+  </table>
 <% end %>
-<table>
-  <thead>
-    <th> <%= @event.pathway  %></th>
-    <th> <%= @event.activity  %></th>
-    <th> <%= @event.school  %></th>
-    <th> <%= @event.grade  %></th>
-    <th> <%= @provider.organization  %></th>
-  </thead>
-</table>
-<table>
-  <tbody>
-    <th> Student Survey Results </th>
-    <tr>
-      <td> Complete Surveys: </td>
-      <% complete = @results[:complete] %>
-      <td> <%= "#{ complete } / #{ @results[:total]}" %></td>
-    </tr>
-    <tr>
-      <td> <%= @student_questions[0] %> </td>
-      <td> <%= "#{ @results[:quest1_agg] } / #{ complete } " %></td>
-    </tr>
-    <tr>
-      <td> <%= @student_questions[1] %> </td>
-      <td> <%= "#{ @results[:quest2_agg] } / #{ complete } " %></td>
-    </tr>
-        <tr>
-      <td> <%= @student_questions[2] %> </td>
-      <td> <%= "#{ @results[:quest3_agg] } / #{ complete } " %></td>
-    </tr>
-        <tr>
-      <td> <%= @student_questions[3] %> </td>
-      <td> <%= "#{ @results[:quest4_agg] } / #{ complete } " %></td>
-    </tr>
-  </tbody>
-  <% @results[:quest5_ary].each do |comment| %>
-    <%= "#{ comment[0] }: #{ comment[1] }" %>
-  <% end %>
-</table>

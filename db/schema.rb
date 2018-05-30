@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180501021955) do
+ActiveRecord::Schema.define(version: 20180530061439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20180501021955) do
     t.boolean  "assess_learning",     default: false
     t.boolean  "develop_plan",        default: false
     t.string   "teacher_question3"
+    t.string   "survey_type"
     t.index ["event_id"], name: "index_surveys_on_event_id", using: :btree
     t.index ["user_id"], name: "index_surveys_on_user_id", using: :btree
   end

@@ -1,1 +1,30 @@
-This is the chart page
+<table class="table table-striped text-center pre-scrollable" id="participation_table">
+  <tr>
+    <th class="participation_table-head">
+      <br>
+      Student Name
+    </th>
+    <% @events.each do |event| %>
+      <th class="participation_table-head">
+        <%= event.date.strftime('%x') %> <br>
+        <%= event.activity %> <br>
+      </th>
+    <% end %>
+  </tr>
+  <% if(@students.any?) %>
+    <% @students.each do |student| %>
+      <tr>
+        <td class="participation_table-name">
+          <%= "#{student.last_name}, #{student.first_name}" %>
+        </td>
+        <% (0...@events.length).each do |number| %>
+          <td class="participation_table-cell">
+            <%= Survey.where(event_id: @events[number].id, user_id: student.id).any? ? "X" : ""  %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% else %>
+    <p><%= "There are no students in #{@teacher.grade}th grade, at #{@teacher.school}, in the #{@teacher.pathway} pathway" %></p>
+  <% end %>
+</table>

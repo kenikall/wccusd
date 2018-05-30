@@ -6,36 +6,39 @@
 <div id="event-creation-form">
   <div class="event-data">
     <%= form_tag "/event", remote: true, method: "post" do %>
-      <%= label :teacher_name, "Teacher Name:" %>
-      <%= select_tag :teacher_id, options_for_select(@teachers) %>
+      <%= label :teacher_name, "Teacher Name:" %> <%= current_user.name %>
       <br>
-      <%= label :school, "School:"  %>
-      <%= select_tag :school, options_for_select(@schools, current_user.school) %>
+      <%= label :teacher_name, "Grade:" %> <%= current_user.grade %>
+      <br>
+      <%# select_tag :teacher_id, options_for_select(@teachers) %>
+      <!-- <br> -->
+      <%= label :school, "School:"  %><%= current_user.school %>
+      <%# select_tag :school, options_for_select(@schools, current_user.school) %>
+      <br>
+      <%= label :pathway, "Pathway:" %><%= current_user.pathway %>
+      <%# select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
       <br>
       <%= label :provider_id, "Partner:" %>
       <%= select_tag :provider_id, options_for_select(@partners) %>
-      <br>
-      <%= label :pathway, "Pathway:" %>
-      <%= select_tag :pathway, options_for_select(@pathways, current_user.pathway)%>
       <br>
       <%= label :activity, "Activity:" %>
       <%= select_tag :activity, options_for_select(@activities) %>
       <br>
       <%= label :location, "Location:"  %>   <%= text_field_tag :location, current_user.school %>
       <br>
-      <%= radio_button_tag :grade, "9", current_user.grade == 9 %>
-      <%= label :grade_9, "9th grade" %> &emsp;
-      <%= radio_button_tag :grade, "10", current_user.grade == 10 %>
-      <%= label :grade_10, "10th grade" %> &emsp;
-      <%= radio_button_tag :grade, "11", current_user.grade == 11 %>
-      <%= label :grade_11, "11th grade" %> &emsp;
-      <%= radio_button_tag :grade, "12", current_user.grade == 12 %>
-      <%= label :grade_12, "12th grade" %>
+      <%# radio_button_tag :grade, "9", current_user.grade == 9 %>
+      <%# label :grade_9, "9th grade" %> &emsp;
+      <%# radio_button_tag :grade, "10", current_user.grade == 10 %>
+      <%# label :grade_10, "10th grade" %> &emsp;
+      <%# radio_button_tag :grade, "11", current_user.grade == 11 %>
+      <%# label :grade_11, "11th grade" %> &emsp;
+      <%# radio_button_tag :grade, "12", current_user.grade == 12 %>
+      <%# label :grade_12, "12th grade" %>
       <br>
       <div  class="bg-info pre-scrollable" id="suggested-students_wrapper">
         <p>Select students for this event.</p>
         <div id="visible-student-button">
-          <%= button_tag "add all #{current_user.grade}th grade students in the #{current_user.pathway} path from #{current_user.school}", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
+          <%= button_tag "add all", type: "button", id: "add-visible", class: "btn-xs btn-warning" %>
         </div>
         <table class="table table-striped build-table">
           <thead>

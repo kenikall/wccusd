@@ -28,45 +28,60 @@
   <table>
     <thead>
       <tr>
-        <th class="text-left col-md-8">
+        <th class="text-left col-md-6">
           <h4><%= @data[:count].round %> participants </h4>
         </th>
-        <th class="text-center col-md-4 text-center text-left">
+        <th class="col-md-3 text-center">
           <h4>yes / no</h4>
+        </th>
+        <th class="col-md-3 text-center">
+          <h4> unanswered </h4>
         </th>
       </tr>
     </thead>
     <tbody>
       <tr class="text-left">
         <td class="col-md-8">
-          <h5><%= @student_questions[0] %></h5>
+          <h5><%= "Q1: #{@student_questions[0]}" %></h5>
         </td>
-        <td class="col-md-4 text-center">
+        <td class="col-md-2 text-center">
           <h5><%= "#{@data[:question1]} / #{@data[:q1no]}" %> </h5>
         </td>
+        <td class="col-md-2 text-center">
+          <h5> <%="#{@data[:count].round - (@data[:question1] + @data[:q1no])}"%></h5>
+        </td>
       </tr>
       <tr class="text-left">
         <td class="col-md-8">
-          <h5><%= @student_questions[1] %></h5>
+          <h5><%= "Q2: #{@student_questions[1]}" %></h5>
         </td>
-        <td class="col-md-4 text-center">
+        <td class="col-md-2 text-center">
           <h5><%= "#{@data[:question2]} / #{@data[:q2no]}" %> </h5>
         </td>
+        <td class="col-md-2 text-center">
+          <h5> <%="#{@data[:count].round - (@data[:question2] + @data[:q2no])}"%></h5>
+        </td>
       </tr>
       <tr class="text-left">
         <td class="col-md-8">
-          <h5><%= @student_questions[2] %></h5>
+          <h5><%= "Q3: #{@student_questions[2]}" %></h5>
         </td>
-        <td class="col-md-4 text-center">
+        <td class="col-md-2 text-center">
           <h5><%= "#{@data[:question3]} / #{@data[:q3no]}" %> </h5>
         </td>
+        <td class="col-md-2 text-center">
+          <h5> <%="#{@data[:count].round - (@data[:question3] + @data[:q3no])}"%></h5>
+        </td>
       </tr>
       <tr class="text-left">
         <td class="col-md-8">
-          <h5><%= @student_questions[3] %></h5>
+          <h5><%= "Q4: #{@student_questions[3]}" %></h5>
         </td>
-        <td class="col-md-4 text-center">
+        <td class="col-md-2 text-center">
           <h5><%= "#{@data[:question4]} / #{@data[:q4no]}" %> </h5>
+        </td>
+        <td class="col-md-2 text-center">
+          <h5> <%="#{@data[:count].round - (@data[:question4] + @data[:q4no])}"%></h5>
         </td>
       </tr>
 

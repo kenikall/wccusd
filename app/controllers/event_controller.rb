@@ -56,8 +56,10 @@ class EventController < ApplicationController
     respond_to do |format|
 
       if @event.save
-        Survey.create(user_id: @teacher_id, event_id: @event.id)
-        @students.each{|student_id| Survey.create(user_id: student_id, event_id: @event.id)}
+        Survey.create(user_id: @teacher_id, event_id: @event.id, survey_type: "teacher")
+        Survey.create(event_id: @event.id, survey_type: "partner")
+        P
+        @students.each{|student_id| Survey.create(user_id: student_id, event_id: @event.id, survey_type: "student")}
         format.html { redirect_to @event, notice: "event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
@@ -95,9 +97,7 @@ class EventController < ApplicationController
     @schools = schools()
     @current_students = []
     surveys = Survey.where(event_id: @event.id)
-    surveys.each do |survey|
-      @current_students << User.find(survey.user_id)
-    end
+    surveys.each{ |survey| @current_students << User.find(survey.user_id) }
   end
 
   def update

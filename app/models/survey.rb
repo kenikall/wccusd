@@ -1,5 +1,5 @@
 class Survey < ApplicationRecord
-  belongs_to :user
+  # belongs_to :user
   belongs_to :event
 
   def activate_survey
@@ -32,6 +32,15 @@ class Survey < ApplicationRecord
       "What learning outcomes was the event designed to build?",
       "Do you feel the event was successful in meeting those learning outcomes for students?",
       "Do have any comments or suggestions regarding how this event could be improved?",
+    ]
+  end
+
+  def partner_questions
+    [
+      "Did you feel that students were engaged and receptive?",
+      "Do you think that students gained a better sense of what is needed in this field?",
+      "Did you have enough support from the teacher or district in planning and carrying out this event?",
+      "Do you have any comments or suggestions regarding this event?"
     ]
   end
 
