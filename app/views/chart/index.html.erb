@@ -1,199 +1,97 @@
-
 <table class="table">
-  <tr>
-    <th>
-      <td>
-        <%= select("school", "select", @schools, { prompt: 'Select School'  }) %>
+  <%= form_tag(chart_index_path, method: :get) do %>
+    <tr>
+      <td class='text-center'>
+        <strong>Chart Type:</strong>
+        <select id="grade-chart-selector" name="chart_type">
+          <% @chart_types.each do |chart_type| %>
+            <option <%= "selected='selected'" if @chart_type == chart_type %> value=<%= chart_type.gsub(" ", "_") %>><%= chart_type %></option>
+          <% end %>
+        </select>
+      </td>
+      <td class='text-center'>
+        <strong>School:</strong>
+        <select id="school-chart-selector" name="school">
+          <% @schools.each do |school| %>
+            <option <%= "selected='selected'" if @school == school %> value=<%= school.gsub(" ", "_") %>><%= school %></option>
+          <% end %>
+        </select>
+      </td>
+      <td class='text-center'>
+        <strong>Grade:</strong>
+        <select id="grade-chart-selector" name="grade">
+          <% @grades.each do |grade| %>
+            <option <%= "selected='selected'" if @grade == grade %> value=<%= grade.to_s %>><%= grade %></option>
+          <% end %>
+        </select>
+      </td>
+      <td class='text-center'>
+        <strong>Pathway:</strong>
+        <select id="pathway-chart-selector" name="pathway">
+          <% @pathways.each do |pathway| %>
+            <% if pathway == "all" %>
+              <option <%= "selected='selected'" if @pathway == pathway %> value="">All</option>
+            <% else %>
+              <option <%= "selected='selected'" if @pathway == pathway %> value=<%= pathway.gsub(" ", "_") %>><%= pathway %></option>
+            <% end %>
+          <% end %>
+        </select>
       </td>
       <td>
-        <%= select("teacher", "select", ['please select a school first'], { prompt: 'Select Teacher'  }) %>
+        <input class="btn btn-warning text-center" type="submit" value="Refresh Chart">
       </td>
       <td>
-        <%= select("pathway", "select", ['please select a school first'], { prompt: 'Select Pathway'  }) %>
+        <%= button_tag "Print Chart", class: "btn btn-info text-center", id: "print-chart-button" %>
+        </div>
       </td>
-    </th>
+
+    <% end %>
   </tr>
 </table>
 
 <br>
-
-<caption>Activities Offered</caption>
-<table id="q-graph">
+<div class="print-wrapper">
+  <table id="q-graph">
+    <caption><%= @title %></caption>
+    <thead>
+        <% @chart_data.each do |activity| %>
+      <tr>
+          <th class="label-header">
+            <p class="chart-labels">class="section-label" scope="row"><%= activity[0] %></p>
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+        <% end %>
+    </thead>
     <tbody>
-      <tr class="qtr" id="q1">
-        <% nine, ten, eleven, twelve = 5.0, 9.0, 12.0, 2.0 %>
-        <th class="section-label" scope="row">Authentic Pathway Project</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q2">
-        <% nine, ten, eleven, twelve = 8.0, 4.0,6.0, 14.0 %>
-        <th class="section-label" scope="row">Career Video</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q3">
-        <% nine, ten, eleven, twelve = 17.0, 5.0, 3.0, 0.0 %>
-        <th class="section-label" scope="row">College & Career Plan</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q4">
-        <% nine, ten, eleven, twelve = 1.0, 5.0, 4.0, 8.0 %>
-        <th class="section-label" scope="row">College Visit with Pathway Component</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q5">
-        <% nine, ten, eleven, twelve = 7.0, 11.0, 7.0, 4.0 %>
-        <th class="section-label" scope="row">Financial Literacy Activity</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q6">
-        <% nine, ten, eleven, twelve = 7.0, 9.0, 16.0, 9.0 %>
-        <th class="section-label" scope="row">Guest Speaker</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q7">
-        <% nine, ten, eleven, twelve = 4.0, 4.0, 18.0, 15.0 %>
-        <th class="section-label" scope="row">Industry Certification</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q8">
-        <% nine, ten, eleven, twelve = 12.0, 3.0, 6.0, 9.0 %>
-        <th class="section-label" scope="row">Industry Partner Help in Classroom</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q9">
-        <% nine, ten, eleven, twelve = 12.0, 11.0, 5.0, 1.0 %>
-        <th class="section-label" scope="row">Industry Partner Review of Project</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q10">
-        <% nine, ten, eleven, twelve = 4.0, 9.0, 7.0, 9.0 %>
-        <th class="section-label" scope="row">Industry-related Competition</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q11">
-        <% nine, ten, eleven, twelve = 8.0, 16.0, 4.0, 5.0 %>
-        <th class="section-label" scope="row">Internship</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q12">
-        <% nine, ten, eleven, twelve = 5.0, 4.0, 3.0, 2.0 %>
-        <th class="section-label" scope="row">Interview a Professional</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q13">
-        <% nine, ten, eleven, twelve = 12.0, 11.0, 8.0, 6.0 %>
-        <th class="section-label" scope="row">Mentoring Session</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q14">
-        <% nine, ten, eleven, twelve = 4.0, 4.0, 15.0, 9.0 %>
-        <th class="section-label" scope="row">Mock Interviews</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q15">
-        <% nine, ten, eleven, twelve = 12.0, 15.0, 6.0, 10.0 %>
-        <th class="section-label" scope="row">Online Career Exploration</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q16">
-        <% nine, ten, eleven, twelve = 4.0, 12.0, 4.0, 12.0 %>
-        <th class="section-label" scope="row">Resume Writing</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q17">
-        <% nine, ten, eleven, twelve = 7.0, 11.0, 6.0, 9.0 %>
-        <th class="section-label" scope="row">Reverse Job Shadow</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q18">
-        <% nine, ten, eleven, twelve = 13.0, 15.0, 4.0, 6.0 %>
-        <th class="section-label" scope="row">Senior Defense of Pathway Outcomes</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q19">
-        <% nine, ten, eleven, twelve = 19.0, 4.0, 7.0, 17.0 %>
-        <th class="section-label" scope="row">Student-run Enterprise or Performance</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q20">
-        <% nine, ten, eleven, twelve = 5.0, 9.0, 12.0, 2.0 %>
-        <th class="section-label" scope="row">Workplace Experiential Visit</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-      <tr class="qtr" id="q21">
-        <% nine, ten, eleven, twelve = 10.0, 18.0, 7.0, 4.0 %>
-        <th class="section-label" scope="row">Workplace Tour</th>
-        <td class="ninth bar" style="height: <%= (nine/20)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
-        <td class="tenth bar" style="height: <%= (ten/20)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
-        <td class="eleventh bar" style="height: <%= (eleven/20)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
-        <td class="twelfth bar" style="height: <%= (twelve/20)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
-      </tr>
-
+      <% @chart_data.each do |activity| %>
+        <tr class="qtr" id=<%= activity[1][:id] %>>
+          <% nine, ten, eleven, twelve = activity[1][:ninth], activity[1][:tenth], activity[1][:eleventh], activity[1][:twelfth] %>
+          <td class="ninth bar" style="height: <%= (nine/20.to_f)*100 %>%;"><p>9th<br><%= nine.to_i %></p></td>
+          <td class="tenth bar" style="height: <%= (ten/20.to_f)*100 %>%;"><p>10th<br><%= ten.to_i %></p></td>
+          <td class="eleventh bar" style="height: <%= (eleven/20.to_f)*100 %>%;"><p>11th<br><%= eleven.to_i %></p></td>
+          <td class="twelfth bar" style="height: <%= (twelve/20.to_f)*100 %>%;"><p>12th<br><%= twelve.to_i %></p></td>
+        </tr>
+      <% end %>
     </tbody>
-</table>
-<div id="ticks">
-<div class="tick" style="height: 25%;"><p>20</p></div>
-<div class="tick" style="height: 25%;"><p>15</p></div>
-<div class="tick" style="height: 25%;"><p>10</p></div>
-<div class="tick" style="height: 25%;"><p>5</p></div>
+  </table>
+  <script type="text/javascript">
+    $('#q-graph').DataTable({
+      dom: '<"top"i>rt<"bottom"flp><"clear">',
+      buttons: [
+          'print',
+          'copyHtml5',
+          'csvHtml5',
+      ]
+    });
+  </script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+  <div id="ticks">
+    <div class="tick" style="height: 25%;"><p>20</p></div>
+    <div class="tick" style="height: 25%;"><p>15</p></div>
+    <div class="tick" style="height: 25%;"><p>10</p></div>
+    <div class="tick" style="height: 25%;"><p>5</p></div>
+  </div>
 </div>

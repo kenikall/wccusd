@@ -39,7 +39,7 @@
   <div class="pull-left col-4">
     <%= link_to "Create an event", new_event_path, class: "btn btn-primary" %>
     <%= link_to "Add a partner", new_provider_path, class: "btn btn-success text-center" %>
-    <%= link_to "Participation Chart", chart_path, class: "btn btn-warning text-center" %>
+    <%= link_to "Charts", chart_path(grade: current_user.grade, pathway: current_user.pathway, school: current_user.school), class: "btn btn-warning text-center" %>
   </div>
   <br>
 </div>

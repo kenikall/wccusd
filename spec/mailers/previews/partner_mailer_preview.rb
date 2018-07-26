@@ -1,5 +1,5 @@
 class PartnerMailerPreview < ActionMailer::Preview
   def event_email
-    PartnerMailer.event_email(Provider.last, Event.first)
+    PartnerMailer.event_email(Event.last)
   end
 end

@@ -12,6 +12,10 @@ class User < ApplicationRecord
     first_name+" "+last_name
   end
 
+  def lead?
+    lead || self.is_admin?
+  end
+
   after_save :make_school_provider
 
 
@@ -20,6 +24,7 @@ class User < ApplicationRecord
     if !Provider.exists?( organization: school ) && school
       Provider.create( organization: school,
                        location: school,
+                       school: school,
                        url: "N/A"
                       )
     end

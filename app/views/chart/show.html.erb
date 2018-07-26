@@ -1,30 +1,95 @@
-<table class="table table-striped text-center pre-scrollable" id="participation_table">
-  <tr>
-    <th class="participation_table-head">
-      <br>
-      Student Name
-    </th>
-    <% @events.each do |event| %>
-      <th class="participation_table-head">
-        <%= event.date.strftime('%x') %> <br>
-        <%= event.activity %> <br>
-      </th>
-    <% end %>
-  </tr>
-  <% if(@students.any?) %>
-    <% @students.each do |student| %>
-      <tr>
-        <td class="participation_table-name">
-          <%= "#{student.last_name}, #{student.first_name}" %>
-        </td>
-        <% (0...@events.length).each do |number| %>
-          <td class="participation_table-cell">
-            <%= Survey.where(event_id: @events[number].id, user_id: student.id).any? ? "X" : ""  %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  <% else %>
-    <p><%= "There are no students in #{@teacher.grade}th grade, at #{@teacher.school}, in the #{@teacher.pathway} pathway" %></p>
+<table>
+  <%= form_tag(chart_path, method: :get) do %>
+    <tr>
+      <td class="text-center" style="width: 300px">
+        <label>School:</label>
+        <select id="school-chart-selector" name="school">
+          <% @schools.each do |school| %>
+            <option <%= "selected='selected'" if @school == school %> value=<%= school.gsub(" ", "_") %>><%= school %></option>
+          <% end %>
+        </select>
+      </td>
+      <td class="text-center" style="width: 200px">
+        <label>Grade:</label>
+        <select id="grade-chart-selector" name="grade">
+          <% @grades.each do |grade| %>
+            <%= grade %>
+            <% if grade == "all" %>
+              <option <%= "selected='selected'" if @grade == grade %> value="">All</option>
+            <% else %>
+              <option <%= "selected='selected'" if @grade == grade.to_s %> value=<%= grade %>><%= grade == "All" ? grade : "#{grade}th" %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </td>
+      <td class="text-center" style="width: 300px">
+        <label>Pathway:</label>
+        <select id="pathway-chart-selector" name="pathway">
+          <% @pathways.each do |pathway| %>
+            <% if pathway == "all" %>
+              <option <%= "selected='selected'" if @pathway == pathway %> value="">All</option>
+            <% else %>
+              <option <%= "selected='selected'" if @pathway == pathway %> value=<%= pathway.gsub("_", " ") %>><%= pathway %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </td>
+      <td>
+        <input class="btn btn-warning text-center" type="submit" value="Refresh Chart">
+      </td>
+    </tr>
   <% end %>
 </table>
+
+<br>
+<% if(@students.any?) %>
+  <table class="table table-striped text-center pre-scrollable" id="participation_table">
+    <caption><h2><%= "#{@school}, #{@pathway} grade #{@grade}" %></h2></caption>
+    <thead>
+      <tr>
+        <th class="participation_table-head">
+          <br>
+          Student Name
+        </th>
+        <% @events.each do |event| %>
+          <th class="participation_table-head">
+            <%= event.date.strftime('%x') %> <br>
+            <%= event.activity %> <br>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+      <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td class="participation_table-name">
+              <%= "#{student.last_name}, #{student.first_name}" %>
+            </td>
+            <% (0...@events.length).each do |number| %>
+              <td class="participation_table-cell">
+                <%= Survey.where(event_id: @events[number].id, user_id: student.id).any? ? "X" : ""  %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+  <script type="text/javascript">
+    $('#participation_table').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+          'print',
+          'copyHtml5',
+          'csvHtml5',
+      ]
+    })
+  </script>
+  <% else %>
+    <% missing_student_string = "There are no registered students at #{@school}" %>
+    <% missing_student_string += @grade ? " in the #{@grade}th grade" : "" %>
+    <% missing_student_string += @pathway ? ", in the #{@pathway} pathway" : "" %>
+    <% missing_student_string += "." %>
+    <p><%= missing_student_string %></p>
+  <% end %>
+
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>

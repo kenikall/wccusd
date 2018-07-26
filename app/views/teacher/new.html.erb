@@ -15,11 +15,28 @@
       <br>
       <%= text_field_tag :email, nil, class: 'text_entry', required: true %>
     <br>
+    <br>
     <%= label :school, "School:", class: 'entry_form' %>
       <%= select_tag :school, options_for_select(@schools, current_user.school), class: 'options' %>
     <br>
+    <br>
     <%= label :pathway, "Pathway:", class: 'entry_form' %>
       <%= select_tag :pathway, options_for_select(@pathways), class: 'options'%>
+    <br>
+    <br>
+    <%= label :grade, "Grade:"%>
+      <p>
+        <%= radio_button_tag :grade, 9 %> 9th &ensp;&ensp;&ensp;
+        <%= radio_button_tag :grade, 10 %> 10th &ensp;&ensp;&ensp;
+        <%= radio_button_tag :grade, 11 %> 11th &ensp;&ensp;&ensp;
+        <%= radio_button_tag :grade, 12 %> 12th
+      </p>
+    <br>
+    <%= label :lead, "Lead Teacher?"%>
+      <p>
+        <%= radio_button_tag :lead, true, checked = false  %> Yes &ensp;&ensp;&ensp;
+        <%= radio_button_tag :lead, false, checked = true  %> No
+      </p>
     <br>
     <br>
     <%= submit_tag "Create teacher", class: 'btn-success' %>

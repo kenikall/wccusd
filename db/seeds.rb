@@ -1,34 +1,34 @@
 require 'csv'
 # seed pathway
-Survey.destroy_all
+# Survey.destroy_all
 # Provider.destroy_all
 # Event.destroy_all
 # *****
-# Pathway.destroy_all
+Pathway.destroy_all
 
-# %w(Law Health IT).each do |path|
-#     Pathway.create(school: "DeAnza High", path: path)
-# end
+%w(Law Health IT).each do |path|
+    Pathway.create(school: "DeAnza High School", path: path)
+end
 
-# %w(IT Media).each do |path|
-#     Pathway.create(school: "El Cerrito High", path: path)
-# end
+%w(IT Media).each do |path|
+    Pathway.create(school: "El Cerrito High School", path: path)
+end
 
-# %w(IT Health).each do |path|
-#     Pathway.create(school: "Hercules High", path: path)
-# end
+%w(IT Health).each do |path|
+    Pathway.create(school: "Hercules High School", path: path)
+end
 
-# %w(IT Welding).each do |path|
-#     Pathway.create(school: "Kennedy High", path: path)
-# end
+%w(IT Welding).each do |path|
+    Pathway.create(school: "Kennedy High School", path: path)
+end
 
-# %w(Engineering Health Law Performing\ Arts).each do |path|
-#     Pathway.create(school: "Pinole Valley High", path: path)
-# end
+%w(Engineering Health Law Performing\ Arts).each do |path|
+    Pathway.create(school: "Pinole Valley High School", path: path)
+end
 
-# %w(Engineering Health Law Media Performing\ Arts\ Production).each do |path|
-#     Pathway.create(school: "Richmond High", path: path)
-# end
+%w(Engineering Health Law Media Performing\ Arts\ Production).each do |path|
+    Pathway.create(school: "Richmond High School", path: path)
+end
 
 # m = User.create(email: "kenikall@gmail.com",     password: "admin",
 #             first_name: "Mannah",
@@ -197,14 +197,14 @@ Survey.destroy_all
 #                 location: google.location
 #                 )
 
-  User.all.each do |user|
-    if user.is_student?
-      Survey.create(user_id: user.id, complete: true, event_id: 7, question1: %w(yes no).sample, question2: %w(yes no).sample, question3: %w(yes no).sample, question4: %w(yes no).sample, survey_type: "student")
-    end
-  end
+  # User.all.each do |user|
+  #   if user.is_student?
+  #     Survey.create(user_id: user.id, complete: true, event_id: 7, question1: %w(yes no).sample, question2: %w(yes no).sample, question3: %w(yes no).sample, question4: %w(yes no).sample, survey_type: "student")
+  #   end
+  # end
 
-  Event.all.each do |event|
-    Survey.create(event_id: event.id, survey_type: "partner")
-  end
+  # Event.all.each do |event|
+  #   Survey.create(event_id: event.id, survey_type: "partner")
+  # end
 # end
 # *****

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      /* Email styles need to be inline */
+    </style>
+  </head>
+  <p>Welcome to the WCCUSD Work Based Learning APP,</p>
+  <p>
+    Here is your login information for the WCCUSD Work Based Learning APP. With this app you will be able to schedule learning events, rate past events, and track student responses to surveys about events.
+  </p>
+  <p>
+    Detailed information about how to use the app can be found in this <%= "<a target='_blank' href='https://docs.google.com/document/d/19_ASA_iQ7BJcK3Xtt7rYZk7ZQ7_s8L7vxw7O4Yt1s4o/edit?usp=sharing'>instructional document</a>".html_safe %>. 
+  </p>
+  <p>
+    Your login credentials are:
+      <p><strong>&emsp; email:</strong> <%= @teacher.email %></p>
+      <p><strong>&emsp; password:</strong> <%= @password %></p>
+  </p>
+  <p>
+    Please go to <%= "<a target='_blank' href='wblapp.org'>wblapp.org</a>".html_safe %> and login. When you first go to the site you will be prompted to change your password to something you will remember. If you have problems logging in or need to change something with your account you can contact <%= @admin.name %> at <%= @admin.email %>. 
+  </p>
+  <p>
+    Your patience and cooperation in transitioning to using the WCCUSD Work Based Learning APP is appreciated. The information collected will help to identify high impact activities that will help to prepare our students for a bright future.
+  </p>
+  <p>
+    Thank you; you make a difference!
+  </p>
+  <body>
+    <%= yield %>
+  </body>
+</html>

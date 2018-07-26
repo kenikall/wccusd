@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
+  DEFAULT_PASSWORD = "pleasechangethispassword"
+
   def after_sign_in_path_for(resource)
     user_dashboard_path_name(resource)
   end
@@ -31,6 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pathways(school)
+    return Pathway.all.map(&:path).uniq.sort if current_user.is_admin?
     current_paths = []
     Pathway.all.each{|pathway| current_paths << pathway.path if pathway.school == school}
     current_paths = %w(none\ for\ this\ school) if current_paths.empty?
@@ -63,28 +66,44 @@ class ApplicationController < ActionController::Base
     ].sort
   end
 
+  def learning_outcomes
+    {
+      career_awareness: "Build career awareness",
+      workplace_protocols: "Learn workplace protocols, culture, and safety",
+      field_interest: "Experience a field of interest",
+      career_skills: "Learn career-based skills",
+      gain_confidence: "Gain confidence and skill communicating with professionals",
+      project: "Develop industry-based skills through project",
+      creative_thinking: "Engage in creative thinking/Innovation",
+      teamwork_skills: "Collaboration and teamwork skills",
+      take_feedback: "Learn how to take feedback",
+      self_management: "Self-management",
+      assess_learning: "Reflect on and assess own learning",
+      develop_plan: "Develop college & career plan"
+    }
+  end
+
   def partners
     Provider.all.map do |partner|
-      ["#{partner.first_name} #{partner.last_name} #{partner.title} at #{partner.organization}", partner.id]
+      ["#{partner.first_name} #{partner.last_name} #{partner.title ? partner.title : ''} #{partner.organization ? 'at '+partner.organization : ''}", partner.id]
     end
   end
 
-  def teachers(current_teacher)
-    teachers = [[current_teacher.name, current_teacher.id]]
-    User.all.each do |user|
-        teachers << [user.name, user.id] if user.is_teacher?
+  def teachers(school)
+    teachers = []
+    User.where(school: current_user.school).each do |user|
+      teachers << [user.name, user.id] if user.is_teacher?
     end
-    teachers.uniq
+    teachers.uniq.sort
   end
 
   def students(current_teacher)
     current_students = []
-    User.all.each do |user|
-      if user.school == current_teacher.school && user.pathway == current_teacher.pathway && user.grade == current_teacher.grade
-        current_students << user if user.is_student?
-      end
+    potenial_students = current_user.lead? ? User.where(school: current_user.school) : User.where(school: current_user.school, pathway: current_user.pathway, grade: current_user.grade)
+    potenial_students.each do |user|
+      current_students << user if user.is_student?
     end
-    current_students
+    current_students.sort_by{|student| student.last_name}
   end
 
   def user_dashboard_path_name(user = current_user)

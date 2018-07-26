@@ -1,0 +1,47 @@
+<h1>Event Details</h1>
+<div id="event-creation-form">
+  <div class="event-data col-md-6">
+    <%= label :teacher_name, "Teacher Name:" %>
+      <%= @teacher.name %>
+      <br>
+    <%= label :school, "School:"  %>
+      <%= @teacher.school %>
+      <br>
+    <%= label :provider_id, "Partner:" %>
+      <%= @partner_name %>
+      <br>
+    <%= label :pathway, "Pathway:" %>
+      <%= @teacher.pathway%>
+      <br>
+    <%= label :activity, "Activity:" %>
+      <%= @event.activity %>
+      <br>
+    <%= label_tag :date, "Date:", class: "create-date" %>
+      <<%= @event.date.strftime("%A, %B %-d %Y")%>
+      <br>
+    <%= label :location, "Location:"  %>
+      <%= @event.location %>
+      <br>
+    <%= label :grade, "Grade: #{@event.grade}" %>
+      <br>
+
+    <%= label :grade, "Students:" %>
+    <div class="bg-info pre-scrollable" id="suggested-students_wrapper">
+      <table class="table table-striped build-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody id="filtered-students">
+          <% @students.each do |student| %>
+          <tr class="selected-student">
+              <td> <%= student.name %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

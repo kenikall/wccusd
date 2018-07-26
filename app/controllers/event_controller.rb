@@ -24,14 +24,15 @@ class EventController < ApplicationController
 
   def new
     redirect_to student_path(current_user) if current_user.is_student?
-    @grades = [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["13th", 13],["All","All"]]
+    @grades = current_user.lead? ? [["9th", 9],["10th", 10],["11th", 11],["12th", 12],["13th", 13],["All","All"]] : [current_user.grade]
 
     @schools = schools()
-    @partners = partners()
+    @partners = []
+    Provider.where(school: current_user.school).each{|partner| @partners << ["#{partner.first_name} #{partner.last_name}", partner.id]}
     @activities = activities()
-    @pathways = pathways(current_user.school)
+    @pathways = current_user.lead? ? pathways(current_user.school) : [current_user.pathway]
     @students = students(current_user)
-    @teachers = teachers(current_user)
+    @teachers = current_user.lead? ? ([[current_user.name, current_user.id]] + teachers(current_user.school)).uniq : [[current_user.name, current_user.id]]
 
     @event = Event.new
   end
@@ -42,26 +43,19 @@ class EventController < ApplicationController
       flash[:notice] = "You must add students to create an event."
       redirect_to new_event_path and return
     end
-    @teacher_id = event_params[:teacher_id]
+    @teacher = User.find(event_params[:teacher_id])
     @event = Event.new(event_params)
-
-    @students.each do |student|
-      student = User.find(student)
-      @event.ninth_graders += 1 if student.grade == 9
-      @event.tenth_graders += 1 if student.grade == 10
-      @event.eleventh_graders += 1 if student.grade == 11
-      @event.twelfth_graders += 1 if student.grade == 12
-    end
 
     respond_to do |format|
 
       if @event.save
-        Survey.create(user_id: @teacher_id, event_id: @event.id, survey_type: "teacher")
+        flash[:notice] = "Event was successfully created."
+        Survey.create(user_id: @teacher.id, event_id: @event.id, survey_type: "teacher")
         Survey.create(event_id: @event.id, survey_type: "partner")
-        P
+        PartnerMailer.event_email(@event).deliver_later(wait_until: @event.date)
         @students.each{|student_id| Survey.create(user_id: student_id, event_id: @event.id, survey_type: "student")}
-        format.html { redirect_to @event, notice: "event was successfully created." }
-        format.json { render :show, status: :created, location: @event }
+        format.html { redirect_to controller: "teacher", action: "show", id: current_user.id }
+        format.json { render :show, status: :created, location: @teacher }
       else
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -70,11 +64,12 @@ class EventController < ApplicationController
   end
 
   def show
-    if current_user.is_teacher?
-      redirect_to teacher_path(current_user)
-    elsif current_user.is_admin?
-      redirect_to admin_path(current_user)
-    end
+    @event = Event.find(params[:id])
+    @teacher = User.find(@event.teacher_id)
+    partner = Provider.find(@event.provider_id)
+    @partner_name = "#{partner.first_name} #{partner.last_name} #{partner.title ? partner.title : ''} #{partner.organization ? 'at '+partner.organization : ''}"
+    @students = []
+    #Survey.where(event_id: @event.id).each{|survey| @students << User.find(survey.user_id) if User.find(survey.user_id).is_student?}
   end
 
   def edit

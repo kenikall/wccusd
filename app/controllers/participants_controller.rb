@@ -1,7 +1,7 @@
 class ParticipantsController < ApplicationController
 
   def index
-    return if !current_user.is_teacher? && !current_user.is_admin?
+    return if current_user.is_student?
     @participants = []
 
     User.all.each do |user|

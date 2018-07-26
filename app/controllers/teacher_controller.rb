@@ -38,16 +38,17 @@ class TeacherController < ApplicationController
 
   def new
     redirect_to student_path(current_user) if !current_user.is_admin?
-    @pathways = pathways(current_user.school)
+    @pathways = Pathway.all.map(&:path).uniq.sort
     @schools = schools()
   end
 
   def create
     @teacher = User.new(teacher_params)
-    @teacher.password = "pleasechangethispassword"
+    @teacher.password = DEFAULT_PASSWORD
     @teacher.add_role(:teacher)
     respond_to do |format|
       if @teacher.save
+        NewTeacherMailer.new_teacher_email(@teacher).deliver_now
         format.html { redirect_to user_dashboard_path_name, notice: "An account for #{@teacher.name} was successfully created. Their password is '#{@teacher.password}'." }
         format.json { render :show, status: :created, location: @teacher }
       else
@@ -74,10 +75,10 @@ private
                   :last_name,
                   :email,
                   :school,
+                  :lead,
                   :pathway,
                   :grade
       )
-
   end
 
   def student_params

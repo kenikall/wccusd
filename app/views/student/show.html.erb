@@ -1,70 +1,77 @@
+<h2>Pathway: <%= current_user.pathway %></h2>
+
+<% flash.each do |type, msg| %>
+  <%= content_tag :div, msg, class: "alert #{type == 'success' ? 'alert-success' : 'alert-danger'}" %>
+<% end %>
+
 <% if @upcoming_events.length > 0 %>
   <h3>Upcoming Events</h3>
-  <table>
-    <th>
-      <td>Pathway</td>
-      <td>Activity</td>
-      <td>Provider</td>
-      <td>Date</td>
-      <td>Time</td>
-    </th>
+  <table class="table table-striped text-center pre-scrollable">
+    <tr>
+      <td class="sudent-table-row"></td>
+      <th class="sudent-table-row"><strong>Activity</strong></th>
+      <th class="sudent-table-row"><strong>Partner</strong></th>
+      <th class="sudent-table-row"><strong>Location</strong></th>
+      <th class="sudent-table-row"><strong>Date</strong></th>
+    </tr>
     <% @upcoming_events.each do |event| %>
       <% provider = Provider.find(event.provider_id) %>
       <tr>
-        <td></td>
-        <td><%= event.pathway %></td>
-        <td><%= event.activity %></td>
-        <td><%# link_to provider.name, provider.url, target: :_blank %></td>
-        <td><%= event.date %></td>
-        <td><%= event.start_time %> - <%= event.end_time %></td>
+        <td class="sudent-table-row"></td>
+        <td class="sudent-table-row"><%= event.activity %></td>
+        <td class="sudent-table-row"><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
+        <td class="sudent-table-row"> <%= event.location %></td>
+        <td class="sudent-table-row"><%= event.date.strftime("%A, %B %d") %></td>
       </tr>
     <% end %>
   </table>
 <% end %>
 <% if @incomplete_surveys.length > 0 %>
   <h3>Incomplete Surveys</h3>
-  <table>
-    <th>
-      <td>Pathway</td>
-      <td>Activity</td>
-      <td>Provider</td>
-      <td>Date</td>
-      <td>Time</td>
-    </th>
+  <table class="table table-striped text-center pre-scrollable">
+    <tr>
+      <th></th>
+      <th class="sudent-table-row"><strong>Activity</strong></th>
+      <th class="sudent-table-row"><strong>Partner</strong></th>
+      <th class="sudent-table-row"><strong>Location</strong></th>
+      <th class="sudent-table-row"><strong>Date</strong></th>
+    </tr>
     <% @incomplete_surveys.each do |event| %>
       <% provider = Provider.find(event.provider_id) %>
       <tr>
-        <td>
-          <%= link_to "take this survey", survey_path(Survey.where(user_id: current_user.id, event_id: event.id)), class: "survey-button btn-xs btn-warning" %>
+        <td class="sudent-table-row">
+          <%= link_to "take this survey", edit_survey_path(Survey.find_by(user_id: current_user.id, event_id: event.id)), class: "survey-button btn-xs btn-info" %>
         </td>
-        <td><%= event.pathway %></td>
-        <td><%= event.activity %></td>
-        <td><%# link_to provider.name, provider.url, target: :_blank %></td>
-        <td><%= event.date %></td>
-        <td><%= event.start_time %> - <%= event.end_time %></td>
+        <td class="sudent-table-row"><%= event.activity %></td>
+        <td class="sudent-table-row"><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
+        <td class="sudent-table-row"> <%= event.location %></td>
+        <td class="sudent-table-row"><%= event.date.strftime("%A, %B %d") %></td>
       </tr>
     <% end %>
   </table>
 <% end %>
 <% if @complete_surveys.length > 0 %>
-  <h3>Completed Surveys</h3>
-  <table>
-    <th>
-      <td>Pathway</td>
-      <td>Activity</td>
-      <td>Provider</td>
-      <td>Date</td>
-      <td>Time</td>
-    </th>
+  <h3> Complete Surveys</h3>
+  <table class="table table-striped text-center pre-scrollable">
+    <tr>
+      <th></th>
+      <th class="sudent-table-row"><strong>Activity</strong></th>
+      <th class="sudent-table-row"><strong>Partner</strong></th>
+      <th class="sudent-table-row"><strong>Location</strong></th>
+      <th class="sudent-table-row"><strong>Date</strong></th>
+    </tr>
     <% @complete_surveys.each do |event| %>
       <% provider = Provider.find(event.provider_id) %>
-      <tr class="complete_surveys">
-        <td><%= event.pathway %></td>
-        <td><%= event.activity %></td>
-        <td><%# link_to provider.name, provider.url, target: :_blank %></td>
-        <td><%= event.date %></td>
-        <td><%= event.start_time %> - <%= event.end_time %></td>
+      <tr>
+        <td class="sudent-table-row">
+          <%= link_to "review this survey", survey_path(Survey.find_by(user_id: current_user.id, event_id: event.id)), class: "survey-button btn-xs btn-warning" %>
+        </td>
+        <td class="sudent-table-row"><%= event.activity %></td>
+        <td class="sudent-table-row"><%= link_to_if(provider.url != "N/A", provider.organization, provider.url, target: :_blank) %></td>
+        <td class="sudent-table-row"> <%= event.location %></td>
+        <td class="sudent-table-row"><%= event.date.strftime("%A, %B %d") %></td>
       </tr>
     <% end %>
   </table>
 <% end %>
+

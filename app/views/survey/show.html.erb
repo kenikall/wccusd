@@ -1,5 +1,47 @@
 <% if @survey.survey_type == "student" %>
-  <h2><%= "Student survey for #{@event.pathway} #{@event.activity}, #{@event.date.day.ordinalize}" %></h2>
+  <h3><%= "Student survey for #{@event.pathway} #{@event.activity}, #{@event.date.strftime("%A, %B %d")}" %></h3>
+  <table>
+    <tbody>
+      <%= form_for(@survey) do |f|%>
+        <tr>
+          <td> <%= @survey.student_questions[0] %> </td>
+          <% if  @event.date == Date.today %>
+            <br>
+            <%= f.radio_button :question1, "Yes" %>
+            <%= f.label :question1, "Yes"%>
+            <%= f.radio_button :question1, "No" %>
+            <%= f.label :question1, "No"%>
+          <% else %>
+            <td> </td>
+            <td style="text-align: right;">
+              <%= "#{ @survey.question1 } " %></td>
+             </tr>
+          <% end %>
+
+        <tr>
+          <td> <%= @survey.student_questions[1] %> </td>
+          <td>      </td>
+          <td style="text-align: right;"> <%= "#{ @survey.question2 } " %></td>
+        </tr>
+        <tr>
+          <td> <%= @survey.student_questions[2] %> </td>
+          <td>      </td>
+          <td style="text-align: right;"> <%= "#{ @survey.question3 } " %></td>
+        </tr>
+        <tr>
+          <td> <%= @survey.student_questions[3] %> </td>
+          <td>      </td>
+          <td style="text-align: right;"> <%= "#{ @survey.question4 } " %></td>
+        </tr>
+        <tr>
+          <td> <%= @survey.student_questions[4] %> </td>
+          <td></td>
+          <td style="text-align: right;"> <%= "#{ @survey.question5 } " %></td>
+        </tr>
+        <%= f.submit "Submit Survey", class: "btn btn-warning survey-submit-button" if @event.date == Date.today %>
+      <% end %>
+    </tbody>
+  </table>
 <% elsif @survey.survey_type == "teacher" %>
   <h2><%= "Teacher survey for #{@event.pathway} #{@event.activity}, #{@event.date.day.ordinalize}" %> </h2>
   <table>
@@ -41,33 +83,36 @@
     <% end %>
   </table>
 <% elsif @survey.survey_type == "partner" %>
-  <h2><%= "Partner survey for #{@event.pathway} #{@event.activity}, #{@event.date.day.ordinalize}" %> </h2>
-  <table>
-    <thead>
-      <th> <%= @event.pathway  %></th>
-      <th> <%= @event.activity  %></th>
-      <th> <%= @event.school  %></th>
-      <th> <%= @event.grade  %></th>
-      <th> <%= @provider.organization  %></th>
-    </thead>
-  </table>
-  <table>
-    <tr>
-      <td> <%= @survey.partner_questions[0] %></td>
-      <td> <%= @survey.question1 %> </td>
-    </tr>
-    <tr>
-      <td> <%= @survey.partner_questions[1] %></td>
-      <td> <%= @survey.question2 %> </td>
-    </tr>
-    <tr>
-      <td> <%= @survey.partner_questions[2] %></td>
-      <td> <%= @survey.question3 %> </td>
-    </tr>
-    <tr>
-      <td> <%= @survey.partner_questions[5] %></td>
-      <td> <%= @survey.question5 %> </td>
-    </tr>
-
-  </table>
+  <% if @survey.complete %>
+    <h2><%= "Partner survey for #{@event.pathway} #{@event.activity}, #{@event.date.day.ordinalize}" %> </h2>
+    <table>
+      <thead>
+        <th> <%= @event.pathway  %></th>
+        <th> <%= @event.activity  %></th>
+        <th> <%= @event.school  %></th>
+        <th> <%= @event.grade  %></th>
+        <th> <%= @provider.organization  %></th>
+      </thead>
+    </table>
+    <table>
+      <tr>
+        <td> <%= @survey.partner_questions[0] %></td>
+        <td> <%= @survey.question1 %> </td>
+      </tr>
+      <tr>
+        <td> <%= @survey.partner_questions[1] %></td>
+        <td> <%= @survey.question2 %> </td>
+      </tr>
+      <tr>
+        <td> <%= @survey.partner_questions[2] %></td>
+        <td> <%= @survey.question3 %> </td>
+      </tr>
+      <tr>
+        <td> <%= @survey.partner_questions[3] %></td>
+        <td> <%= @survey.question4 %> </td>
+      </tr>
+    </table>
+  <% else %>
+    <h4>This survey is incomplete.</h4>
+  <% end %>
 <% end %>
